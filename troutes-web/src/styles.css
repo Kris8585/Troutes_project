@@ -1,1 +1,47 @@
+/* You can add global styles to this file, and also import other style files */
+
 @import "~bootstrap/dist/css/bootstrap.min.css";
+html,
+body {
+    height: 100%;
+}
+
+.text-black {
+    color: black;
+}
+
+.bg-account {
+    background-color: indigo;
+}
+
+.flex-fill {
+    flex: 1;
+}
+
+.height-65 {
+    height: 65%;
+}
+
+.mt-15 {
+    margin-top: 10%;
+}
+
+.height-99 {
+    height: 99.5%!important;
+}
+
+.border-solid {
+    border-style: solid;
+}
+
+.border-dashed {
+    border-style: dashed;
+}
+
+.fa-10x {
+    font-size: 10em !important;
+}
+
+.h-90 {
+    height: 90% !important;
+}

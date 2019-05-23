@@ -1,0 +1,28 @@
+<div class=" text-muted m-4 border-dashed  h-90 text-center  align-items-center">
+    <div class="mt-15">
+        <div class="d-flex justify-content-center">
+            <form class="text-left border-solid p-3" [formGroup]="formGroup" id="formGroup">
+
+                <h4>Welcome, please login!</h4>
+                <div class="form-group">
+                    <label for="emailInput">Email address</label>
+                    <input type="email" formControlName="email" class="form-control" id="emailInput" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label for="passwordInput">Password</label>
+                    <input type="password" formControlName="password" class="form-control" id="passwordInput" placeholder="Password">
+                </div>
+                <div class=" text-left">
+                    <a class="">Lost your password?</a>
+
+                </div>
+                <button type="submit" class="btn btn-primary float-right mt-3" (click)="login()">Login</button>
+            </form>
+        </div>
+
+    </div>
+    <div class="text-center mt-5">
+        <a class="">Create a free account</a>
+
+    </div>
+</div>
