@@ -10,6 +10,14 @@ import { DetailsComponent } from './components/details/details.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginService } from './services/login/login.service';
 
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +29,12 @@ import { LoginService } from './services/login/login.service';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    AngularFireAuthModule
+    
   ],
   providers: [LoginService],
   bootstrap: [AppComponent]
