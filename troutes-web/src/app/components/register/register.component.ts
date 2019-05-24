@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RegisterService } from 'src/app/services/register/register.service';
 
+import { SnotifyService } from 'ng-snotify';
+
 
 @Component({
   selector: 'app-register',
@@ -12,8 +14,13 @@ export class RegisterComponent implements OnInit {
   formGroup: FormGroup;
 
 
-  constructor(private _formBuilder: FormBuilder, private _registerService: RegisterService) {
+
+  constructor(private _formBuilder: FormBuilder,
+              private _registerService: RegisterService, 
+              private _snotifyService: SnotifyService) {
+
     this.initForm();
+    
   }
 
   ngOnInit() {
@@ -45,10 +52,11 @@ export class RegisterComponent implements OnInit {
       this._registerService.register(user, this.formGroup.value.password);
 
     } else {
-      // this._snotifyService.warning('Nombre, Correo o contraseña incorrectos', 'No se puede guardar'); 
-      alert('Nombre, Correo o contraseña incorrecto, No se puede guardar');
+      this._snotifyService.warning('Nombre, Correo o contraseña incorrectos', 'No se puede guardar'); 
     }
   }
+
+
 
 
 

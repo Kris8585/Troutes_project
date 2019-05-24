@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DataInformationService } from '../data-information/data-information.service';
+import { SnotifyService } from 'ng-snotify';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,10 @@ export class LoginService {
   currentUser: UserType;
   userSuscription: Subscription;
 
-  constructor(private _angularFireAuth: AngularFireAuth, private _router: Router, private _dataInformationService: DataInformationService) { }
+  constructor(private _angularFireAuth: AngularFireAuth,
+    private _router: Router,
+    private _dataInformationService: DataInformationService,
+    private _snotifyService: SnotifyService) { }
 
   setCurrentUser(email: string) {
     this.userSuscription = this._dataInformationService.getUserByEmail(email).subscribe((siteUsers) => {
@@ -30,13 +34,13 @@ export class LoginService {
       this.setCurrentUser(email);
       this._router.navigateByUrl('/home');
     }).catch((error) => {
-      alert("Error, no se pudo iniciar la sesión");
+      this._snotifyService.warning('No se ha podido iniciar sesión', 'Atención');
     });
 
   }
 
-  logout(){
-    this.currentUser=null;
+  logout() {
+    this.currentUser = null;
     this._angularFireAuth.auth.signOut();
     this._router.navigateByUrl('/account/login');
   }

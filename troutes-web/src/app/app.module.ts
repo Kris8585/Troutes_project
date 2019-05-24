@@ -18,6 +18,9 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
+import { RegisterService } from './services/register/register.service';
+import { DataInformationService } from './services/data-information/data-information.service';
 
 
 
@@ -40,10 +43,12 @@ import { RegisterComponent } from './components/register/register.component';
     AngularFireStorageModule,
     AngularFireAuthModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    SnotifyModule.forRoot()
     
   ],
-  providers: [LoginService],
+  providers: [LoginService, RegisterService, DataInformationService, { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
+  SnotifyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
