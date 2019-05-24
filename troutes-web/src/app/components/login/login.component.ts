@@ -12,7 +12,7 @@ import { FormGroup, FormBuilder, Validators  } from '@angular/forms';
 export class LoginComponent implements OnInit {
   formGroup: FormGroup; 
 
-  constructor(private loginService:LoginService, private formBuilder:FormBuilder) {
+  constructor(private _loginService:LoginService, private _formBuilder:FormBuilder) {
     
     this.initForm(); 
    }
@@ -20,14 +20,14 @@ export class LoginComponent implements OnInit {
    login() {
      if(this.formGroup.valid){
  
-      this.loginService.login(this.formGroup.value.email,this.formGroup.value.password);
+      this._loginService.login(this.formGroup.value.email,this.formGroup.value.password);
      }else{ 
        alert("Correo o contraseña incorrectos");
      } 
   }
 
    initForm = () => {
-    this.formGroup = this.formBuilder.group({ 
+    this.formGroup = this._formBuilder.group({ 
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
     }); 

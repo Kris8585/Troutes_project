@@ -1,5 +1,5 @@
 type UserType = {
-
+    
     userId:string;
     name: string;
     nationality: string;
@@ -7,5 +7,5 @@ type UserType = {
     followed_sites:number[];
     email: string;
     role:string;
-
+    profile_photo:string;
 }
