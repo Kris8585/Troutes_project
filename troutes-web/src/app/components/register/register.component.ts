@@ -44,7 +44,6 @@ export class RegisterComponent implements OnInit {
         'name': this.formGroup.value.name,
         'nationality': this.formGroup.value.nationality,
         'description': this.formGroup.value.description,
-        'followed_sites': null,
         'email': this.formGroup.value.email,
         'role': 'Viewer',
         'profile_photo': this.formGroup.value.profile_photo

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { DataInformationService } from '../data-information/data-information.service';
 import { SnotifyService } from 'ng-snotify';
 
@@ -15,25 +15,26 @@ export class LoginService {
   userSuscription: Subscription;
 
   constructor(private _angularFireAuth: AngularFireAuth,
-    private _router: Router,
-    private _dataInformationService: DataInformationService,
-    private _snotifyService: SnotifyService) { }
+              private _router: Router,
+              private _dataInformationService: DataInformationService,
+              private _snotifyService: SnotifyService) { }
 
   setCurrentUser(email: string) {
-    this.userSuscription = this._dataInformationService.getUserByEmail(email).subscribe((siteUsers) => {
+    this.userSuscription = this._dataInformationService.getUserByEmail(email).subscribe(
+      (siteUsers) => {
       this.currentUser = siteUsers[0];
     });
   }
 
   getCurrentUser() {
-    return this.currentUser;
+      return this.currentUser;
   }
 
   login(email: string, password: string) {
     this._angularFireAuth.auth.signInWithEmailAndPassword(email, password).then((value) => {
       this.setCurrentUser(email);
       this._router.navigateByUrl('/home');
-    }).catch((error) => {
+      }).catch((error) => {
       this._snotifyService.warning('No se ha podido iniciar sesión', 'Atención');
     });
 

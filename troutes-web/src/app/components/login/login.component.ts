@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   login() {
     if (this.formGroup.valid) {
       this._loginService.login(this.formGroup.value.email, this.formGroup.value.password);
+      console.log(this._loginService.getCurrentUser());
     } else {
       this._snotifyService.warning('Correo o contraseña incorrectos', 'Atención');
     }

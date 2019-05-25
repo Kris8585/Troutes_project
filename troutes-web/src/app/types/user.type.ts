@@ -4,7 +4,6 @@ type UserType = {
     name: string;
     nationality: string;
     description: string;
-    followed_sites:number[];
     email: string;
     role:string;
     profile_photo:string[];
