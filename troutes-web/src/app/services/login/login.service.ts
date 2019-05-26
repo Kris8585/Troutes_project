@@ -33,11 +33,10 @@ export class LoginService {
   login(email: string, password: string) {
     this._angularFireAuth.auth.signInWithEmailAndPassword(email, password).then((value) => {
       this.setCurrentUser(email);
-      this._router.navigateByUrl('/home');
-      }).catch((error) => {
+      this._router.navigateByUrl('/secure/home');
+       }).catch((error) => {
       this._snotifyService.warning('No se ha podido iniciar sesión', 'Atención');
     });
-
   }
 
   logout() {
@@ -45,4 +44,9 @@ export class LoginService {
     this._angularFireAuth.auth.signOut();
     this._router.navigateByUrl('/account/login');
   }
+
+  getCurrentUserRole(role:string){ 
+    return this.currentUser && this.currentUser.role.includes(role);
+  
+}
 }

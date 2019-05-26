@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { DataInformationService } from 'src/app/services/data-information/data-information.service';
+import { LoginComponent } from '../login/login.component';
+import { LoginService } from 'src/app/services/login/login.service';
+
+
+
 
 @Component({
   selector: 'app-home',
@@ -7,10 +14,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() {  }
+  newsSubscription : Subscription;
+  newId : string;
+  attractions$: Observable<any>;
+  editor$: Observable<any>;
+  user: UserType;
+
+  constructor(private _dataInformationService:DataInformationService,
+              private _loginService: LoginService) {
+
+    this.newsSubscription = _dataInformationService.getAtractionByName("CLOUDBRIDGE NATURE RESERVE").subscribe((elmentos) => {
+      if(elmentos[0]){
+          this.newId = elmentos[0].attractionId;  
+      console.log(elmentos[0].attractionId);
+      }else{
+        console.log(elmentos[0].attractionId);
+      }
+    }); 
+
+
+    this.attractions$ = _dataInformationService.getAllAttractions();
+    this.editor$ = _dataInformationService.getUserByRole('Editor');
+    }
 
   ngOnInit() {
-    
+    setTimeout(() => {
+      this.user = this._loginService.getCurrentUser();
+    }, 1000);
   }
+
+  
 
 }

@@ -18,7 +18,8 @@
                 </div>
                 <div class="form-group">
                     <label for="name">Foto</label>
-                    <input type="file" formControlName="profile_photo" class="form-control" id="profile_photo" placeholder="Enter email">
+                    <input type="file" acept=".png, .jpg" class="form-control" (change)="this._uploadService.pushUpload($event)">
+                    <input type="text" formControlName="profile_photo" id="profile_photo" [value]="this._uploadService.getUrlImage() | async">
                 </div>
 
                 <div class="form-group">

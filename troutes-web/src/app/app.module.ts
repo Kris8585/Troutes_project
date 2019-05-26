@@ -21,6 +21,14 @@ import { RegisterComponent } from './components/register/register.component';
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 import { RegisterService } from './services/register/register.service';
 import { DataInformationService } from './services/data-information/data-information.service';
+import { ProfileComponent } from './components/profile/profile.component';
+import { RecoveryComponent } from './components/recovery/recovery.component';
+import { SecureComponent } from './components/secure/secure.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { ServiceComponent } from './components/service/service.component';
+import { NewsAdminComponent } from './components/news-admin/news-admin.component';
+import { AttractionAdminComponent } from './components/attraction-admin/attraction-admin.component';
 
 
 
@@ -33,7 +41,15 @@ import { DataInformationService } from './services/data-information/data-informa
     DetailsComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ProfileComponent,
+    RecoveryComponent,
+    SecureComponent,
+    AboutUsComponent,
+    ContactComponent,
+    ServiceComponent,
+    NewsAdminComponent,
+    AttractionAdminComponent
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,4 @@ commentary: string;
 score:number;
 creationDate: string;
 
-
-
 }

@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RegisterService } from 'src/app/services/register/register.service';
 
 import { SnotifyService } from 'ng-snotify';
+import { UploadService } from 'src/app/services/upload/upload.service';
+
 
 
 @Component({
@@ -17,14 +19,16 @@ export class RegisterComponent implements OnInit {
 
   constructor(private _formBuilder: FormBuilder,
               private _registerService: RegisterService, 
-              private _snotifyService: SnotifyService) {
+              private _snotifyService: SnotifyService,
+              private _uploadService: UploadService) {
 
     this.initForm();
     
   }
 
   ngOnInit() {
-  }
+
+}
 
   initForm = () => {
     this.formGroup = this._formBuilder.group({
@@ -54,7 +58,6 @@ export class RegisterComponent implements OnInit {
       this._snotifyService.warning('Nombre, Correo o contraseña incorrectos', 'No se puede guardar'); 
     }
   }
-
 
 
 
