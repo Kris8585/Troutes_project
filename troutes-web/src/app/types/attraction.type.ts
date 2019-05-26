@@ -1,5 +1,5 @@
 type TouristAttractionsType = {
-
+id:string;
     attractionId: string;
     name: string;
     description: string;

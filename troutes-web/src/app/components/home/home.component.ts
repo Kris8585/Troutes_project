@@ -22,17 +22,6 @@ export class HomeComponent implements OnInit {
 
   constructor(private _dataInformationService:DataInformationService,
               private _loginService: LoginService) {
-
-    this.newsSubscription = _dataInformationService.getAtractionByName("CLOUDBRIDGE NATURE RESERVE").subscribe((elmentos) => {
-      if(elmentos[0]){
-          this.newId = elmentos[0].attractionId;  
-      console.log(elmentos[0].attractionId);
-      }else{
-        console.log(elmentos[0].attractionId);
-      }
-    }); 
-
-
     this.attractions$ = _dataInformationService.getAllAttractions();
     this.editor$ = _dataInformationService.getUserByRole('Editor');
     }

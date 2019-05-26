@@ -13,6 +13,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { DetailsComponent } from './components/details/details.component';
 import { AttractionAdminComponent } from './components/attraction-admin/attraction-admin.component';
 import { NewsAdminComponent } from './components/news-admin/news-admin.component';
+import { AuthenticationGuard } from './guards/authentication/authentication.guard';
 
 
 const routes: Routes = [
@@ -21,11 +22,12 @@ const routes: Routes = [
   { path: 'about-us', component: AboutUsComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'service', component: ServiceComponent },
-  { path: 'details/:attractionId', component: DetailsComponent },
+  
   {
-    path: 'secure', component: SecureComponent, children: [
+    path: 'secure', component: SecureComponent, canActivate:[AuthenticationGuard], children: [
       { path: 'home', component: HomeComponent },
-      { path: 'attraction-admin/:atrractionId', component: AttractionAdminComponent },
+      { path: 'details/:attractionId', component: DetailsComponent },
+      { path: 'attraction-admin/:atrractionName', component: AttractionAdminComponent },
       { path: 'news-admin/:newsId', component: NewsAdminComponent }
     ]
   },
