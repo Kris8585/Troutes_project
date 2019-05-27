@@ -16,8 +16,6 @@ export class LoginComponent implements OnInit {
   public formGroupResetPassword: FormGroup;
 
 
-  //formGroup: FormGroup;
-
   constructor(private _loginService: LoginService,
     private _formBuilderSession: FormBuilder,
     private _formBuilderRegister: FormBuilder,
@@ -25,6 +23,7 @@ export class LoginComponent implements OnInit {
     private _snotifyService: SnotifyService) {
 
     this.initForms();
+    
   }
 
   login() {
@@ -36,8 +35,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._loginService.singOut();
   }
-
+   
   //Creado Cris
   initForms() {
     this.initLoginForm();

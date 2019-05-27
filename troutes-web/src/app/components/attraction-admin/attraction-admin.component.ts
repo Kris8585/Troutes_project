@@ -9,8 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./attraction-admin.component.css']
 })
 export class AttractionAdminComponent implements OnInit {
-  attraction$: Observable<any>;
-  attractionName: string;
+  
   constructor(private _dataInformationService: DataInformationService,
     private _activatedRoute: ActivatedRoute) {
     this.showAttraction();
@@ -21,7 +20,6 @@ export class AttractionAdminComponent implements OnInit {
 
 
   showAttraction() {
-    this.attractionName = this._activatedRoute.snapshot.params['atrractionName'];
-    this.attraction$ = this._dataInformationService.getAtractionByName(this.attractionName);
+    
   }
 }

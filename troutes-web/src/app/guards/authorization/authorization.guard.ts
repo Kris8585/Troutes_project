@@ -21,16 +21,13 @@ export class AuthorizationGuard implements CanActivate {
   constructor(private _loginService: LoginService,
     private _snotifyService: SnotifyService,
     private _dataInformationService: DataInformationService,
-    private _router: Router) { 
-
-      this.authorizedUser = "GtQBOzjHofSy4OfByp4Ticxa4O33";
-    }
+    private _router: Router) {
+  }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
 
     if (this._loginService.checkCurrentUserRole(route.data.role)) {
       return true;
-
     } else {
       this._snotifyService.warning('No tiene los permisos necesarios para realizar esta acción', 'Atención');
       return false;
@@ -38,7 +35,7 @@ export class AuthorizationGuard implements CanActivate {
 
   }
 
-  
+
 
 
 

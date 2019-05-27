@@ -15,7 +15,8 @@ export class AuthenticationGuard implements CanActivate {
   route: ActivatedRouteSnapshot;
   
   constructor(private _angularFireAuth: AngularFireAuth,
-              private _router: Router, private _loginService:LoginService) { }
+              private _router: Router, 
+              private _loginService:LoginService) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     

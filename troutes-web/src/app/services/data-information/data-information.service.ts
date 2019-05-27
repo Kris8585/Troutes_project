@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataInformationService {
-
   constructor(private _angularFirestore: AngularFirestore) { }
 
   //----------------------------User------------------------------
@@ -32,7 +31,6 @@ export class DataInformationService {
     return this._angularFirestore.collection<TouristAttractionsType>('attractions', ref => ref.where('name', '==', name)).valueChanges();
   }
   //---------------------------Followers---------------------------
-
   getFollowers(attractionId: string): Observable<FollowerType[]> {
     return this._angularFirestore.collection<FollowerType>('followers', ref => ref.where('attractionId', '==', attractionId)).valueChanges();
   }

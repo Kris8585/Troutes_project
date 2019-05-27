@@ -24,3 +24,20 @@
         margin-right: -8px!important;
     }
 }
+
+.btn-social {
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #ffffff;
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+.btn-google {
+    background: #dd4b39;
+}
+
+.btn-facebook {
+    background: #3b5998;
+}

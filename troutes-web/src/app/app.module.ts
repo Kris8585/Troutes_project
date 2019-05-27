@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule, FormsModule  } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +16,7 @@ import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
@@ -38,6 +39,8 @@ import { RatingModule } from 'ngx-bootstrap/rating';
 import { LightboxModule } from 'ngx-lightbox';
 import { CarrouselComponent } from './components/carrousel/carrousel.component';
 import { PublicComponent } from './components/public/public.component';
+import { AssingEditorComponent } from './components/assing-editor/assing-editor.component';
+
 
 
 @NgModule({
@@ -59,7 +62,8 @@ import { PublicComponent } from './components/public/public.component';
     NewsAdminComponent,
     AttractionAdminComponent,
     CarrouselComponent,
-    PublicComponent
+    PublicComponent,
+    AssingEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -68,19 +72,19 @@ import { PublicComponent } from './components/public/public.component';
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireAuthModule,
-    ReactiveFormsModule ,
-    FormsModule ,
+    ReactiveFormsModule,
+    FormsModule,
     LightboxModule,
     SnotifyModule.forRoot(),
     CarouselModule.forRoot(),
     ModalModule.forRoot(),
     PaginationModule.forRoot(),
     RatingModule.forRoot()
-    
+
   ],
-  providers: [LoginService, RegisterService, DataInformationService, 
-  AuthenticationGuard, AuthorizationGuard, { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
-  SnotifyService],
+  providers: [AngularFireAuth, LoginService, RegisterService, DataInformationService,
+    AuthenticationGuard, AuthorizationGuard, { provide: 'SnotifyToastConfig', useValue: ToastDefaults },
+    SnotifyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
