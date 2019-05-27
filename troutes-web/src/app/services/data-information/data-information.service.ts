@@ -24,6 +24,9 @@ export class DataInformationService {
   getAllNews(): Observable<NewsType[]> {
     return this._angularFirestore.collection<NewsType>('news').valueChanges();
   }
+  getNewsById(newId: string): Observable<NewsType[]> {
+    return this._angularFirestore.collection<NewsType>('news', ref => ref.where('newsId', '==', newId)).valueChanges();
+  }
   //--------------------------Attractions-------------------------
   getAllAttractions(): Observable<TouristAttractionsType[]> {
     return this._angularFirestore.collection<TouristAttractionsType>('attractions').valueChanges();

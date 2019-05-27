@@ -11,8 +11,8 @@ import { DataInformationService } from 'src/app/services/data-information/data-i
 export class CarrouselComponent implements OnInit {
   news$: Observable<any>;
 
-  constructor(private _router: Router,private _dataInformationService: DataInformationService) { 
-  this.news$ = _dataInformationService.getAllNews();
+  constructor(private _router: Router, private _dataInformationService: DataInformationService) {
+    this.news$ = _dataInformationService.getAllNews();
 
   }
 
@@ -21,6 +21,6 @@ export class CarrouselComponent implements OnInit {
 
   seeNew(newId: number) {
     // console.log(indice);
-    this._router.navigate(['secure/noticia/', newId]);
+    this._router.navigate(['secure/news/', newId]);
   }
 }

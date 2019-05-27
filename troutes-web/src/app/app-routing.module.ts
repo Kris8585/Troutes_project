@@ -15,7 +15,7 @@ import { AttractionAdminComponent } from './components/attraction-admin/attracti
 import { NewsAdminComponent } from './components/news-admin/news-admin.component';
 import { AuthenticationGuard } from './guards/authentication/authentication.guard';
 import { AuthorizationGuard } from './guards/authorization/authorization.guard';
-
+import { NewsComponent } from './components/news/news.component';
 
 const routes: Routes = [
 
@@ -28,20 +28,23 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'recovery', component: RecoveryComponent },
-     ]
+    ]
   },
   //canActivate:[AuthenticationGuard], 
   {
     path: 'secure', component: SecureComponent, children: [
       { path: 'home', component: HomeComponent },
+      { path: 'news/:newId', component: NewsComponent },
       { path: 'details/:attractionName', component: DetailsComponent },
-      { path: 'details/:atrractionName/attraction-admin', component: AttractionAdminComponent, 
-      canActivate: [AuthorizationGuard], data: {role: 'Editor'}},
+      {
+        path: 'details/:atrractionName/attraction-admin', component: AttractionAdminComponent,
+        canActivate: [AuthorizationGuard], data: { role: 'Editor' }
+      },
       { path: 'news-admin/:newsId', component: NewsAdminComponent },
       { path: 'profile/:userId', component: ProfileComponent }
     ]
   },
-  
+
   { path: '**', pathMatch: 'full', redirectTo: 'secure/home' }
 
 ];

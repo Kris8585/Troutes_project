@@ -37,6 +37,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { LightboxModule } from 'ngx-lightbox';
 import { CarrouselComponent } from './components/carrousel/carrousel.component';
+import { NewsComponent } from './components/news/news.component';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { CarrouselComponent } from './components/carrousel/carrousel.component';
     ServiceComponent,
     NewsAdminComponent,
     AttractionAdminComponent,
-    CarrouselComponent
+    CarrouselComponent,
+    NewsComponent
   ],
   imports: [
     BrowserModule,
