@@ -19,10 +19,14 @@ import { NewsComponent } from './components/news/news.component';
 import { AttractionListComponent } from "./components/attraction-list/attraction-list.component";
 const routes: Routes = [
 
+
+  { path: 'home', component: HomeComponent },
   { path: 'about-us', component: AboutUsComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'attraction-list', component: AttractionListComponent },
   { path: 'service', component: ServiceComponent },
+  { path: 'attraction-list', component: AttractionListComponent },
+  { path: 'details/:attractionName', component: DetailsComponent },
+  { path: 'news/:newId', component: NewsComponent },
   {
     path: 'account', component: AccountComponent, children: [
       { path: 'login', component: LoginComponent },
@@ -30,17 +34,13 @@ const routes: Routes = [
       { path: 'recovery', component: RecoveryComponent },
     ]
   },
-  //canActivate:[AuthenticationGuard], 
   {
     path: 'secure', component: SecureComponent, children: [
-      { path: 'home', component: HomeComponent },
-      { path: 'news/:newId', component: NewsComponent },
-      { path: 'details/:attractionName', component: DetailsComponent },
       {
         path: 'details/:atrractionName/attraction-admin', component: AttractionAdminComponent,
         canActivate: [AuthorizationGuard], data: { role: 'Editor' }
       },
-      { path: 'news-admin/:newsId', component: NewsAdminComponent },
+      { path: 'news-admin/:newsId', component: NewsAdminComponent, canActivate: [AuthorizationGuard], data: { role: 'Admin' } },
       { path: 'profile/:userId', component: ProfileComponent }
     ]
   },
