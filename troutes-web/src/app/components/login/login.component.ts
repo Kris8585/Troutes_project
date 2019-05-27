@@ -14,40 +14,27 @@ export class LoginComponent implements OnInit {
   public formGroupSession: FormGroup;
   public formGroupRegister: FormGroup;
   public formGroupResetPassword: FormGroup;
-  /*   private formBuilderSession: FormBuilder;
-    private formBuilderRegister: FormBuilder;
-    private formBuilderResetPassword: FormBuilder; */
 
-  formGroup: FormGroup;
+
+  //formGroup: FormGroup;
 
   constructor(private _loginService: LoginService,
-    //private _formBuilder: FormBuilder,
-    private formBuilderSession: FormBuilder,
-    private formBuilderRegister: FormBuilder,
-    private formBuilderResetPassword: FormBuilder,
+    private _formBuilderSession: FormBuilder,
+    private _formBuilderRegister: FormBuilder,
+    private _formBuilderResetPassword: FormBuilder,
     private _snotifyService: SnotifyService) {
 
-    /*  this.formBuilderSession = new FormBuilder();
-     this.formBuilderRegister=new FormBuilder();
-     this.formBuilderResetPassword=new FormBuilder(); */
     this.initForms();
-    //this.initForm();
   }
 
   login() {
-    if (this.formGroup.valid) {
-      this._loginService.login(this.formGroup.value.email, this.formGroup.value.password);
+    if (this.formGroupSession.valid) {
+      this._loginService.login(this.formGroupSession.value.email, this.formGroupSession.value.password);
     } else {
       this._snotifyService.warning('Correo o contraseña incorrectos', 'Atención');
     }
   }
 
-  /* initForm = () => {
-    this.formGroup = this._formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
-    });
-  } */
   ngOnInit() {
   }
 
@@ -59,14 +46,14 @@ export class LoginComponent implements OnInit {
   }
 
   initLoginForm = () => {
-    this.formGroupSession = this.formBuilderSession.group({
+    this.formGroupSession = this._formBuilderSession.group({
       email: ["", [Validators.required]],
       password: ["", [Validators.required, Validators.minLength(4)]]
     });
   }
 
   initRegisterForm = () => {
-    this.formGroupRegister = this.formBuilderRegister.group({
+    this.formGroupRegister = this._formBuilderRegister.group({
       fullName: ["", [Validators.required]],
       email: ["", [Validators.required]],
       password: ["", [Validators.required, Validators.minLength(4)]]
@@ -74,18 +61,10 @@ export class LoginComponent implements OnInit {
   }
 
   initResetPassword = () => {
-    this.formGroupResetPassword = this.formBuilderResetPassword.group({
+    this.formGroupResetPassword = this._formBuilderResetPassword.group({
       email: ["", [Validators.required]],
     });
   }
-
-  /* login() {
-    if (this.formGroupSession.valid) {
-      //this._loginService.login(this.formGroup.value.email,this.formGroup.value.password);
-    } else {
-      //this.snotifyService.warning('Correo o contraseña incorrectos', 'Atención'); 
-    }
-  } */
 
   register() {
     if (this.formGroupRegister.valid) {

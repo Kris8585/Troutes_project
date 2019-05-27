@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
               private _loginService: LoginService) {
     this.attractions$ = _dataInformationService.getAllAttractions();
     this.editor$ = _dataInformationService.getUserByRole('Editor');
-    debugger
+
   }
 
   ngOnInit() {

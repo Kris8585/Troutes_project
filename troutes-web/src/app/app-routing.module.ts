@@ -15,34 +15,40 @@ import { AttractionAdminComponent } from './components/attraction-admin/attracti
 import { NewsAdminComponent } from './components/news-admin/news-admin.component';
 import { AuthenticationGuard } from './guards/authentication/authentication.guard';
 import { AuthorizationGuard } from './guards/authorization/authorization.guard';
+import { PublicComponent } from './components/public/public.component';
 
 
 const routes: Routes = [
 
+  {
+    path: 'public', component: PublicComponent, children: [
+      { path: 'home', component: HomeComponent },
+      { path: 'about-us', component: AboutUsComponent },
+      { path: 'contact', component: ContactComponent },
+      { path: 'service', component: ServiceComponent },
+      { path: 'details/:attractionName', component: DetailsComponent},
+      
+    ]
+  },
 
-  { path: 'about-us', component: AboutUsComponent },
-  { path: 'contact', component: ContactComponent },
-  { path: 'service', component: ServiceComponent },
   {
     path: 'account', component: AccountComponent, children: [
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'recovery', component: RecoveryComponent },
-     ]
-  },
-  //canActivate:[AuthenticationGuard], 
-  {
-    path: 'secure', component: SecureComponent, children: [
-      { path: 'home', component: HomeComponent },
-      { path: 'details/:attractionName', component: DetailsComponent },
-      { path: 'details/:atrractionName/attraction-admin', component: AttractionAdminComponent, 
-      canActivate: [AuthorizationGuard], data: {role: 'Editor'}},
-      { path: 'news-admin/:newsId', component: NewsAdminComponent },
-      { path: 'profile/:userId', component: ProfileComponent }
+     
     ]
   },
-  
-  { path: '**', pathMatch: 'full', redirectTo: 'secure/home' }
+  {
+    path: 'secure', component: SecureComponent, canActivate: [AuthenticationGuard], children: [
+      
+      { path: 'details/:atrractionName/attraction-admin', component: AttractionAdminComponent, canActivate: [AuthorizationGuard], data: {role: 'Editor'} }, 
+      { path: 'news-admin/:newsId', component: NewsAdminComponent, canActivate: [AuthorizationGuard], data:{ role:'Admin' }}, 
+      { path: 'profile/:userId', component: ProfileComponent },
+    ]
+  },
+
+  { path: '**', pathMatch: 'full', redirectTo: 'public/home' }
 
 ];
 

@@ -3,6 +3,7 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/rou
 import { CanActivate } from '@angular/router/src/utils/preactivation';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
+import { LoginService } from 'src/app/services/login/login.service';
 
 
 @Injectable({
@@ -14,12 +15,12 @@ export class AuthenticationGuard implements CanActivate {
   route: ActivatedRouteSnapshot;
   
   constructor(private _angularFireAuth: AngularFireAuth,
-              private _router: Router) { }
+              private _router: Router, private _loginService:LoginService) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     
     return new Observable(observer => {
-      if (this._angularFireAuth.auth.currentUser) {
+      if (this._angularFireAuth.auth.currentUser) { 
         observer.next(true);
       }
       else {

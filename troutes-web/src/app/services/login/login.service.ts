@@ -45,8 +45,11 @@ export class LoginService {
     this._router.navigateByUrl('/account/login');
   }
 
-  getCurrentUserRole(role:string){ 
+  checkCurrentUserRole(role:string){ 
     return this.currentUser && this.currentUser.role.includes(role);
-  
-}
+  }
+
+  getCurrentUserRole(){
+    return this.currentUser.role;
+  }
 }

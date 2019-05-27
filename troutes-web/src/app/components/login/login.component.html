@@ -41,7 +41,7 @@
                     </nav>
                     <div class="tab-content" id="nav-tabContent mt-5">
                         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                            <form [formGroup]="formGroupSession" id="formGroupSesion" class="row">
+                            <form [formGroup]="formGroupSession" id="formGroupSession" class="row">
                                 <div class="form-group col-12">
                                     <label for="email">Login</label>
                                     <input class="form-control" formControlName="email" id="email" type="email" placeholder="Correo">
@@ -53,6 +53,8 @@
                                 <button type="submit" class="btn btn-secondary mx-auto" [ngClass]="{'disabled': !formGroupSession.valid}" (click)="login()">Login</button>
                             </form>
                         </div>
+
+
                         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                             <form [formGroup]="formGroupRegister" id="formGroupRegister" class="row">
                                 <div class="form-group col-12">
