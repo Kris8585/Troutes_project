@@ -74,11 +74,13 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  resetPassword() {
-    if (this.formGroupResetPassword.valid) {
-      //this._loginService.login(this.formGroup.value.email,this.formGroup.value.password);
-    } else {
-      //this.snotifyService.warning('Correo o contraseña incorrectos', 'Atención'); 
+ 
+  resetPassword = () => {
+    if(this.formGroupResetPassword.valid){
+      this._loginService.recovery(this.formGroupResetPassword.value.email);
+    }else{
+      this._snotifyService.warning('Debe especificar un correo vailido', 'Atención'); 
+   
     }
   }
 

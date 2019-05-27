@@ -52,4 +52,13 @@ export class LoginService {
   getCurrentUserRole(){
     return this.currentUser.role;
   }
+  recovery(email: string) {
+    this._angularFireAuth.auth.sendPasswordResetEmail(email)
+      .then(() => this._snotifyService.success('Se ha enviado un correo para restaurar su cuenta', 'Excelente'))
+      .catch((error) => this._snotifyService.warning('Se ha presentado el siguiente error: ' + error, 'Atención'))
+  }
+
+
+
+
 }

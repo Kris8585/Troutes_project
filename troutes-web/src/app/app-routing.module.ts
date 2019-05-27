@@ -30,7 +30,6 @@ const routes: Routes = [
       
     ]
   },
-
   {
     path: 'account', component: AccountComponent, children: [
       { path: 'login', component: LoginComponent },
@@ -47,8 +46,7 @@ const routes: Routes = [
       { path: 'profile/:userId', component: ProfileComponent },
     ]
   },
-
-  { path: '**', pathMatch: 'full', redirectTo: 'public/home' }
+ { path: '**', pathMatch: 'full', redirectTo: 'public/home' }
 
 ];
 
