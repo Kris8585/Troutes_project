@@ -38,6 +38,9 @@ import { RatingModule } from 'ngx-bootstrap/rating';
 import { LightboxModule } from 'ngx-lightbox';
 import { CarrouselComponent } from './components/carrousel/carrousel.component';
 import { NewsComponent } from './components/news/news.component';
+import { AttractionListComponent } from './components/attraction-list/attraction-list.component';
+import { CommentsComponent } from './components/comments/comments.component';
+import { RatingComponent } from './components/rating/rating.component';
 
 
 @NgModule({
@@ -59,7 +62,10 @@ import { NewsComponent } from './components/news/news.component';
     NewsAdminComponent,
     AttractionAdminComponent,
     CarrouselComponent,
-    NewsComponent
+    NewsComponent,
+    AttractionListComponent,
+    CommentsComponent,
+    RatingComponent
   ],
   imports: [
     BrowserModule,

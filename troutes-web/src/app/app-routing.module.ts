@@ -16,12 +16,12 @@ import { NewsAdminComponent } from './components/news-admin/news-admin.component
 import { AuthenticationGuard } from './guards/authentication/authentication.guard';
 import { AuthorizationGuard } from './guards/authorization/authorization.guard';
 import { NewsComponent } from './components/news/news.component';
-
+import { AttractionListComponent } from "./components/attraction-list/attraction-list.component";
 const routes: Routes = [
-
 
   { path: 'about-us', component: AboutUsComponent },
   { path: 'contact', component: ContactComponent },
+  { path: 'attraction-list', component: AttractionListComponent },
   { path: 'service', component: ServiceComponent },
   {
     path: 'account', component: AccountComponent, children: [

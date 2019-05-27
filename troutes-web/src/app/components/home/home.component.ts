@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
   seePlace(namePlace: string) {
     // console.log(indice);
     //debugger;
-    this._router.navigate(['secure/atractivo/', namePlace]);
+    this._router.navigate(['attraction-list/', namePlace]);
   }
   
 

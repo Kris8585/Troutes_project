@@ -36,13 +36,9 @@ export class NewsComponent implements OnInit {
         this.setStyle();
       })
     })
-    /* this.newsID = this._route.snapshot.params['id'];
-    if (this.newsID != '' || this.newsID != null) {
-      this.news$ = this._dataInformationService.getNewsById(this.newsID);
-    } */
   }
   setStyle() {
-    
+
     this.jumboStyle = {
       'background-image': 'url(' + this.news.image + ')',
       'background-size': 'cover',
