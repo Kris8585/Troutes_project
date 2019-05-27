@@ -18,7 +18,7 @@
             <div class="col-sm-12 col-md-4 text-center carousel__list">
                 <ul class="list-group group__news">
                     <ng-container *ngFor="let new of news$|async; let i=index">
-                        <li class="list-group-item list-group-item-action new__detail" (click)="seeNew(new.id)">
+                        <li class="list-group-item list-group-item-action new__detail" (click)="seeNew(new.newsId)">
                             <img [src]="new.image" class="card-img-top d-none d-sm-block d-md-none" alt="...">
                             <div class="d-flex w-100 justify-content-between new__content">
                                 <h5 class="mb-1">{{new.tittle}}</h5>
