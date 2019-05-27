@@ -14,6 +14,7 @@ import { DetailsComponent } from './components/details/details.component';
 import { AttractionAdminComponent } from './components/attraction-admin/attraction-admin.component';
 import { NewsAdminComponent } from './components/news-admin/news-admin.component';
 import { AuthenticationGuard } from './guards/authentication/authentication.guard';
+import { AuthorizationGuard } from './guards/authorization/authorization.guard';
 
 
 const routes: Routes = [
@@ -34,7 +35,8 @@ const routes: Routes = [
     path: 'secure', component: SecureComponent, children: [
       { path: 'home', component: HomeComponent },
       { path: 'details/:attractionName', component: DetailsComponent },
-      { path: 'details/:atrractionName/attraction-admin', component: AttractionAdminComponent},
+      { path: 'details/:atrractionName/attraction-admin', component: AttractionAdminComponent, 
+      canActivate: [AuthorizationGuard], data: {role: 'Editor'}},
       { path: 'news-admin/:newsId', component: NewsAdminComponent },
       { path: 'profile/:userId', component: ProfileComponent }
     ]
