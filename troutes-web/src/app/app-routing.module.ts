@@ -22,22 +22,23 @@ const routes: Routes = [
   { path: 'about-us', component: AboutUsComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'service', component: ServiceComponent },
-  
-  {
-    path: 'secure', component: SecureComponent, canActivate:[AuthenticationGuard], children: [
-      { path: 'home', component: HomeComponent },
-      { path: 'details/:attractionId', component: DetailsComponent },
-      { path: 'attraction-admin/:atrractionName', component: AttractionAdminComponent },
-      { path: 'news-admin/:newsId', component: NewsAdminComponent }
-    ]
-  },
   {
     path: 'account', component: AccountComponent, children: [
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'recovery', component: RecoveryComponent },
-      { path: 'profile/:userId', component: ProfileComponent }]
+     ]
   },
+  {
+    path: 'secure', component: SecureComponent, canActivate:[AuthenticationGuard], children: [
+      { path: 'home', component: HomeComponent },
+      { path: 'details/:attractionName', component: DetailsComponent },
+      { path: 'details/:atrractionName/attraction-admin', component: AttractionAdminComponent},
+      { path: 'news-admin/:newsId', component: NewsAdminComponent },
+      { path: 'profile/:userId', component: ProfileComponent }
+    ]
+  },
+  
   { path: '**', pathMatch: 'full', redirectTo: 'secure/home' }
 
 ];

@@ -29,6 +29,8 @@ import { ContactComponent } from './components/contact/contact.component';
 import { ServiceComponent } from './components/service/service.component';
 import { NewsAdminComponent } from './components/news-admin/news-admin.component';
 import { AttractionAdminComponent } from './components/attraction-admin/attraction-admin.component';
+import { AuthenticationGuard } from './guards/authentication/authentication.guard';
+import { AuthorizationGuard } from './guards/authorization/authorization.guard';
 
 
 
@@ -58,12 +60,13 @@ import { AttractionAdminComponent } from './components/attraction-admin/attracti
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireAuthModule,
-    ReactiveFormsModule,
-    FormsModule,
+    ReactiveFormsModule ,
+    FormsModule ,
     SnotifyModule.forRoot()
     
   ],
-  providers: [LoginService, RegisterService, DataInformationService, { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
+  providers: [LoginService, RegisterService, DataInformationService, 
+  AuthenticationGuard, AuthorizationGuard, { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
   SnotifyService],
   bootstrap: [AppComponent]
 })
