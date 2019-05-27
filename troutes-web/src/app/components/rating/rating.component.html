@@ -1,3 +1,8 @@
-<p>
-  rating works!
-</p>
+<div class="rating__control">
+    <rating [max]="ratingCount" [(ngModel)]="_iScore" [customTemplate]="tt" [readonly]="iReadOnly" (click)="scoreEmitter()"></rating>
+    <ng-template #tt let-i="index" let-v="value">
+        <button class="btn btn-{{i < v ? 'warning' : 'default'}} btn__rating" disabled="{{iReadOnly ? 'disabled':''}}">
+                  {{i < v ? '&#9733;' : '&#9734;'}}
+                </button>
+    </ng-template>
+</div>

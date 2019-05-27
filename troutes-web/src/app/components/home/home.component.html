@@ -18,11 +18,11 @@
                     <div class="row">
                         <div class="col-md-2 col-sm-12 place__general" *ngFor="let place of attractions$|async|slice:0:10; let i=index">
                             <div class="place__tile card bg-dark border-secondary text-primary text-center" (click)="seePlace(place.name)">
-                                <ng-container *ngIf="place.images[0].imgUrl==='' || place.images[0].imgUrl===null; else elseTemplate">
+                                <ng-container *ngIf="place.images[0].imageUrl==='' || place.images[0].imageUrl===null; else elseTemplate">
                                     <img src="../../../assets/images/no-image.jpg" class="card-img" alt="...">
                                 </ng-container>
                                 <ng-template #elseTemplate>
-                                    <img [src]="place.images[0].imgUrl" class="card-img" alt="...">
+                                    <img [src]="place.images[0].imageUrl" class="card-img" alt="...">
                                 </ng-template>
                                 <div class="card-img-overlay">
                                     <h6 class="card-title">{{place.name}}</h6>

@@ -21,6 +21,6 @@ export class AttractionListComponent implements OnInit {
 
   seePlace(attractiveName: string) {
     // let tempAtractivo = this.atractivos[index];
-    this._router.navigate(['secure/atractivo/', attractiveName]);
+    this._router.navigate(['secure/details//', attractiveName]);
   }
 }

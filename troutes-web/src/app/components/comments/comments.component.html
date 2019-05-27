@@ -1,3 +1,111 @@
-<p>
-  comments works!
-</p>
+<div class="row comments__header">
+    <div class="col-sm-12 col-md-6 col-lg-6 d-flex flex-row justify-content-center">
+        <h2>Comentarios</h2>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-6">
+        <button (click)="mantenimientoComentario(0,mantenerComentario,0)" *ngIf="showReview">Crear reseña</button>
+    </div>
+</div>
+<div class="row ">
+    <div class="col-xs-12 col-12 col-sm-12 col-md-12 col-lg-12 ">
+        <div class="content-wrapper wContenedor w-100 p-3 ">
+            <div class="card-deck">
+                <ng-container *ngIf="returnedComments; else elseTemplate">
+                    <div *ngFor="let comment of returnedComments; let i=index ">
+                        <div class="card text-white bg-dark mb-3 " style="max-width: 18rem; ">
+                            <div class="card-header text-center font-weight-bold">
+                                Usuario + {{comment.commentId}}
+                                <!--  <button class="btn btn-info" (click)="mantenimientoComentario(comment,mantenerComentario,1) " *ngIf="comment.userId==iIdUsuario ">
+                                    <fa name="edit"></fa>
+                                </button>
+                            <button class="btn btn-danger" (click)="mantenimientoComentario(comment,mantenerComentario,2) " *ngIf="comment.userId==iIdUsuario ">
+                                    <fa name="trash"></fa>
+                                </button> -->
+                            </div>
+                            <div class="card-body text-white">
+                                <app-rating [iScore]="comment.score" [iReadOnly]="true"></app-rating>
+                                <!-- <app-p-atractivo [iPuntaje]="comentario.puntaje " [iReadOnly]="true "></app-p-atractivo> -->
+                                <h5 class="card-title">{{comment.comment}}</h5>
+                                <p class="card-text "><small class="text-muted ">Creado el:
+                                        {{comment.creationDate}}</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #elseTemplate>
+                    <div class="d-flex flex-row justify-content-center">
+                        <p class="no__comments">No existen Comentarios</p>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+        <ng-container *ngIf="attractiveComments && returnedComments">
+            <pagination [totalItems]="attractiveComments.length " [(ngModel)]="currentPage " [itemsPerPage]="itemsPerPage " [maxSize]="paginationMaxSize " (pageChanged)="pageChanged($event) ">
+            </pagination>
+        </ng-container>
+
+
+    </div>
+</div>
+
+
+<!-- Modal Comentario -->
+<ng-template #mantenerComentario>
+    <div class=" modal-header mModal ">
+        <h4 class="modal-title pull-left " *ngIf="commentAction==0 ">Nuevo Comentario</h4>
+        <h4 class="modal-title pull-left " *ngIf="commentAction==1 ">Editar Comentario</h4>
+        <h4 class="modal-title pull-left " *ngIf="commentAction==2 ">Eliminar Comentario</h4>
+        <button type="button " class="close pull-right " aria-label="Close " (click)="modalRef.hide() ">
+            <span aria-hidden="true ">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body ">
+        <div class="container mModal ">
+            <form [formGroup]="formGroupComment " id="formGroupComment " class="row ">
+                <div class="form-group col-4 ">
+                    <label for="commentId ">Id del Comentario</label>
+                    <input class="form-control " formControlName="commentId " id="commentId " type="number " readonly>
+                </div>
+                <div class="form-group col-4 ">
+                    <label for="userId ">Id del Usuario</label>
+                    <input class="form-control " formControlName="userId " id="userId " type="number " readonly>
+                </div>
+                <div class="form-group col-4 ">
+                    <label for="attractiveId ">Id del Atractivo</label>
+                    <input class="form-control " formControlName="attractiveId " id="attractiveId " type="number " readonly>
+                </div>
+                <div class="form-group col-12 ">
+                    <label for="comment ">Comentario</label>
+                    <input type="text " class="form-control " formControlName="comment " id="comment " placeholder="Escriba el comentario ">
+                    <div *ngIf="formGroupComment.controls[ 'comment'].dirty ">
+                        <div class="form-control-feedback text-danger " *ngIf="formGroupComment.controls[ 'comment'].errors?.required ">
+                            El título es requerido
+                        </div>
+                        <div class="form-control-feedback text-danger " *ngIf="formGroupComment.controls[ 'comment'].errors?.minlength ">
+                            La descripción debe ser de almenos 15 caracteres
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12 ">
+                    <label for="puntaje ">Puntaje</label>
+                    <app-rating [(iScore)]="maintenanceComment.score " [iReadOnly]="commentAction==2? true: false " (oPuntajeEmitter)="puntajeAsignar($event) "></app-rating>
+                    <!-- <app-p-atractivo [iReadOnly]="accionComentario==2? true: false " [iPuntaje]="comentarioAccion.puntaje " (oPuntajeEmitter)="puntajeAsignar($event) ">
+                    </app-p-atractivo> -->
+                    <!-- <input class="form-control " formControlName="puntaje " id="puntaje " type="number " readonly> -->
+                </div>
+                <div class="form-group col-12 ">
+                    <label for="creationDate ">Fecha Creación</label>
+                    <input type="datetime " class="form-control " formControlName="creationDate " id="creationDate " readonly>
+                </div>
+            </form>
+            <div *ngIf="commentAction==2 ">
+                <p>Desea eliminar?</p>
+                <button type="button " class="btn btn-warning " (click)="confirmDelete() ">Yes</button>
+                <button type="button " class="btn btn-primary " (click)="declineDelete() ">No</button>
+            </div>
+
+            <button type="submit " class="btn btn-primary float-right m-b-5 " [ngClass]="{ 'disabled':!formGroupComment.valid} " (click)="guardarComentario(formGroupComment) " *ngIf="commentAction!=2 ">Guardar</button>
+
+        </div>
+    </div>
+</ng-template>

@@ -41,6 +41,7 @@ import { NewsComponent } from './components/news/news.component';
 import { AttractionListComponent } from './components/attraction-list/attraction-list.component';
 import { CommentsComponent } from './components/comments/comments.component';
 import { RatingComponent } from './components/rating/rating.component';
+import { DomSecurityPipe } from './pipes/domSecurity/dom-security.pipe';
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { RatingComponent } from './components/rating/rating.component';
     NewsComponent,
     AttractionListComponent,
     CommentsComponent,
-    RatingComponent
+    RatingComponent,
+    DomSecurityPipe
   ],
   imports: [
     BrowserModule,

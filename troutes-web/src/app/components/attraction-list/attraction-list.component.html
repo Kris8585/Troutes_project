@@ -14,7 +14,7 @@
             <ng-container *ngFor="let attractive of attractivesList$|async; let i=index">
                 <div class="place__tile col-sm-12 col-md-3" *ngIf="attractive.active">
                     <div class="card place__card bg-primary text-white text-center" (click)="seePlace(attractive.name)">
-                        <img class="card-img-top" [src]="attractive.images[0].imgUrl|async" alt="{{attractive.name}}">
+                        <img class="card-img-top" [src]="attractive.images[0].imageUrl" alt="{{attractive.name}}">
                         <div class="card-body">
                             <p class="card-title place__name">{{attractive.name}}</p>
                         </div>

@@ -14,15 +14,15 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  newsSubscription : Subscription;
-  newId : string;
+  newsSubscription: Subscription;
+  newId: string;
   attractions$: Observable<any>;
   editor$: Observable<any>;
   user: UserType;
-
+  isDataLoaded: boolean = false;
   constructor(private _router: Router,
-              private _dataInformationService:DataInformationService,
-              private _loginService: LoginService) {
+    private _dataInformationService: DataInformationService,
+    private _loginService: LoginService) {
     this.attractions$ = _dataInformationService.getAllAttractions();
     this.editor$ = _dataInformationService.getUserByRole('Editor');
     //debugger
@@ -37,8 +37,8 @@ export class HomeComponent implements OnInit {
   seePlace(namePlace: string) {
     // console.log(indice);
     //debugger;
-    this._router.navigate(['attraction-list/', namePlace]);
+    this._router.navigate(['secure/details/', namePlace]);
   }
-  
+
 
 }

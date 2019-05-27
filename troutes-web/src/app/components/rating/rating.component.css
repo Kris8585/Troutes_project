@@ -1,0 +1,17 @@
+.btn__rating {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-right: 3px;
+    border-radius: 40px;
+}
+
+.rating__control {
+    margin-left: -17px;
+    margin-right: -18px;
+    margin-top: -14px;
+    margin-bottom: 14px;
+}
+
+app-p-atractivo .btn__rating {
+    background-color: black;
+}

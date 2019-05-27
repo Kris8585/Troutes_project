@@ -36,11 +36,23 @@ export class DataInformationService {
   }
   //---------------------------Followers---------------------------
 
-  getFollowers(attractionId: string): Observable<FollowerType[]> {
+  getFollowers(attractionId: number): Observable<FollowerType[]> {
     return this._angularFirestore.collection<FollowerType>('followers', ref => ref.where('attractionId', '==', attractionId)).valueChanges();
   }
-  getFollowedSites(userId: string): Observable<FollowerType[]> {
+  getFollowedSites(userId: number): Observable<FollowerType[]> {
     return this._angularFirestore.collection<FollowerType>('followers', ref => ref.where('userId', '==', userId)).valueChanges();
   }
-
+  //---------------------------Comments---------------------------
+  getAllComments(): Observable<CommentaryType[]> {
+    return this._angularFirestore.collection<CommentaryType>('comments').valueChanges();
+  }
+  getCommentById(commentId: number): Observable<CommentaryType[]> {
+    return this._angularFirestore.collection<CommentaryType>('comments', ref => ref.where('commentId', '==', commentId)).valueChanges();
+  }
+  getCommentByUserId(userId: number): Observable<CommentaryType[]> {
+    return this._angularFirestore.collection<CommentaryType>('comments', ref => ref.where('userId', '==', userId)).valueChanges();
+  }
+  getCommentByAttractionId(attractionId: number): Observable<CommentaryType[]> {
+    return this._angularFirestore.collection<CommentaryType>('comments', ref => ref.where('attractionId', '==', attractionId)).valueChanges();
+  }
 }

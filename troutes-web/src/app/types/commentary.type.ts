@@ -1,10 +1,10 @@
 type CommentaryType = {
 
-comentId: string;
-userId: string;
-attractiveId: string;
-commentary: string;
-score:number;
-creationDate: string;
+    commentId: number;
+    userId: string;
+    attractiveId: number;
+    comment: string;
+    score: number;
+    creationDate: string;
 
 }
