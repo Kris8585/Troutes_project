@@ -4,7 +4,7 @@ import { DataInformationService } from 'src/app/services/data-information/data-i
 import { LoginComponent } from '../login/login.component';
 import { LoginService } from 'src/app/services/login/login.service';
 
-
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -20,11 +20,13 @@ export class HomeComponent implements OnInit {
   editor$: Observable<any>;
   user: UserType;
 
-  constructor(private _dataInformationService:DataInformationService,
+  constructor(private _router: Router,
+              private _dataInformationService:DataInformationService,
               private _loginService: LoginService) {
     this.attractions$ = _dataInformationService.getAllAttractions();
     this.editor$ = _dataInformationService.getUserByRole('Editor');
-    }
+    debugger
+  }
 
   ngOnInit() {
     setTimeout(() => {
@@ -32,6 +34,11 @@ export class HomeComponent implements OnInit {
     }, 1000);
   }
 
+  seePlace(namePlace: string) {
+    // console.log(indice);
+    //debugger;
+    this._router.navigate(['secure/atractivo/', namePlace]);
+  }
   
 
 }

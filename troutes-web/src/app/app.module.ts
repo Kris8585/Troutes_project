@@ -31,7 +31,12 @@ import { NewsAdminComponent } from './components/news-admin/news-admin.component
 import { AttractionAdminComponent } from './components/attraction-admin/attraction-admin.component';
 import { AuthenticationGuard } from './guards/authentication/authentication.guard';
 import { AuthorizationGuard } from './guards/authorization/authorization.guard';
-
+import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { RatingModule } from 'ngx-bootstrap/rating';
+import { LightboxModule } from 'ngx-lightbox';
+import { CarrouselComponent } from './components/carrousel/carrousel.component';
 
 
 @NgModule({
@@ -51,7 +56,8 @@ import { AuthorizationGuard } from './guards/authorization/authorization.guard';
     ContactComponent,
     ServiceComponent,
     NewsAdminComponent,
-    AttractionAdminComponent
+    AttractionAdminComponent,
+    CarrouselComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +68,12 @@ import { AuthorizationGuard } from './guards/authorization/authorization.guard';
     AngularFireAuthModule,
     ReactiveFormsModule ,
     FormsModule ,
-    SnotifyModule.forRoot()
+    LightboxModule,
+    SnotifyModule.forRoot(),
+    CarouselModule.forRoot(),
+    ModalModule.forRoot(),
+    PaginationModule.forRoot(),
+    RatingModule.forRoot()
     
   ],
   providers: [LoginService, RegisterService, DataInformationService, 

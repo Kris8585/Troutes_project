@@ -2,7 +2,8 @@
 
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "~ng-snotify/styles/material";
-html,
+
+/* html,
 body {
     height: 100%;
 }
@@ -45,4 +46,4 @@ body {
 
 .h-90 {
     height: 90% !important;
-}
+} */

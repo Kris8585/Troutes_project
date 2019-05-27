@@ -1,0 +1,26 @@
+.tab-content {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#nav-tabContent {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.nav-item {
+    color: white;
+}
+
+.nav-item:hover {
+    font-weight: bold;
+}
+
+@media (max-width: 575.98px) {
+    .options__forms {
+        width: 100% !important;
+    }
+    .nav-item {
+        margin-right: -8px!important;
+    }
+}

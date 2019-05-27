@@ -29,8 +29,9 @@ const routes: Routes = [
       { path: 'recovery', component: RecoveryComponent },
      ]
   },
+  //canActivate:[AuthenticationGuard], 
   {
-    path: 'secure', component: SecureComponent, canActivate:[AuthenticationGuard], children: [
+    path: 'secure', component: SecureComponent, children: [
       { path: 'home', component: HomeComponent },
       { path: 'details/:attractionName', component: DetailsComponent },
       { path: 'details/:atrractionName/attraction-admin', component: AttractionAdminComponent},

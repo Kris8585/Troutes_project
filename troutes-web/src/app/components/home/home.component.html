@@ -1,7 +1,7 @@
 <!-- <div *ngFor="let item of (news$ | async)">
     <p>{{item.newsId}}</p>
 </div> -->
-
+<!-- <app-carrousel></app-carrousel>
 <div>
     <h1>prueba</h1>
     <p>{{newId}}</p>
@@ -15,9 +15,45 @@
 <h5>Editores</h5>
 <div *ngFor="let item of ( editor$ | async)">
     <p>{{item.name}}</p>
-</div>
+</div> -->
 
 <!-- <div>
     <p>User</p>
     <h1>{{user.name}}</h1>
 </div> -->
+
+<main>
+    <section class="carousel__view">
+        <div class="container-fluid d-flex justify-content-center">
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <app-carrousel></app-carrousel>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="places__group">
+        <div class="container-fluid">
+            <div class="row places__row">
+                <div class="col-12 text-center places__title">
+                    <h2>Atractivos Turisticos</h2>
+                </div>
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-md-2 col-sm-12 place__general" *ngFor="let place of attractions$|async|slice:0:10; let i=index">
+                            <div class="place__tile card bg-dark border-secondary text-primary text-center" (click)="seePlace(place.name)">
+                                <ng-container *ngFor="let image of place.images|slice:0">
+                                    <img [src]="image.imgUrl" class="card-img" alt="...">
+                                </ng-container>
+                                <div class="card-img-overlay">
+                                    <h6 class="card-title">{{place.name}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary places__all" [routerLink]="['/secure/atractivos']">Ver Atractivos</button>
+        </div>
+    </section>
+</main>

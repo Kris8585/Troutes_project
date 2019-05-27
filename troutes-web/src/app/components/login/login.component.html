@@ -1,4 +1,4 @@
-<div class=" text-muted m-4 border-dashed  h-90 text-center  align-items-center">
+<!-- <div class=" text-muted m-4 border-dashed  h-90 text-center  align-items-center">
     <div class="mt-15">
         <div class="d-flex justify-content-center">
             <form class="text-left border-solid p-3" [formGroup]="formGroup" id="formGroup">
@@ -25,4 +25,63 @@
         <a class="">Create a free account</a>
 
     </div>
-</div>
+</div> -->
+
+<section class="login__section">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <div class="options__forms mx-auto w-50 p-3 bg-primary mt-5 mb-5 text-white text-center">
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">LogIn</a>
+                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Register</a>
+                            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Reset Password</a>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent mt-5">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <form [formGroup]="formGroupSession" id="formGroupSesion" class="row">
+                                <div class="form-group col-12">
+                                    <label for="email">Login</label>
+                                    <input class="form-control" formControlName="email" id="email" type="email" placeholder="Correo">
+                                </div>
+                                <div class="form-group col-12">
+                                    <label for="password">Contraseña</label>
+                                    <input class="form-control" formControlName="password" id="password" type="password" placeholder="Contraseña">
+                                </div>
+                                <button type="submit" class="btn btn-secondary mx-auto" [ngClass]="{'disabled': !formGroupSession.valid}" (click)="login()">Login</button>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <form [formGroup]="formGroupRegister" id="formGroupRegister" class="row">
+                                <div class="form-group col-12">
+                                    <label for="fullName">Nombre Completo</label>
+                                    <input class="form-control" formControlName="fullName" id="fullName" type="email" placeholder="Nombre Completo">
+                                </div>
+                                <div class="form-group col-12">
+                                    <label for="email">Login</label>
+                                    <input class="form-control" formControlName="email" id="email" type="email" placeholder="Correo">
+                                </div>
+                                <div class="form-group col-12">
+                                    <label for="password">Contraseña</label>
+                                    <input class="form-control" formControlName="password" id="password" type="password" placeholder="Contraseña">
+                                </div>
+                                <button type="submit" class="btn btn-secondary mx-auto" [ngClass]="{'disabled': !formGroupRegister.valid}" (click)="register()">Login</button>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                            <form [formGroup]="formGroupResetPassword" id="formGroupResetPassword" class="row">
+                                <div class="form-group col-12">
+                                    <label for="email">Correo</label>
+                                    <input class="form-control" formControlName="email" id="email" type="email" placeholder="Correo">
+                                </div>
+                                <button type="submit" class="btn btn-secondary mx-auto" [ngClass]="{'disabled': !formGroupResetPassword.valid}" (click)="resetPassword()">Login</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

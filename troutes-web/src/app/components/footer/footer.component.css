@@ -1,0 +1,9 @@
+.footer {
+    height: 26.2vh;
+}
+
+@media (max-width: 600px) {
+    .footer {
+        height: 41.2vh;
+    }
+}

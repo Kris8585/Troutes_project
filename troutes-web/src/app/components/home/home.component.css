@@ -1,0 +1,100 @@
+.carousel__view {
+    margin-top: 10px;
+}
+
+.places__group {
+    margin: 6vw 0 6vw 0;
+}
+
+.places__row {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 0vw;
+    padding-bottom: 3vw;
+}
+
+.places__all {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 8px;
+    align-self: center;
+    align-content: center;
+    align-self: center;
+    left: 43%;
+}
+
+.places__title {
+    margin-top: 6vh;
+    margin-bottom: 6vh;
+}
+
+.place__tile {
+    margin-bottom: 16px;
+}
+
+.place__tile:hover {
+    color: blue!important;
+    margin-bottom: 10px;
+    border: 3px solid black !important;
+    box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.2), 0 20px 40px 0 rgba(0, 0, 0, 0.19);
+}
+
+.places__group .btn {
+    padding-top: 0px;
+    top: -26px !important;
+}
+
+.card-img-overlay {
+    position: absolute;
+    top: -58px;
+    right: 45px;
+    padding: 1.25rem;
+    width: 100%;
+}
+
+.card .card-img {
+    width: 100%;
+    height: 8vw;
+    object-fit: cover;
+}
+
+.card-title {
+    margin-left: -19px;
+    margin-right: -21px;
+}
+
+.place__general {
+    border: 1px solid black !important;
+    left: 5px;
+    border-width: 1px !important;
+    border-top-width: 1px !important;
+    padding-top: 39px;
+    margin-bottom: 3vw;
+    margin-left: 37px;
+}
+
+@media (max-width: 575.98px) {
+    .places__all {
+        left: 25%;
+    }
+    .place__general {
+        margin-left: 0;
+        width: 95%;
+    }
+    .place__tile {
+        margin-bottom: 6px
+    }
+    .place__tile .card-img {
+        width: 100%;
+        height: 118px;
+        object-fit: cover;
+    }
+    .places__title {
+        margin-top: 4vh;
+        margin-bottom: 3vh;
+    }
+    .card-img-overlay {
+        position: absolute;
+        top: -58px;
+        padding: 1.25rem;
+    }
+}

@@ -1,0 +1,94 @@
+.carousel__container {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.news__header {
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+}
+
+.group__news {
+    overflow: hidden;
+    overflow-y: scroll;
+    height: 90%;
+}
+
+carousel slide {}
+
+slide {
+    width: 100%;
+    height: 400px;
+}
+
+slide h3,
+slide p {
+    /* color: saddlebrown; */
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.icon-next carousel-control-next-icon {
+    color: black;
+    z-index: 999;
+}
+
+.carouselTexto {
+    background-color: rgba(12, 12, 12, 0.6);
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.carousel__imagen {
+    display: block;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
+/*Para pantallas sm*/
+
+@media (max-width: 575.98px) {
+    .carouselTexto {
+        background-color: rgba(255, 255, 255, 0);
+        /*margin-left: -144px;
+        margin-right: -146px;
+        margin-bottom: -20px;*/
+        left: 0;
+        right: 0;
+        bottom: -3vh;
+    }
+    .carousel__list {
+        display: block;
+    }
+    .carousel__view {
+        display: none;
+    }
+    .new__detail {
+        position: relative;
+        margin-top: 1vh;
+        margin-bottom: 0.5vh;
+        /*! height: 10vh; */
+        padding-bottom: 2.75rem;
+        width: 96%;
+        padding-left: 5.25rem;
+    }
+    .new__detail img {
+        position: absolute;
+        display: block !important;
+        height: 100%;
+        -o-object-fit: cover;
+        object-fit: cover;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 30%;
+    }
+    .new__content {
+        position: absolute;
+        width: 68% !important;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
+}
