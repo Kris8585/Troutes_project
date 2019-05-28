@@ -14,9 +14,7 @@ export class SecureComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.logUser = this._loginService.getCurrentUser();
-    debugger;
   }
 
   callLogOut() {
