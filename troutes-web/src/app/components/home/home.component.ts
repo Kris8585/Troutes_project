@@ -31,12 +31,13 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit() {
-    //  this._loginService.isUser("g")
+   //  this._loginService.isUser("bUiIHukfgmh87QwS62EPmS0a9Qu2", null);
     setTimeout(() => {
       this.user = this._loginService.getCurrentUser();
+     
       if (!this.user) {
         this._loginService.singOut();
-        // console.log(this._loginService.getUserBd());
+       
       }
     }, 1000);
 

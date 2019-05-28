@@ -49,8 +49,15 @@ export class LoginService {
   isUser(userId: string, val) {
 
     this._dataInformationService.getUserById(userId).subscribe((result) => {
-      this.isUserBd = result[0].userId;
 
+      try {
+        this.isUserBd = result[0].userId;
+
+      } catch (error) {
+        this.isUserBd = "null";
+      }
+
+      console.log(this.isUserBd);
       this.runDowm(val, userId);
     });
 
@@ -60,7 +67,6 @@ export class LoginService {
   getUserBd() {
     return this.isUserBd;
   }
-
 
   setCurrentObject(user: UserType) {
     this.currentUser = user;
@@ -93,14 +99,12 @@ export class LoginService {
   }
   checkCurrentUserRole(role: string) {
     return this.currentUser && this.currentUser.role.includes(role);
-
   }
-
-
 
   getCurrentUserRole() {
     return this.currentUser.role;
   }
+
   recovery(email: string) {
     this._angularFireAuth.auth.sendPasswordResetEmail(email)
       .then(() => this._snotifyService.success('Se ha enviado un correo para restaurar su cuenta', 'Excelente'))
@@ -110,17 +114,20 @@ export class LoginService {
   goTo() {
     this._router.navigateByUrl('/public/home')
   }
+  
+  loginFacebook(){
+
+  }
+
 
   loginGoogle() {
 
     this._angularFireAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then((value) => {
 
       if (this._angularFireAuth.auth.currentUser) {
-        debugger
+
         let checkUserId = value.user.uid;
         this.isUser(checkUserId, value);
-        // if (this.getUserBd() == "") {
-        // this.runDowm(value, checkUserId);
         this._ngZone.run(() => { this.goTo(); });
       }
     }).catch((error) => {
@@ -131,7 +138,7 @@ export class LoginService {
 
   }
   private runDowm(value: auth.UserCredential, checkUserId: string) {
-    if (this.isUserBd == null) {
+    if (this.getUserBd() == "null") {
       const user: UserType = {
         'userId': value.user.uid,
         'name': value.user.displayName,
@@ -139,7 +146,7 @@ export class LoginService {
         'description': "",
         'email': value.user.email,
         'role': 'Viewer',
-        'profile_photo': ""
+        'profile_photo': value.user.photoURL
       };
       this.setCurrentObject(user);
       this._angularFirestore.collection<UserType>('users').add(user);

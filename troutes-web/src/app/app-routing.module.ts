@@ -32,7 +32,7 @@ const routes: Routes = [
       { path: 'news/:newId', component: NewsComponent }
     ]
   },
-
+ 
   {
     path: 'account', component: AccountComponent, children: [
       { path: 'login', component: LoginComponent },
