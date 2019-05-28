@@ -25,10 +25,16 @@ export class HomeComponent implements OnInit {
   }
   
   ngOnInit() {
+  //  this._loginService.isUser("g")
     setTimeout(() => {
       this.user = this._loginService.getCurrentUser();
-       if(!this.user){this._loginService.singOut();}
+       if(!this.user){this._loginService.singOut();
+       // console.log(this._loginService.getUserBd());
+      }
     }, 1000);
+  
+
+  
 
        
   

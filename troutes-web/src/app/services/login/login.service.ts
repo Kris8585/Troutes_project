@@ -6,6 +6,7 @@ import { DataInformationService } from '../data-information/data-information.ser
 import { SnotifyService } from 'ng-snotify';
 import { auth } from 'firebase/app';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { filter } from 'rxjs/operators';
 
 
 @Injectable({
@@ -16,6 +17,9 @@ export class LoginService {
 
   currentUser: UserType;
   userSuscription: Subscription;
+  userIdSuscription: Subscription;
+  userCheck$: Observable<UserType[]>;
+  isUserBd: string;
 
 
   constructor(private _angularFireAuth: AngularFireAuth,
@@ -33,6 +37,30 @@ export class LoginService {
         this.currentUser = siteUsers[0];
       });
   }
+
+  setCurrenUserId(userId: string) {
+    this.userIdSuscription = this._dataInformationService.getUserById(userId).subscribe(
+      (siteUsers) => {
+        this.currentUser = siteUsers[0];
+      });
+
+  }
+
+  isUser(userId: string,val){
+        
+    this._dataInformationService.getUserById(userId).subscribe((result) => {
+    this.isUserBd = result[0].userId;
+
+    this.runDowm(val, userId);
+    });
+
+
+ }
+
+   getUserBd(){
+    return this.isUserBd;
+  }
+ 
 
   setCurrentObject(user: UserType) {
     this.currentUser = user;
@@ -64,7 +92,10 @@ export class LoginService {
   }
   checkCurrentUserRole(role: string) {
     return this.currentUser && this.currentUser.role.includes(role);
+
   }
+
+  
 
   getCurrentUserRole() {
     return this.currentUser.role;
@@ -82,19 +113,13 @@ export class LoginService {
   loginGoogle() {
 
     this._angularFireAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then((value) => {
-      if (this._angularFireAuth.auth.currentUser) {
 
-        const user: UserType = {
-          'userId': value.user.uid,
-          'name': value.user.displayName,
-          'nationality': null,
-          'description': null,
-          'email': value.user.email,
-          'role': 'Viewer',
-          'profile_photo': null
-        }
-        this.setCurrentObject(user);
-        this._angularFirestore.collection<UserType>('users').add(user);
+      if (this._angularFireAuth.auth.currentUser) {
+        debugger
+        let checkUserId = value.user.uid;
+        this.isUser(checkUserId,value);
+        // if (this.getUserBd() == "") {
+        // this.runDowm(value, checkUserId);
         this._ngZone.run(() => { this.goTo(); });
       }
     }).catch((error) => {
@@ -104,6 +129,22 @@ export class LoginService {
     });
 
   }
-
-
+  private runDowm(value: auth.UserCredential, checkUserId: string) {
+    if (this.isUserBd == null) {
+      const user: UserType = {
+        'userId': value.user.uid,
+        'name': value.user.displayName,
+        'nationality': "",
+        'description': "",
+        'email': value.user.email,
+        'role': 'Viewer',
+        'profile_photo': ""
+      };
+      this.setCurrentObject(user);
+      this._angularFirestore.collection<UserType>('users').add(user);
+    }
+    else {
+      this.setCurrenUserId(checkUserId);
+    }
+  }
 }

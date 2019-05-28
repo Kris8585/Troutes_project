@@ -6,5 +6,5 @@ type UserType = {
     description: string;
     email: string;
     role:string;
-    profile_photo:string[];
+    profile_photo:string;
 }
