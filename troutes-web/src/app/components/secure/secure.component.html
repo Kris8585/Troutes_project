@@ -19,17 +19,18 @@
                     </div>
                 </div>
                 <ul class="nav nav-tabs dashboard__options d-block ">
-                    <li class="nav-item "><a class="nav-link" routerLinkActive="active" [routerLink]="[ '/public/home']">Home</a></li>
+                    <li class="nav-item "><a class="nav-link" routerLinkActive="active" (click)="goToHome()">Home</a></li>
                     <li class="nav-item "><a class="nav-link" routerLinkActive="active" [routerLink]="[ '/secure/profile']">Perfil</a></li>
-                    <li class="nav-item "><a class="nav-link" *ngIf="logUser.role==='Editor'" routerLinkActive="active" [routerLink]="[ '/secure/attraction-editor']">Atractivos Control</a></li>
-                    <li class="nav-item "><a class="nav-link" *ngIf="logUser.role==='Admin'" routerLinkActive="active" [routerLink]="[ '/secure/news-admin']">Noticias Control</a></li>
-                    <li class="nav-item "><a class="nav-link" *ngIf="logUser.role==='Admin'" routerLinkActive="active" [routerLink]="[ '/attraction-list']">Asignacion atractivos</a></li>
-                    <li class="nav-item "><a class="nav-link" routerLinkActive="active" (click)="callLogOut() ">LogOut</a></li>
+                    <li class="nav-item "><a class="nav-link" routerLinkActive="active" [routerLink]="[ '/secure/attraction-editor']">Atractivos Control</a></li>
+                    <li class="nav-item "><a class="nav-link" routerLinkActive="active" [routerLink]="[ '/secure/news-admin']">Noticias Control</a></li>
+
+                    <li class="nav-item "><a class="nav-link" (click)="callLogOut() ">LogOut</a></li>
                 </ul>
             </div>
         </nav>
         <div class="col-md-9 col-sm-12 col-lg-9 px-4 ">
-            <router-outlet></router-outlet>
+            <router-outlet>
+            </router-outlet>
         </div>
     </div>
 </div>
