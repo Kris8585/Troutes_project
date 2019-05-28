@@ -1,17 +1,18 @@
 <nav class="navbar navbar-toggleable-sm navbar-expand-lg  navbar-light bg-light">
-    <a class="navbar-brand" [routerLink]="['/secure/home']">Trunca Routes</a>
+    <a class="navbar-brand" [routerLink]="['/public/home']">Trunca Routes</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="mr-auto"></div>
         <div class="navbar-nav">
-            <a class="nav-item nav-link active" routerLinkActive="active" [routerLink]="['/secure/home']">Home<span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" routerLinkActive="active" [routerLink]="['/secure/atractivos']">Servicios</a>
-            <a class="nav-item nav-link" routerLinkActive="active" [routerLink]="['/aboutUs']">Quienes Somos</a>
-            <a class="nav-item nav-link" routerLinkActive="active" [routerLink]="['/contacto']">Contacto</a>
-            <!-- <a class="nav-item nav-link" routerLinkActive="active" [routerLink]="['/secure/control/noticia-control']" *ngIf="_login.isLogged() &&  RolUser() == 0">Mantenimiento Noticias</a> -->
+            <a class="nav-item nav-link" routerLinkActive="active" [routerLink]="['/public/home']">Home</a>
+            <a class="nav-item nav-link" routerLinkActive="active" [routerLink]="['/public/service']">Servicios</a>
+            <a class="nav-item nav-link" routerLinkActive="active" [routerLink]="['/public/about-us']">Quienes Somos</a>
+            <a class="nav-item nav-link" routerLinkActive="active" [routerLink]="['/public/contact']">Contacto</a>
             <a class="nav-item nav-link" routerLinkActive="active" [routerLink]="['/account/login']">Inciar Sesion</a>
+            <!-- <a class="nav-item nav-link" routerLinkActive="active" [routerLink]="['/secure/control/noticia-control']" *ngIf="_login.isLogged() &&  RolUser() == 0">Mantenimiento Noticias</a> -->
+
         </div>
     </div>
 </nav>

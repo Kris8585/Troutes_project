@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.formGroupSession.valid) {
-      this._loginService.login(this.formGroupSession.value.email, this.formGroupSession.value.password);
+      this._loginService.login(this.formGroupSession.value.email_session, this.formGroupSession.value.password_session);
     } else {
       this._snotifyService.warning('Correo o contraseña incorrectos', 'Atención');
     }
@@ -47,22 +47,22 @@ export class LoginComponent implements OnInit {
 
   initLoginForm = () => {
     this.formGroupSession = this._formBuilderSession.group({
-      email: ["", [Validators.required]],
-      password: ["", [Validators.required, Validators.minLength(4)]]
+      email_session: ["", [Validators.required]],
+      password_session: ["", [Validators.required, Validators.minLength(4)]]
     });
   }
 
   initRegisterForm = () => {
     this.formGroupRegister = this._formBuilderRegister.group({
-      fullName: ["", [Validators.required]],
-      email: ["", [Validators.required]],
-      password: ["", [Validators.required, Validators.minLength(4)]]
+      fullName_register: ["", [Validators.required]],
+      email_register: ["", [Validators.required]],
+      password_register: ["", [Validators.required, Validators.minLength(4)]]
     });
   }
 
   initResetPassword = () => {
     this.formGroupResetPassword = this._formBuilderResetPassword.group({
-      email: ["", [Validators.required]],
+      email_reset: ["", [Validators.required]],
     });
   }
 
@@ -77,7 +77,7 @@ export class LoginComponent implements OnInit {
  
   resetPassword = () => {
     if(this.formGroupResetPassword.valid){
-      this._loginService.recovery(this.formGroupResetPassword.value.email);
+      this._loginService.recovery(this.formGroupResetPassword.value.email_reset);
     }else{
       this._snotifyService.warning('Debe especificar un correo vailido', 'Atención'); 
    

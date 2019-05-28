@@ -1,18 +1,18 @@
 <div>
     <p>User</p>
-    <h1>{{user.name}}</h1>
+    <h1 *ngIf="user">{{user.name}}</h1>
 </div>
-<div>
 
 
 
-    <nav class="nav flex-column align-bottom">
-        <a class="nav-link text-center" [routerLink]="['/secure','details', 'attraction-admin']">About us</a>
-    </nav>
+
+<nav class="nav flex-column align-bottom">
+    <a class="nav-link text-center" [routerLink]="['/secure','attraction-editor']">Editar sitios</a>
+</nav>
 
 
 
-    <!-- <nav class="nav flex-column align-bottom">
+<!-- <nav class="nav flex-column align-bottom">
     <a class="nav-link text-center" [routerLink]="['/secure', 'news-admin','1']">About us</a>
 </nav> -->
 
@@ -23,7 +23,7 @@
 
 
 
-    <!-- <main>
+<!-- <main>
     <section class="carousel__view">
         <div class="container-fluid d-flex justify-content-center">
             <div class="row">

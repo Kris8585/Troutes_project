@@ -42,9 +42,9 @@ const routes: Routes = [
   {
     path: 'secure', component: SecureComponent, canActivate: [AuthenticationGuard], children: [
       
-      { path: 'details/attraction-admin', component: AttractionAdminComponent, canActivate: [AuthorizationGuard], data: { role: 'Editor' }}, 
+      { path: 'attraction-editor', component: AttractionAdminComponent, canActivate: [AuthorizationGuard], data: { role: 'Editor' }}, 
       { path: 'news-admin', component: NewsAdminComponent, canActivate: [AuthorizationGuard], data: { role: 'Admin' } }, 
-      { path: 'profile/:userId', component: ProfileComponent },
+      { path: 'profile', component: ProfileComponent },
       {path: 'assing-editor', component: AssingEditorComponent, canActivate: [AuthorizationGuard], data: { role: 'Admin' }}
     ]
   },
