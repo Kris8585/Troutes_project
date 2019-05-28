@@ -29,8 +29,9 @@ export class LoginService {
     private _angularFirestore: AngularFirestore,
     private _ngZone: NgZone) { }
 
-
-
+//--------------------------------------------------------------------
+//--------------------------Current user------------------------------
+//--------------------------------------------------------------------
   setCurrentUser(email: string) {
     this.userSuscription = this._dataInformationService.getUserByEmail(email).subscribe(
       (siteUsers) => {
@@ -43,8 +44,19 @@ export class LoginService {
       (siteUsers) => {
         this.currentUser = siteUsers[0];
       });
-
   }
+
+  setCurrentObject(user: UserType) {
+    this.currentUser = user;
+  }
+
+  getCurrentUser() {
+    return this.currentUser;
+  }
+
+//--------------------------------------------------------------------
+//-------------------------User Exist---------------------------------
+//--------------------------------------------------------------------
 
   isUser(userId: string, val) {
 
@@ -68,14 +80,11 @@ export class LoginService {
     return this.isUserBd;
   }
 
-  setCurrentObject(user: UserType) {
-    this.currentUser = user;
-  }
+//--------------------------------------------------------------------
+//----------------------------Login-----------------------------------
+//--------------------------------------------------------------------
 
-  getCurrentUser() {
-    return this.currentUser;
-  }
-
+ 
   login(email: string, password: string) {
 
     this._angularFireAuth.auth.signInWithEmailAndPassword(email, password).then((value) => {
@@ -91,12 +100,18 @@ export class LoginService {
     this.currentUser = null;
     this._angularFireAuth.auth.signOut();
     this._router.navigateByUrl('/account/login');
+    this.isUserBd = "";
   }
 
   singOut() {
     this.currentUser = null;
     this._angularFireAuth.auth.signOut();
+    this.isUserBd = "";
   }
+
+//--------------------------------------------------------------------
+//-----------------------Current User Role----------------------------
+//--------------------------------------------------------------------
   checkCurrentUserRole(role: string) {
     return this.currentUser && this.currentUser.role.includes(role);
   }
@@ -105,24 +120,31 @@ export class LoginService {
     return this.currentUser.role;
   }
 
+//--------------------------------------------------------------------
+//---------------------------Recovery---------------------------------
+//--------------------------------------------------------------------
+
   recovery(email: string) {
     this._angularFireAuth.auth.sendPasswordResetEmail(email)
       .then(() => this._snotifyService.success('Se ha enviado un correo para restaurar su cuenta', 'Excelente'))
       .catch((error) => this._snotifyService.warning('Se ha presentado el siguiente error: ' + error, 'Atención'))
   }
 
+  
+//--------------------------------------------------------------------
+//---------------------------Navigation-------------------------------
+//--------------------------------------------------------------------
   goTo() {
     this._router.navigateByUrl('/public/home')
   }
+
   
+//--------------------------------------------------------------------
+//--------------------------LogIn Social------------------------------
+//--------------------------------------------------------------------
   loginFacebook(){
+     this._angularFireAuth.auth.signInWithPopup(new auth.FacebookAuthProvider()).then((value) => {
 
-  }
-
-
-  loginGoogle() {
-
-    this._angularFireAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then((value) => {
 
       if (this._angularFireAuth.auth.currentUser) {
 
@@ -137,6 +159,28 @@ export class LoginService {
     });
 
   }
+
+  loginGoogle() {
+
+    this._angularFireAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then((value) => {
+
+
+      if (this._angularFireAuth.auth.currentUser) {
+
+        let checkUserId = value.user.uid;
+        this.isUser(checkUserId, value);
+        this._ngZone.run(() => { this.goTo(); });
+      }
+    }).catch((error) => {
+
+      this._snotifyService.warning('No se ha podido iniciar sesión', 'Atención');
+
+    });
+
+
+
+  }
+
   private runDowm(value: auth.UserCredential, checkUserId: string) {
     if (this.getUserBd() == "null") {
       const user: UserType = {
@@ -155,4 +199,5 @@ export class LoginService {
       this.setCurrenUserId(checkUserId);
     }
   }
+
 }

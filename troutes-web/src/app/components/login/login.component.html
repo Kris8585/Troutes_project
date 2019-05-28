@@ -24,12 +24,12 @@
                                 <button type="submit" class="btn btn-secondary mx-auto" [ngClass]="{'disabled': !formGroupSession.valid}" (click)="login()">Login</button>
                             </form>
                             <hr>
-                            <a class="btn btn-block btn-social btn-google " (click)="_loginService.loginGoogle()">
+                            <button class="btn btn-block btn-social btn-google " (click)="_loginService.loginGoogle()">
                                 <span class="fa fa-google"></span> GOOGLE
-                            </a>
-                            <a class="btn btn-block btn-social btn-facebook ">
-                                <span class="fa fa-facebook"></span> FACEBOOK
-                            </a>
+                            </button>
+                            <button class="btn btn-block btn-social btn-facebook " (click)="_loginService.loginFacebook()">
+                                <span class="fa fa-facebook" ></span> FACEBOOK
+                            </button>
                         </div>
 
 
