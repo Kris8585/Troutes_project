@@ -1,23 +1,26 @@
 type TouristAttractionsType = {
-id:string;
+    id: string;
     attractionId: string;
     name: string;
     description: string;
-    images:{
-        imgId:number;
-        imgUrl:string;
-    };
-    location:string;
+    images: [{
+        id: number;
+        imageUrl: string;
+    }
+    ];
+
+
+    location: string;
     videUrl: string;
-    schedule: {
+    schedule: [{
         schId: number;
         day: string;
         startTime: string;
         endTime: string;
-    };
-    editorId:string;
-    active:string;
-    creationDate:string;
+    }];
+    editorId: string;
+    active: string;
+    creationDate: string;
     modifyDate: string;
 
 } 

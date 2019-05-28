@@ -14,37 +14,44 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
- 
+  newsSubscription: Subscription;
+  newId: string;
+  attractions$: Observable<any>;
+  editor$: Observable<any>;
   user: UserType;
-
- 
-
+  isDataLoaded: boolean = false;
   constructor(private _router: Router,
-              private _loginService: LoginService) {
-
+    private _dataInformationService: DataInformationService,
+    private _loginService: LoginService) {
+    this.attractions$ = _dataInformationService.getAllAttractions();
+    this.editor$ = _dataInformationService.getUserByRole('Editor');
+    //debugger
   }
-  
+
+
+
   ngOnInit() {
-  //  this._loginService.isUser("g")
+    //  this._loginService.isUser("g")
     setTimeout(() => {
       this.user = this._loginService.getCurrentUser();
-       if(!this.user){this._loginService.singOut();
-       // console.log(this._loginService.getUserBd());
+      if (!this.user) {
+        this._loginService.singOut();
+        // console.log(this._loginService.getUserBd());
       }
     }, 1000);
-  
 
-  
 
-       
-  
+
+
+
+
   }
 
   seePlace(namePlace: string) {
     // console.log(indice);
     //debugger;
-    this._router.navigate(['secure/atractivo/', namePlace]);
+    this._router.navigate(['public/details/', namePlace]);
   }
-  
+
 
 }

@@ -1,30 +1,15 @@
-<div>
-    <p>User</p>
-    <h1 *ngIf="user">{{user.name}}</h1>
-    <h1 *ngIf="user">{{user.role}}</h1>
-</div>
+<section class="test__section">
+    <div>
+        <p>User</p>
+        <h1 *ngIf="user">{{user.name}}</h1>
+        <h1 *ngIf="user">{{user.role}}</h1>
+    </div>
+    <nav class="nav flex-column align-bottom">
+        <a class="nav-link text-center" [routerLink]="['/secure','attraction-editor']">Editar sitios</a>
+    </nav>
+</section>
 
-
-
-
-<nav class="nav flex-column align-bottom">
-    <a class="nav-link text-center" [routerLink]="['/secure','attraction-editor']">Editar sitios</a>
-</nav>
-
-
-
-<!-- <nav class="nav flex-column align-bottom">
-    <a class="nav-link text-center" [routerLink]="['/secure', 'news-admin','1']">About us</a>
-</nav> -->
-
-
-
-
-
-
-
-
-<!-- <main>
+<main>
     <section class="carousel__view">
         <div class="container-fluid d-flex justify-content-center">
             <div class="row">
@@ -44,9 +29,12 @@
                     <div class="row">
                         <div class="col-md-2 col-sm-12 place__general" *ngFor="let place of attractions$|async|slice:0:10; let i=index">
                             <div class="place__tile card bg-dark border-secondary text-primary text-center" (click)="seePlace(place.name)">
-                                <ng-container *ngFor="let image of place.images|slice:0">
-                                    <img [src]="image.imgUrl" class="card-img" alt="...">
+                                <ng-container *ngIf="place.images[0].imageUrl==='' || place.images[0].imageUrl===null; else elseTemplate">
+                                    <img src="../../../assets/images/no-image.jpg" class="card-img" alt="...">
                                 </ng-container>
+                                <ng-template #elseTemplate>
+                                    <img [src]="place.images[0].imageUrl" class="card-img" alt="...">
+                                </ng-template>
                                 <div class="card-img-overlay">
                                     <h6 class="card-title">{{place.name}}</h6>
                                 </div>
@@ -55,7 +43,7 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-primary places__all" [routerLink]="['/secure/atractivos']">Ver Atractivos</button>
+            <button class="btn btn-primary places__all" [routerLink]="['/public/attraction-list']">Ver Atractivos</button>
         </div>
     </section>
-</main> -->
+</main>

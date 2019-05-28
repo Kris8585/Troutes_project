@@ -46,21 +46,21 @@ export class LoginService {
 
   }
 
-  isUser(userId: string,val){
-        
-    this._dataInformationService.getUserById(userId).subscribe((result) => {
-    this.isUserBd = result[0].userId;
+  isUser(userId: string, val) {
 
-    this.runDowm(val, userId);
+    this._dataInformationService.getUserById(userId).subscribe((result) => {
+      this.isUserBd = result[0].userId;
+
+      this.runDowm(val, userId);
     });
 
 
- }
+  }
 
-   getUserBd(){
+  getUserBd() {
     return this.isUserBd;
   }
- 
+
 
   setCurrentObject(user: UserType) {
     this.currentUser = user;
@@ -74,7 +74,8 @@ export class LoginService {
 
     this._angularFireAuth.auth.signInWithEmailAndPassword(email, password).then((value) => {
       this.setCurrentUser(email);
-      this._router.navigateByUrl('/public/home');
+      this._snotifyService.success('Session Iniciada', 'Atención');
+      this._router.navigateByUrl('public/home');
     }).catch((error) => {
       this._snotifyService.warning('No se ha podido iniciar sesión', 'Atención');
     });
@@ -95,7 +96,7 @@ export class LoginService {
 
   }
 
-  
+
 
   getCurrentUserRole() {
     return this.currentUser.role;
@@ -117,7 +118,7 @@ export class LoginService {
       if (this._angularFireAuth.auth.currentUser) {
         debugger
         let checkUserId = value.user.uid;
-        this.isUser(checkUserId,value);
+        this.isUser(checkUserId, value);
         // if (this.getUserBd() == "") {
         // this.runDowm(value, checkUserId);
         this._ngZone.run(() => { this.goTo(); });

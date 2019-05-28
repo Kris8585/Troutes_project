@@ -1,0 +1,26 @@
+<section class="search__section">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 mx-auto w-100 p-5 search__col1 text-center">
+                <h1 class="search__title  d-inline ">Buscar</h1>
+                <input class="search__search" type="text" name="txtBuscar" [(ngModel)]="filtro" placeholder="Ingrese nombre de sitio">
+            </div>
+        </div>
+    </div>
+</section>
+<section class="places__list">
+    <div class="container-fluid">
+        <div class="row">
+            <ng-container *ngFor="let attractive of attractivesList$|async; let i=index">
+                <div class="place__tile col-sm-12 col-md-3" *ngIf="attractive.active">
+                    <div class="card place__card bg-primary text-white text-center" (click)="seePlace(attractive.name)">
+                        <img class="card-img-top" [src]="attractive.images[0].imageUrl" alt="{{attractive.name}}">
+                        <div class="card-body">
+                            <p class="card-title place__name">{{attractive.name}}</p>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</section>

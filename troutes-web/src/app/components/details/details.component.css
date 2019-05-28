@@ -1,0 +1,87 @@
+.section__header {
+    position: relative;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.header__follow {
+    position: absolute;
+    left: 63%;
+    top: 20px;
+}
+
+.close__open__badge {
+    width: 89px;
+    height: 40px;
+    padding-top: 0.9em;
+    font-size: 17px;
+}
+
+.header__active__schedule {
+    background-color: green;
+    color: white;
+}
+
+.header__schedule {
+    margin-right: 0.5em;
+}
+
+.section__media {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.media_card:hover {
+    border: 2px solid gray;
+    border-radius: 50px;
+    /* box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.2), 0 20px 40px 0 rgba(0, 0, 0, 0.19); */
+    box-shadow: 0 20px 20px 0 rgba(116, 114, 114, 0.2), 0 20px 40px 0 rgba(116, 114, 114, 0.19);
+}
+
+.media_card {
+    margin-top: 5px;
+    margin-bottom: 20px !important;
+}
+
+.media_card img {
+    object-fit: fill;
+    width: 100%;
+    border-radius: calc(0 - 1px);
+    height: 200px;
+}
+
+.images_cards {
+    overflow: hidden;
+    overflow-y: scroll;
+    height: 100%;
+}
+
+.media__video {
+    box-shadow: 0 20px 20px 0 rgba(116, 114, 114, 0.2), 0 20px 40px 0 rgba(116, 114, 114, 0.19);
+}
+
+.iVideo {
+    height: 500px;
+    width: 90%;
+}
+
+@media (max-width: 575.98px) {
+    .header__schedule {
+        margin-right: 0;
+        padding: 0;
+    }
+    .iVideo {
+        height: 300px;
+        width: 97%;
+    }
+    .header__follow {
+        top: 170px;
+        left: 0;
+        display: inline;
+    }
+    .header__follow button {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    .section__header .container-fluid .row div:last-child {
+        margin-top: 28px !important;
+    }
+}

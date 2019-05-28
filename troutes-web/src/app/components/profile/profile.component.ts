@@ -9,21 +9,21 @@ import { DataInformationService } from 'src/app/services/data-information/data-i
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-user$: Observable<any>;
-userId: string;
+  user$: Observable<any>;
+  userId: string;
 
-  constructor(private _activatedRoute:ActivatedRoute, private _dataInformationService: DataInformationService) {
-  this.showProfileUser();
-    
-   }
+  constructor(private _activatedRoute: ActivatedRoute, private _dataInformationService: DataInformationService) {
+    //this.showProfileUser();
+
+  }
 
   ngOnInit() {
- }
+  }
 
-  showProfileUser()
+  /* showProfileUser()
   {
     this.userId = this._activatedRoute.snapshot.params['userId'];
     this.user$ = this._dataInformationService.getUserById(this.userId);
-  }
+  } */
 
 }

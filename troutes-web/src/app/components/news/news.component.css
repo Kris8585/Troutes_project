@@ -1,0 +1,16 @@
+.news__content {
+    margin-top: -8vh;
+}
+
+.news__description {
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-bottom: 6rem;
+    margin-top: 2em;
+}
+
+.search__col1 {
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}

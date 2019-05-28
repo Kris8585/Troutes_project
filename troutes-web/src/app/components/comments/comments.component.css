@@ -1,0 +1,29 @@
+.card:hover .card-header {
+    border: 1px solid black;
+    background-color: white;
+    color: black;
+}
+
+.card-header {
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.card-header button {
+    margin-right: 9px;
+}
+
+.comments__header {
+    border-bottom: 2px solid black;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.wContenedor {
+    margin-bottom: 20px;
+    border-bottom: 2px solid black;
+}
+
+.no__comments {
+    font-weight: bold;
+}

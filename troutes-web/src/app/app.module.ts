@@ -38,9 +38,13 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { LightboxModule } from 'ngx-lightbox';
 import { CarrouselComponent } from './components/carrousel/carrousel.component';
+import { NewsComponent } from './components/news/news.component';
+import { AttractionListComponent } from './components/attraction-list/attraction-list.component';
+import { CommentsComponent } from './components/comments/comments.component';
+import { RatingComponent } from './components/rating/rating.component';
+import { DomSecurityPipe } from './pipes/domSecurity/dom-security.pipe';
 import { PublicComponent } from './components/public/public.component';
 import { AssingEditorComponent } from './components/assing-editor/assing-editor.component';
-
 
 
 @NgModule({
@@ -62,6 +66,11 @@ import { AssingEditorComponent } from './components/assing-editor/assing-editor.
     NewsAdminComponent,
     AttractionAdminComponent,
     CarrouselComponent,
+    NewsComponent,
+    AttractionListComponent,
+    CommentsComponent,
+    RatingComponent,
+    DomSecurityPipe,
     PublicComponent,
     AssingEditorComponent
   ],

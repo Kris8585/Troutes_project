@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     private _snotifyService: SnotifyService) {
 
     this.initForms();
-    
+
   }
 
   login() {
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this._loginService.singOut();
   }
-   
+
   //Creado Cris
   initForms() {
     this.initLoginForm();
@@ -74,13 +74,13 @@ export class LoginComponent implements OnInit {
     }
   }
 
- 
+
   resetPassword = () => {
-    if(this.formGroupResetPassword.valid){
+    if (this.formGroupResetPassword.valid) {
       this._loginService.recovery(this.formGroupResetPassword.value.email_reset);
-    }else{
-      this._snotifyService.warning('Debe especificar un correo vailido', 'Atención'); 
-   
+    } else {
+      this._snotifyService.warning('Debe especificar un correo vailido', 'Atención');
+
     }
   }
 
