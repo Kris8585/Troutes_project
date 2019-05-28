@@ -21,6 +21,6 @@ export class CarrouselComponent implements OnInit {
 
   seeNew(newId: number) {
     // console.log(indice);
-    this._router.navigate(['secure/news/', newId]);
+    this._router.navigate(['public/news/', newId]);
   }
 }

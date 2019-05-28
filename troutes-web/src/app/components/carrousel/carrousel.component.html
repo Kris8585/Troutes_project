@@ -6,7 +6,7 @@
             </div>
             <div class="col-sm-12 col-md-8 carousel__view">
                 <carousel id="idCarousel" class="cover carousel__setter">
-                    <slide *ngFor="let new of news$|async | slice:0:6; let i=index" (click)="seeNew(new.id)">
+                    <slide *ngFor="let new of news$|async | slice:0:6; let i=index" (click)="seeNew(new.newsId)">
                         <img class="img-fluid carousel__imagen" [src]="new.image" alt="First slide">
                         <div class="carousel-caption  carouselTexto">
                             <h3 class="text-white">{{new.tittle}}</h3>

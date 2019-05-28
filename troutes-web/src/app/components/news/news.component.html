@@ -3,13 +3,13 @@
 <div class="container-fluid news__content">
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
-            <p class="badge badge-primary  font-weight-bold text-right">{{news.modifyDate}}</p>
+            <p class="badge badge-primary  font-weight-bold text-right" *ngIf="news">{{news.modifyDate}}</p>
         </div>
-        <div class="col-sm-12 col-md-12 col-lg-12 text-center">
+        <div class="col-sm-12 col-md-12 col-lg-12 text-center" *ngIf="news">
             <h1>{{news.tittle}}</h1>
             <h6>{{news.postTittle}}</h6>
         </div>
-        <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="col-sm-12 col-md-12 col-lg-12" *ngIf="news">
             <p class="text-primary news__description">{{news.description}}</p>
         </div>
     </div>

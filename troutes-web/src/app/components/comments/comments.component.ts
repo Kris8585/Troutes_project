@@ -41,7 +41,7 @@ export class CommentsComponent implements OnInit {
    */
   comments: CommentaryType[];
   comments$: Observable<any>;
-  paramSuscription: Subscription;
+  //paramSuscription: Subscription;
   commentsSuscription: Subscription;
   isCommentsLoaded: boolean = false;
   /**
@@ -95,7 +95,7 @@ export class CommentsComponent implements OnInit {
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
-    this.paramSuscription.unsubscribe();
+    //this.paramSuscription.unsubscribe();
     this.commentsSuscription.unsubscribe();
   }
   loadCurrentUser(): UserType {
@@ -106,13 +106,7 @@ export class CommentsComponent implements OnInit {
     return tempUser;
   }
   loadCommnents() {
-    //debugger
-    /*  this.commentsSuscription = this._dataInformationService.getCommentByAttractionId(this.attractiveId).subscribe((elements) => {
-       elements.forEach(element => {
-         debugger
-         this.attractiveComments.push(element);
-       });
-     }) */
+
     this.commentsSuscription = this._dataInformationService.getAllComments().subscribe(
       (elements) => {
         elements.forEach(comment => {
@@ -122,12 +116,6 @@ export class CommentsComponent implements OnInit {
         this.puntajeMedioEmit();
         this.iniciarComentario();
       });
-    /*  this.commentsSuscription = this._dataInformationService.getAllAttractions().subscribe((atracttion) => {
-       atracttion.forEach(element => {
-         console.log("Llamado desde comentario :" + element.name);
-       });
-     }) */
-    // this.comments$ = this._dataInformationService.getCommentByAttractionId(this.attractiveId);
   }
 
   pageChanged(event: PageChangedEvent): void {
@@ -285,6 +273,7 @@ export class CommentsComponent implements OnInit {
     );
 
   }
+
   unsubscribe() {
     this.subscriptions.forEach((subscription: Subscription) => {
       subscription.unsubscribe();

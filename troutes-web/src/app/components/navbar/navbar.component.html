@@ -8,8 +8,8 @@
         <div class="navbar-nav">
             <a class="nav-item nav-link active" routerLinkActive="active" [routerLink]="['/public/home']">Home<span class="sr-only">(current)</span></a>
             <a class="nav-item nav-link" routerLinkActive="active" [routerLink]="['/public/attraction-list']">Servicios</a>
-            <a class="nav-item nav-link" routerLinkActive="active" [routerLink]="['/public/aboutUs']">Quienes Somos</a>
-            <a class="nav-item nav-link" routerLinkActive="active" [routerLink]="['/public/contacto']">Contacto</a>
+            <a class="nav-item nav-link" routerLinkActive="active" [routerLink]="['/public/about-us']">Quienes Somos</a>
+            <a class="nav-item nav-link" routerLinkActive="active" [routerLink]="['/public/contact']">Contacto</a>
             <!-- <a class="nav-item nav-link" routerLinkActive="active" [routerLink]="['/secure/control/noticia-control']" *ngIf="_login.isLogged() &&  RolUser() == 0">Mantenimiento Noticias</a> -->
             <a class="nav-item nav-link" routerLinkActive="active" [routerLink]="['/account/login']" *ngIf="!currentUser">Inciar Sesion</a>
             <a class="nav-item nav-link" routerLinkActive="active" [routerLink]="['/secure/profile']" *ngIf="currentUser">Mi Perfil</a>

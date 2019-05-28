@@ -50,10 +50,7 @@ export class DetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-
-
     this.loadAttrative();
-
   }
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
