@@ -34,20 +34,9 @@ export class LoginComponent implements OnInit {
     //this.initForm();
   }
 
-  login() {
-    if (this.formGroup.valid) {
-      this._loginService.login(this.formGroup.value.email, this.formGroup.value.password);
-    } else {
-      this._snotifyService.warning('Correo o contraseña incorrectos', 'Atención');
-    }
-  }
 
-  /* initForm = () => {
-    this.formGroup = this._formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
-    });
-  } */
+
+
   ngOnInit() {
   }
 
@@ -60,32 +49,32 @@ export class LoginComponent implements OnInit {
 
   initLoginForm = () => {
     this.formGroupSession = this.formBuilderSession.group({
-      email: ["", [Validators.required]],
-      password: ["", [Validators.required, Validators.minLength(4)]]
+      email_session: ["", [Validators.required]],
+      password_session: ["", [Validators.required, Validators.minLength(4)]]
     });
   }
 
   initRegisterForm = () => {
     this.formGroupRegister = this.formBuilderRegister.group({
-      fullName: ["", [Validators.required]],
-      email: ["", [Validators.required]],
-      password: ["", [Validators.required, Validators.minLength(4)]]
+      fullName_register: ["", [Validators.required]],
+      email_register: ["", [Validators.required]],
+      password_register: ["", [Validators.required, Validators.minLength(4)]]
     });
   }
 
   initResetPassword = () => {
     this.formGroupResetPassword = this.formBuilderResetPassword.group({
-      email: ["", [Validators.required]],
+      email_reset: ["", [Validators.required]],
     });
   }
 
-  /* login() {
+  login() {
     if (this.formGroupSession.valid) {
-      //this._loginService.login(this.formGroup.value.email,this.formGroup.value.password);
+      this._loginService.login(this.formGroupSession.value.email_session, this.formGroupSession.value.password_session);
     } else {
-      //this.snotifyService.warning('Correo o contraseña incorrectos', 'Atención'); 
+      this._snotifyService.warning('Correo o contraseña incorrectos', 'Atención');
     }
-  } */
+  }
 
   register() {
     if (this.formGroupRegister.valid) {

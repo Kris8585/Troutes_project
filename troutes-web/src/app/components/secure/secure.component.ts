@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'app-secure',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SecureComponent implements OnInit {
 
-  constructor() { }
+  logUser: UserType;
+  constructor(
+    private _loginService: LoginService
+  ) { }
 
   ngOnInit() {
+
+    this.logUser = this._loginService.getCurrentUser();
+    debugger;
   }
 
+  callLogOut() {
+    this._loginService.logout();
+  }
 }

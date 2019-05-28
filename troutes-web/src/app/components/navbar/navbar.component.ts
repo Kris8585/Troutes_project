@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'app-navbar',
@@ -6,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
-  constructor() { }
+  currentUser: UserType;
+  constructor(
+    private _loginService: LoginService
+  ) { }
 
   ngOnInit() {
+    setTimeout(() => {
+      this.currentUser = this._loginService.getCurrentUser();
+    }, 1000);
+
   }
 
 }
