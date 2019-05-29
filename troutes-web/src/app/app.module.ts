@@ -45,7 +45,7 @@ import { RatingComponent } from './components/rating/rating.component';
 import { DomSecurityPipe } from './pipes/domSecurity/dom-security.pipe';
 import { PublicComponent } from './components/public/public.component';
 import { AssingEditorComponent } from './components/assing-editor/assing-editor.component';
-
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 @NgModule({
   declarations: [
@@ -83,6 +83,7 @@ import { AssingEditorComponent } from './components/assing-editor/assing-editor.
     AngularFireAuthModule,
     ReactiveFormsModule,
     FormsModule,
+    AngularFontAwesomeModule,
     LightboxModule,
     SnotifyModule.forRoot(),
     CarouselModule.forRoot(),

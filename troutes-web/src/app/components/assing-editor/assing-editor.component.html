@@ -1,3 +1,57 @@
 <p>
-  assing-editor works!
+    assing-editor works!
 </p>
+<section class="attraction__table">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="tblTabla table-responsive">
+                    <table class="table table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col-2">#</th>
+                                <th scope="col-4">Atractivo</th>
+                                <th scope="col-4">Editor</th>
+                                <th scope="col-2">Accion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let attraction of attractionList$|async; let i=index" [ngClass]="{'table-success': attraction.active, 'table-danger':!attraction.active}">
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{attraction.name}}</td>
+                                <td>{{getEditorName(attraction.editorId)}}</td>
+                                <td>
+                                    <button type="button" class="btn btn-info btnAccion" (click)="editEditorAttraction(attraction,AttrEditorMaintenance)"><fa name="edit"></fa> Modificar</button>
+                                    <!--  <button type="button" class="btn btn-success btnAccion" (click)="visitarAtractivo(attraction)" *ngIf="attraction.active"><fa name="eye"></fa> Visitar</button> -->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<ng-template #AttrEditorMaintenance>
+    <div class="modal-header">
+        <h5 class="modal-title pull-left">Modal title</h5>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+        <p>Modal body text goes here.</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+</ng-template>
+
+<ng-template #deleteAttraction>
+    <div class="modal-body text-center">
+        <p>Desea Eliminar?</p>
+        <button type="button" class="btn btn-default" (click)="confirm()">Yes</button>
+        <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+    </div>
+</ng-template>

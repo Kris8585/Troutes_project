@@ -19,7 +19,7 @@ type TouristAttractionsType = {
         endTime: string;
     }];
     editorId: string;
-    active: string;
+    active: boolean;
     creationDate: string;
     modifyDate: string;
 

@@ -1,3 +1,60 @@
-<p>
-  news-admin works!
-</p>
+<h1>Noticas Control</h1>
+<div class="main__container">
+    <section class="news__section">
+        <div class="container-fluid">
+            <div class="row">
+                <a class="btn btn-primary btnNew__news">Nuevo</a>
+            </div>
+        </div>
+    </section>
+    <section class="news__list">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 news__card" *ngFor="let new of newsList$|async; let i=index">
+                    <div class="card mb-3" style="max-width: 100%;">
+                        <div class="row no-gutters">
+                            <div class="col-md-3">
+                                <img [src]="new.image" class="card-img news__image" alt="..." *ngIf="new.image">
+                                <img [src]="new.image" class="card-img news__image" alt="..." *ngIf="!new.image">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{new.tittle}}</h5>
+                                    <p class="card-text">{{new.description}}.</p>
+                                    <p class="card-text"><small class="text-muted">{{new.modifyDate}}</small></p>
+                                </div>
+                            </div>
+                            <div class="col-md-2 d-inline news__actions">
+                                <a class="btn btn-info actions action__edit" (click)="editNew(new,newsMaintenance)">Editar</a>
+                                <a class="btn btn-warning mt-5 actions action__delete" (click)="deleteNew(new,newsMaintenance)"> Eliminar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<ng-template #newsMaintenance>
+    <div class="modal-header">
+        <h5 class="modal-title pull-left">Modal title</h5>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+        <p>Modal body text goes here.</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+</ng-template>
+
+<ng-template #deleteNews>
+    <div class="modal-body text-center">
+        <p>Desea Eliminar?</p>
+        <button type="button" class="btn btn-default" (click)="confirm()">Yes</button>
+        <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+    </div>
+</ng-template>

@@ -45,10 +45,14 @@ const routes: Routes = [
     // canActivate: [AuthenticationGuard],
     path: 'secure', component: SecureComponent, children: [
 
-      { path: 'attraction-editor', component: AttractionAdminComponent, canActivate: [AuthorizationGuard], data: { role: 'Editor' } },
+      { path: 'attraction-editor', component: AttractionAdminComponent },
+      { path: 'news-admin', component: NewsAdminComponent },
+      { path: 'profile', component: ProfileComponent },
+      { path: 'assing-editor', component: AssingEditorComponent }
+      /* { path: 'attraction-editor', component: AttractionAdminComponent, canActivate: [AuthorizationGuard], data: { role: 'Editor' } },
       { path: 'news-admin', component: NewsAdminComponent, canActivate: [AuthorizationGuard], data: { role: 'Admin' } },
       { path: 'profile', component: ProfileComponent },
-      { path: 'assing-editor', component: AssingEditorComponent, canActivate: [AuthorizationGuard], data: { role: 'Admin' } }
+      { path: 'assing-editor', component: AssingEditorComponent, canActivate: [AuthorizationGuard], data: { role: 'Admin' } } */
     ]
   },
   { path: '**', pathMatch: 'full', redirectTo: 'public/home' }

@@ -1,12 +1,13 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataInformationService } from 'src/app/services/data-information/data-information.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SnotifyService } from 'ng-snotify';
 import { LoginService } from 'src/app/services/login/login.service';
 import { AngularFireStorage } from "@angular/fire/storage";
 import { finalize } from "rxjs/operators";
+
 import { RegisterService } from 'src/app/services/register/register.service';
 @Component({
   selector: 'app-profile',
@@ -15,25 +16,32 @@ import { RegisterService } from 'src/app/services/register/register.service';
 })
 export class ProfileComponent implements OnInit {
   userLog: UserType;
-
+  followAttraction: TouristAttractionsType[] = [];
+  commentsDone$: Observable<CommentaryType[]>;
   userId: string;
+
   isUpdateInit: boolean = false;
   isLoadingImage = false;
   public formGroupSession: FormGroup;
 
   uploadPercent: Observable<number>;
   urlImage: Observable<string>;
+  attractionSubscription: Subscription;
   @ViewChild('imgUserInput') inputImageUser: ElementRef;
 
-  constructor(private _activatedRoute: ActivatedRoute,
+  constructor(private _router: Router,
+    private _activatedRoute: ActivatedRoute,
     private _registerService: RegisterService,
     private _loginService: LoginService,
     private _fireStorage: AngularFireStorage,
+    private _dataInformationService: DataInformationService,
     private _snotifyService: SnotifyService,
     private _formBuilderSession: FormBuilder) {
     this.initUserForm();
     this.userLog = this._loginService.getCurrentUser();
     this.resetUser();
+    this.getFollowPlaces();
+    this.getDoneComments();
 
   }
 
@@ -90,6 +98,8 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+
+
   onUpload(event) {
     this.isLoadingImage = true;
     const id = Math.random().toString(36).substring(2);
@@ -112,6 +122,30 @@ export class ProfileComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+
+
+  getFollowPlaces() {
+    this._dataInformationService.getFollowedSites('bUiIHukfgmh87QwS62EPmS0a9Qu2').subscribe((followSites) => {
+      followSites.forEach(site => {
+        this._dataInformationService.getAtractionById(site.attractionId).subscribe((attractions) => {
+          attractions.forEach(attr => {
+            console.log(attr)
+            this.followAttraction.push(attr);
+          });
+        });
+      });
+    });
+  }
+
+  getDoneComments() {
+    this.commentsDone$ = this._dataInformationService.getCommentByUserId('bUiIHukfgmh87QwS62EPmS0a9Qu2');
+  }
+
+
+  seePlace(namePlace: string) {
+    this._router.navigate(['public/details/', namePlace]);
   }
 
 
