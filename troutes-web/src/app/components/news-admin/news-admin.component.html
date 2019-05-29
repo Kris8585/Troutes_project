@@ -46,7 +46,7 @@
         <p>Modal body text goes here.</p>
         <form [formGroup]="formGroupNews" id="formGroupNews" class="row ">
             <div class="form-group col-4 d-block">
-                <img class="profile__image" [src]="acctionMantenance.image" *ngIf="acctionMantenance && !urlImage|async" alt="">
+                <img class="profile__image" [src]="acctionMantenance.image" *ngIf="acctionMantenance" alt="">
                 <img class="profile__image" [src]="urlImage|async" alt="" *ngIf="urlImage|async">
                 <hr>
                 <input type="text" #imgNewsInput class="form-control" formControlName="image" id="image" [value]='urlImage|async'>

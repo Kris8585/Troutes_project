@@ -112,7 +112,7 @@ export class NewsAdminComponent implements OnInit {
   newNews() {
     if (this.formGroupNews.valid) {
       const newNews: NewsType = {
-        'id': '',
+        'id': '1',
         'newsId': '',
         'tittle': this.formGroupNews.value.title,
         'postTittle': this.formGroupNews.value.postTitle,
