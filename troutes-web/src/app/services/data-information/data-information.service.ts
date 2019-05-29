@@ -29,6 +29,19 @@ export class DataInformationService {
   getNewsById(newId: string): Observable<NewsType[]> {
     return this._angularFirestore.collection<NewsType>('news', ref => ref.where('newsId', '==', newId)).valueChanges();
   }
+
+  saveNews(news: NewsType) {
+    if (news.newsId && news.newsId != '') {
+      this._angularFirestore.collection<TouristAttractionsType>('attractions').doc(news.newsId).update(news);
+    } else {
+      news.newsId = this._angularFirestore.createId();
+      this._angularFirestore.collection<TouristAttractionsType>('attractions').doc(news.newsId).set(news);
+    }
+    return news.newsId;
+  }
+  deleteNew(news: NewsType) {
+    this._angularFirestore.collection<TouristAttractionsType>('news').doc(news.newsId).delete();
+  }
   //--------------------------Attractions-------------------------
   getAllAttractions(): Observable<TouristAttractionsType[]> {
     return this._angularFirestore.collection<TouristAttractionsType>('attractions').valueChanges();
@@ -41,6 +54,18 @@ export class DataInformationService {
   }
   getAtractionByEditorId(editorId: string): Observable<TouristAttractionsType[]> {
     return this._angularFirestore.collection<TouristAttractionsType>('attractions', ref => ref.where('editorId', '==', editorId)).valueChanges();
+  }
+  saveAttractive(attractive: TouristAttractionsType) {
+    if (attractive.attractionId && attractive.attractionId != '') {
+      this._angularFirestore.collection<TouristAttractionsType>('attractions').doc(attractive.attractionId).update(attractive);
+    } else {
+      attractive.attractionId = this._angularFirestore.createId();
+      this._angularFirestore.collection<TouristAttractionsType>('attractions').doc(attractive.attractionId).set(attractive);
+    }
+    return attractive.attractionId;
+  }
+  deleteAttractive(attractive: TouristAttractionsType) {
+    this._angularFirestore.collection<TouristAttractionsType>('attractions').doc(attractive.attractionId).delete();
   }
 
   //---------------------------Followers---------------------------

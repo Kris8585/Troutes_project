@@ -33,10 +33,10 @@ export class RegisterService {
 
   setUpdateUser(user: UserType): string {
     if (user.userId && user.userId != '') {
-      this._angularFirestore.collection<UserType>('users').doc(user.userId).set(user);
+      this._angularFirestore.collection<UserType>('users').doc(user.userId).update(user);
     } else {
       user.userId = this._angularFirestore.createId();
-      this._angularFirestore.collection<UserType>('users').add(user);
+      this._angularFirestore.collection<UserType>('users').doc(user.userId).set(user);
     }
     return user.userId;
   }
