@@ -1,15 +1,11 @@
 <h1>Editor Noticas</h1>
 <div class="main__container">
-    <section class="attraction__section">
-        <div class="container-fluid">
-            <div class="row">
-                <a class="btn btn-primary btnAttraction__attraction">Nuevo</a>
-            </div>
-        </div>
-    </section>
     <section class="attractions__list">
         <div class="container-fluid">
-            <div class="row">
+            <!-- <div class="row">
+                <div class="col-12" *ngIf="attractionList$|async">
+                    <h1>No tienes sitios asignados</h1>
+                </div>
                 <div class="col-12 attractions__card" *ngFor="let attraction of attractionList$|async; let i=index">
                     <div class="card mb-3" style="max-width: 100%;">
                         <div class="row no-gutters">
@@ -31,6 +27,30 @@
                         </div>
                     </div>
                 </div>
+            </div> -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="tblTabla table-responsive">
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col-2">#</th>
+                                    <th scope="col-4">Atractivo</th>
+                                    <th scope="col-2">Accion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let attraction of attractionList$|async; let i=index" [ngClass]="{'table-success': attraction.active, 'table-danger':!attraction.active}">
+                                    <th scope="row">{{i+1}}</th>
+                                    <td>{{attraction.name}}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-info btnAccion" (click)="editAttraction(attraction,attractiveMaintenance)"><fa name="edit"></fa> Editar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -44,18 +64,47 @@
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()"><span aria-hidden="true">&times;</span></button>
     </div>
     <div class="modal-body">
-        <p>Modal body text goes here.</p>
+        <form [formGroup]="formGroupAttractive" id="formGroupAttractive" class="row ">
+            <div class="form-group col-12 ">
+                <label for="name">Nombre Atractivo</label>
+                <input type="text" class="form-control" formControlName="name" id="name" placeholder="Nombre del Atractivo" [attr.disabled]="acctionMantenance==1">
+                <div *ngIf="formGroupAttractive.controls[ 'name'].dirty ">
+                    <div class="form-control-feedback text-danger " *ngIf="formGroupAttractive.controls[ 'name'].errors?.required ">
+                        El Nombre del Atractivo es requerido
+                    </div>
+                    <div class="form-control-feedback text-danger " *ngIf="formGroupAttractive.controls[ 'name'].errors?.minlength ">
+                        El Nombre del Atractivo debe ser de al menos 5 caracteres
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-12 ">
+                <label for="description">Detalle</label>
+                <input type="text" class="form-control" formControlName="description" id="description" placeholder="Descripcion">
+                <div *ngIf="formGroupAttractive.controls[ 'description'].dirty ">
+                    <div class="form-control-feedback text-danger " *ngIf="formGroupAttractive.controls[ 'description'].errors?.required ">
+                        El Nombre del Atractivo es requerido
+                    </div>
+                    <div class="form-control-feedback text-danger " *ngIf="formGroupAttractive.controls[ 'description'].errors?.minlength ">
+                        El Nombre del Atractivo debe ser de al menos 5 caracteres
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-12 ">
+                <label for="videUrl">Video</label>
+                <input type="text" class="form-control" formControlName="videUrl" id="videUrl" placeholder="Descripcion">
+            </div>
+            <div class="form-group col-12 ">
+                <label for="images">Video</label>
+                <input type="text" class="form-control" formControlName="images" id="images" placeholder="Imagenes">
+            </div>
+            <div class="form-group col-12 ">
+                <label for="schedule">Horario</label>
+                <input type="text" class="form-control" formControlName="schedule" id="schedule" placeholder="Horario">
+            </div>
+        </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-    </div>
-</ng-template>
-
-<ng-template #deleteAtracttive>
-    <div class="modal-body text-center">
-        <p>Desea Eliminar?</p>
-        <button type="button" class="btn btn-default" (click)="confirm()">Yes</button>
-        <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+        <button type="button" class="btn btn-primary" (click)="editAttractive()">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="decline()">Close</button>
     </div>
 </ng-template>

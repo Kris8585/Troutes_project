@@ -32,15 +32,15 @@ export class DataInformationService {
 
   saveNews(news: NewsType) {
     if (news.newsId && news.newsId != '') {
-      this._angularFirestore.collection<TouristAttractionsType>('attractions').doc(news.newsId).update(news);
+      this._angularFirestore.collection<NewsType>('news').doc(news.newsId).update(news);
     } else {
       news.newsId = this._angularFirestore.createId();
-      this._angularFirestore.collection<TouristAttractionsType>('attractions').doc(news.newsId).set(news);
+      this._angularFirestore.collection<NewsType>('news').doc(news.newsId).set(news);
     }
     return news.newsId;
   }
   deleteNew(news: NewsType) {
-    this._angularFirestore.collection<TouristAttractionsType>('news').doc(news.newsId).delete();
+    this._angularFirestore.collection<NewsType>('news').doc(news.newsId).delete();
   }
   //--------------------------Attractions-------------------------
   getAllAttractions(): Observable<TouristAttractionsType[]> {
@@ -90,8 +90,8 @@ export class DataInformationService {
     return this._angularFirestore.collection<CommentaryType>('comments', ref => ref.where('attractionId', '==', attractionId)).valueChanges();
   }
   //---------------------------Services---------------------------
-  getAllServices(): Observable<ServiceType[]>{
-     return this._angularFirestore.collection<ServiceType>('services').valueChanges();
+  getAllServices(): Observable<ServiceType[]> {
+    return this._angularFirestore.collection<ServiceType>('services').valueChanges();
   }
 
 }

@@ -85,9 +85,9 @@ export class NewsAdminComponent implements OnInit {
       title: ['', [Validators.required, Validators.minLength(5)]],
       postTitle: ['', [Validators.required, Validators.minLength(5)]],
       description: ['', [Validators.required, Validators.minLength(15)]],
-      image: ['', [Validators.required]],
-      creationDate: ['', [Validators.required]],
-      modifyDate: ['', [Validators.required]]
+      image: [''],
+      creationDate: [''],
+      modifyDate: ['']
     })
   }
   newsMantenance() {
@@ -110,6 +110,7 @@ export class NewsAdminComponent implements OnInit {
   }
   ///Funciones de accion de Crud
   newNews() {
+    this.formGroupNews.value.image = 'https://firebasestorage.googleapis.com/v0/b/troutes-c1ba9.appspot.com/o/uploads%2Fnews%2Fnews_b9hn5eff0en?alt=media&token=60a645da-0efc-4742-8cc5-f65b638f3425';
     if (this.formGroupNews.valid) {
       const newNews: NewsType = {
         'id': '1',
@@ -117,10 +118,11 @@ export class NewsAdminComponent implements OnInit {
         'tittle': this.formGroupNews.value.title,
         'postTittle': this.formGroupNews.value.postTitle,
         'description': this.formGroupNews.value.description,
-        'image': this.inputImageNews.nativeElement.value,
+        'image': '',
         'creationDate': new Date().toString(),
         'modifyDate': new Date().toString(),
       }
+      newNews.image = 'https://firebasestorage.googleapis.com/v0/b/troutes-c1ba9.appspot.com/o/uploads%2Fnews%2Fnews_b9hn5eff0en?alt=media&token=60a645da-0efc-4742-8cc5-f65b638f3425';
       let newId = this._dataService.saveNews(newNews);
       this.decline();
       //Llmar misma ruta
@@ -137,7 +139,7 @@ export class NewsAdminComponent implements OnInit {
         'tittle': this.formGroupNews.value.title,
         'postTittle': this.formGroupNews.value.postTitle,
         'description': this.formGroupNews.value.description,
-        'image': this.formGroupNews.value.description,
+        'image': this.newMantenance.image,
         'creationDate': this.newMantenance.creationDate,
         'modifyDate': new Date().toString(),
       }
