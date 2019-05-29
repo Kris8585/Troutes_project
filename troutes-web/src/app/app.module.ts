@@ -18,12 +18,12 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
+
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 import { RegisterService } from './services/register/register.service';
 import { DataInformationService } from './services/data-information/data-information.service';
 import { ProfileComponent } from './components/profile/profile.component';
-import { RecoveryComponent } from './components/recovery/recovery.component';
+
 import { SecureComponent } from './components/secure/secure.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { ContactComponent } from './components/contact/contact.component';
@@ -45,6 +45,7 @@ import { RatingComponent } from './components/rating/rating.component';
 import { DomSecurityPipe } from './pipes/domSecurity/dom-security.pipe';
 import { PublicComponent } from './components/public/public.component';
 import { AssingEditorComponent } from './components/assing-editor/assing-editor.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 
 @NgModule({
@@ -56,9 +57,7 @@ import { AssingEditorComponent } from './components/assing-editor/assing-editor.
     DetailsComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent,
     ProfileComponent,
-    RecoveryComponent,
     SecureComponent,
     AboutUsComponent,
     ContactComponent,
@@ -88,7 +87,8 @@ import { AssingEditorComponent } from './components/assing-editor/assing-editor.
     CarouselModule.forRoot(),
     ModalModule.forRoot(),
     PaginationModule.forRoot(),
-    RatingModule.forRoot()
+    RatingModule.forRoot(),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
 
   ],
   providers: [AngularFireAuth, LoginService, RegisterService, DataInformationService,
