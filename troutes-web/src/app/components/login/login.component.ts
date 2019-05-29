@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   public formGroupResetPassword: FormGroup;
 
 
-  constructor(public _loginService: LoginService,
+  constructor(private _loginService: LoginService,
     private _formBuilderSession: FormBuilder,
     private _formBuilderRegister: FormBuilder,
     private _formBuilderResetPassword: FormBuilder,

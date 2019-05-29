@@ -8,7 +8,7 @@ import { DataInformationService } from 'src/app/services/data-information/data-i
   styleUrls: ['./news.component.css']
 })
 export class NewsComponent implements OnInit {
-  public jumboStyle: any;
+  private jumboStyle: any;
   //news$: Observable<any>;
   public newsID: string;
   public news: NewsType;

@@ -7,7 +7,7 @@ import { Component, OnInit, Input, SimpleChanges, SimpleChange, Output, EventEmi
 })
 export class RatingComponent implements OnInit {
 
-  public _iScore: number;
+  private _iScore: number;
   //cantidadMarcas: number = 5;
   ratingCount:number=5;
   @Input() iReadOnly: boolean = false;
