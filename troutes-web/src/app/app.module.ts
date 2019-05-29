@@ -45,6 +45,7 @@ import { PublicComponent } from './components/public/public.component';
 import { AssingEditorComponent } from './components/assing-editor/assing-editor.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AngularFireAuthModule,
     ReactiveFormsModule,
     FormsModule,
+    AngularFontAwesomeModule,
     LightboxModule,
     SnotifyModule.forRoot(),
     CarouselModule.forRoot(),

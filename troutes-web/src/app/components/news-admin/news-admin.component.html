@@ -1,3 +1,116 @@
-<p>
-  news-admin works!
-</p>
+<h1>Noticas Control</h1>
+<div class="main__container">
+    <section class="news__section">
+        <div class="container-fluid">
+            <div class="row">
+                <a class="btn btn-primary btnNew__news" (click)="newNewsControl(null,newsMaintenance)">Nuevo</a>
+            </div>
+        </div>
+    </section>
+    <section class="news__list">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 news__card" *ngFor="let new of newsList$|async; let i=index">
+                    <div class="card mb-3" style="max-width: 100%;">
+                        <div class="row no-gutters">
+                            <div class="col-md-3">
+                                <img [src]="new.image" class="card-img news__image" alt="..." *ngIf="new.image">
+                                <img [src]="new.image" class="card-img news__image" alt="..." *ngIf="!new.image">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{new.tittle}}</h5>
+                                    <p class="card-text">{{new.description}}.</p>
+                                    <p class="card-text"><small class="text-muted">{{new.modifyDate}}</small></p>
+                                </div>
+                            </div>
+                            <div class="col-md-2 d-inline news__actions">
+                                <a class="btn btn-info actions action__edit" (click)="editNewsControl(new,newsMaintenance)">Editar</a>
+                                <a class="btn btn-danger mt-5 actions action__delete" (click)="deleteNewsControl(new,deleteNews)"> Eliminar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<ng-template #newsMaintenance>
+    <div class="modal-header">
+        <h5 class="modal-title pull-left">Modal title</h5>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+        <p>Modal body text goes here.</p>
+        <form [formGroup]="formGroupNews" id="formGroupNews" class="row ">
+            <div class="form-group col-4 d-block">
+                <img class="profile__image" [src]="acctionMantenance.image" *ngIf="acctionMantenance && !urlImage|async" alt="">
+                <img class="profile__image" [src]="urlImage|async" alt="" *ngIf="urlImage|async">
+                <hr>
+                <input type="text" #imgNewsInput class="form-control" formControlName="image" id="image" [value]='urlImage|async'>
+                <ng-container>
+                    <div class="custom-file">
+                        <input type="file" accept=".png, .jpg" (change)="onUpload($event)" class="custom-file-input" id="custom-file" [readonly]='!isUpdateInit'>
+                        <label class="custom-file-label" for="custom-file">Choose file</label>
+                    </div>
+                    <br>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped" role="progressbar" [style.width]="(uploadPercent|async)+'%'"></div>
+                    </div>
+                </ng-container>
+            </div>
+            <div class="form-group col-12 ">
+                <label for="title">Titulo Noticia</label>
+                <input type="text" class="form-control" formControlName="title" id="title" placeholder="Titulo noticia">
+                <div *ngIf="formGroupNews.controls['title'].dirty ">
+                    <div class="form-control-feedback text-danger " *ngIf="formGroupNews.controls['title'].errors?.required ">
+                        El titulo de la noticia es requerido
+                    </div>
+                    <div class="form-control-feedback text-danger " *ngIf="formGroupNews.controls['title'].errors?.minlength ">
+                        El titulo de la noticia debe ser de al menos 5 caracteres
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-12 ">
+                <label for="postTitle">Post-Titulo</label>
+                <input type="text" class="form-control" formControlName="postTitle" id="postTitle" placeholder="PostTitulo noticia">
+                <div *ngIf="formGroupNews.controls['postTitle'].dirty ">
+                    <div class="form-control-feedback text-danger " *ngIf="formGroupNews.controls['postTitle'].errors?.required ">
+                        El Nombre del Atractivo es requerido
+                    </div>
+                    <div class="form-control-feedback text-danger " *ngIf="formGroupNews.controls['postTitle'].errors?.minlength ">
+                        El Nombre del Atractivo debe ser de al menos 5 caracteres
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-12 ">
+                <label for="description">Descripcion de noticia</label>
+                <input type="text" class="form-control" formControlName="description" id="description" placeholder="Descripcion de noticia">
+                <div *ngIf="formGroupNews.controls['description'].dirty ">
+                    <div class="form-control-feedback text-danger" *ngIf="formGroupNews.controls['description'].errors?.required ">
+                        La descripcion de la noticia es requerido
+                    </div>
+                    <div class="form-control-feedback text-danger" *ngIf="formGroupNews.controls['description'].errors?.minlength ">
+                        La descripcion de la noticia debe ser de al menos 5 caracteres
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-info" (click)="newsMantenance()" [ngClass]="{'disabled':!formGroupNews.valid}">Guardar</button>
+        <!--   <button type="button" class="btn btn-primary" (click)="newsMaintenance()">Guardar</button> -->
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="decline()">Cerrar</button>
+    </div>
+</ng-template>
+
+<ng-template #deleteNews>
+    <div class="modal-body text-center">
+        <p>Desea Eliminar?</p>
+        <button type="button" class="btn btn-default" (click)="appyDelete()">Yes</button>
+        <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+    </div>
+</ng-template>

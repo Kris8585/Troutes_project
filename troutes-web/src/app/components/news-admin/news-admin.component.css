@@ -1,0 +1,39 @@
+.main__container {
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.news__image {
+    width: 180px;
+    height: auto;
+    object-fit: fill;
+}
+
+.news__actions {
+    position: relative;
+}
+
+.actions {
+    position: relative;
+}
+
+.action__delete {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.action__edit {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.profile__image {
+    width: 250px;
+    height: 250px;
+    border-radius: 100%;
+    object-fit: cover;
+}

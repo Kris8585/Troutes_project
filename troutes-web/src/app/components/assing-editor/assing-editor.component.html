@@ -1,3 +1,90 @@
-<p>
-  assing-editor works!
-</p>
+<h2>Atractivo Control</h2>
+<section class="section__guardarEvent">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <button type="button" class="btn btn-info btnAccion" (click)="newEditorAttractive(null,AttrEditorMaintenance)"><fa name="edit"></fa> Crear Nuevo</button>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="attraction__table">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="tblTabla table-responsive">
+                    <table class="table table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col-2">#</th>
+                                <th scope="col-4">Atractivo</th>
+                                <th scope="col-4">Editor</th>
+                                <th scope="col-2">Accion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let attraction of attractionList$|async; let i=index" [ngClass]="{'table-success': attraction.active, 'table-danger':!attraction.active}">
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{attraction.name}}</td>
+                                <td>{{getEditorName(attraction.editorId)}}</td>
+                                <td>
+                                    <button type="button" class="btn btn-info btnAccion" (click)="editEditorAttraction(attraction,AttrEditorMaintenance)"><fa name="edit"></fa> Modificar</button>
+                                    <button type="button" class="btn btn-warning btnAccion" (click)="deleteEditorAttractive(attraction,deleteAttraction)"><fa name="delete"></fa> Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<ng-template #AttrEditorMaintenance>
+    <div class="modal-header">
+        <h5 class="modal-title pull-left">Modal title</h5>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="formGroupAttractive" id="formGroupAttractive" class="row ">
+            <div class="form-group col-12 custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" formControlName="attractiveActive" id="attractiveActive" [attr.disabled]="acctionMantenance==0">
+                <label class="custom-control-label" for="attractiveActive">Activa Atractivo</label>
+            </div>
+            <div class="form-group col-12 ">
+                <label for="attractiveName">Nombre Atractivo</label>
+                <input type="text" class="form-control" formControlName="attractiveName" id="attractiveName" placeholder="Nombre del Atractivo" [attr.disabled]="acctionMantenance==1">
+                <div *ngIf="formGroupAttractive.controls[ 'attractiveName'].dirty ">
+                    <div class="form-control-feedback text-danger " *ngIf="formGroupAttractive.controls[ 'attractiveName'].errors?.required ">
+                        El Nombre del Atractivo es requerido
+                    </div>
+                    <div class="form-control-feedback text-danger " *ngIf="formGroupAttractive.controls[ 'attractiveName'].errors?.minlength ">
+                        El Nombre del Atractivo debe ser de al menos 5 caracteres
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-12">
+                <label for="attractiveEditorId">Editor</label>
+                <select class="form-control" formControlName="attractiveEditorId" id="attractiveEditorId" required>
+                        <option value="" disabled>Seleccion un editor</option>
+                      <ng-container *ngFor="let editor of editorsList; let i=index">
+                          <option value="{{editor.userId}}"  ng-selected="attractionMantenance.userId=editor.userId">{{editor.name}}</option>
+                      </ng-container>
+                  </select>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="attractiveMaintenance()">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="decline()">Close</button>
+    </div>
+</ng-template>
+
+<ng-template #deleteAttraction>
+    <div class="modal-body text-center">
+        <p>Desea Eliminar?</p>
+        <button type="button" class="btn btn-default" (click)="appyDelete()">Yes</button>
+        <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+    </div>
+</ng-template>

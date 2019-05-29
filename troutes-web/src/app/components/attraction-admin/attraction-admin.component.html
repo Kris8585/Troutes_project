@@ -1,1 +1,61 @@
-<p>attraction-admin</p>
+<h1>Editor Noticas</h1>
+<div class="main__container">
+    <section class="attraction__section">
+        <div class="container-fluid">
+            <div class="row">
+                <a class="btn btn-primary btnAttraction__attraction">Nuevo</a>
+            </div>
+        </div>
+    </section>
+    <section class="attractions__list">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 attractions__card" *ngFor="let attraction of attractionList$|async; let i=index">
+                    <div class="card mb-3" style="max-width: 100%;">
+                        <div class="row no-gutters">
+                            <div class="col-md-3">
+                                <img [src]="attraction.images[0].imageUrl" class="card-img news__image" alt="..." *ngIf="attraction.images[0].imageUrl">
+                                <img [src]="attraction.images[0].imageUrl" class="card-img news__image" alt="..." *ngIf="!attraction.images[0].imageUrl">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{attraction.name}}</h5>
+                                    <p class="card-text">{{attraction.description}}.</p>
+                                    <p class="card-text"><small class="text-muted">{{attraction.modifyDate}}</small></p>
+                                </div>
+                            </div>
+                            <div class="col-md-2 d-inline attractions__actions">
+                                <a class="btn btn-info actions action__edit" (click)="editAttraction(attraction,attractiveMaintenance)">Editar</a>
+                                <a class="btn btn-warning mt-5 actions action__delete" (click)="deleteAttraction(attraction,attractiveMaintenance)"> Eliminar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+<ng-template #attractiveMaintenance>
+    <div class="modal-header">
+        <h5 class="modal-title pull-left">Modal title</h5>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+        <p>Modal body text goes here.</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+</ng-template>
+
+<ng-template #deleteAtracttive>
+    <div class="modal-body text-center">
+        <p>Desea Eliminar?</p>
+        <button type="button" class="btn btn-default" (click)="confirm()">Yes</button>
+        <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+    </div>
+</ng-template>
