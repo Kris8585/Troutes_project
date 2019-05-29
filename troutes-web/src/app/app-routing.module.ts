@@ -3,10 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { AccountComponent } from './components/account/account.component';
-import { RegisterComponent } from './components/register/register.component';
 import { SecureComponent } from './components/secure/secure.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
-import { RecoveryComponent } from './components/recovery/recovery.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { ServiceComponent } from './components/service/service.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -35,11 +33,8 @@ const routes: Routes = [
  
   {
     path: 'account', component: AccountComponent, children: [
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
-      { path: 'recovery', component: RecoveryComponent },
-
-    ]
+      { path: 'login', component: LoginComponent }
+   ]
   },
   {
     path: 'secure', component: SecureComponent, canActivate: [AuthenticationGuard], children: [
