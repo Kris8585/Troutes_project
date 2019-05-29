@@ -1,0 +1,21 @@
+.card {
+    margin-top: 12px;
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+.title__style {
+    font-size: 40px;
+    font-family: joschmi, sans-serif !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+}
+
+.size-font {
+    font-size: 40px;
+}
+
+.list-group-item {
+    font-size: 20px;
+}

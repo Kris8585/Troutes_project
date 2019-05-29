@@ -1,52 +1,50 @@
-/* You can add global styles to this file, and also import other style files */
-
-
-/*  @import "~bootstrap/dist/css/bootstrap.min.css";*/
-
 @import "~bootswatch/dist/lux/bootstrap.min.css";
 @import "~ng-snotify/styles/material";
-
-/* html,
-body {
-    height: 100%;
+.font-style__Joschmi {
+    font-family: joschmi, sans-serif !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
 }
 
-.text-black {
-    color: black;
+.font-style__xants_regular {
+    font-family: xants, sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
-.bg-account {
-    background-color: indigo;
+.font-style__CarlMarx_bold {
+    font-family: carlmarx, sans-serif;
+    font-weight: 700;
+    font-style: normal;
 }
 
-.flex-fill {
-    flex: 1;
+.font-style__CarlMarx_regular {
+    font-family: carlmarx, sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
-.height-65 {
-    height: 65%;
+.font-style__sarina_regular {
+    font-family: sarina, sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
-.mt-15 {
-    margin-top: 10%;
+.font-style__alegreya_italic {
+    font-family: alegreya, serif;
+    font-weight: 700;
+    font-style: italic;
 }
 
-.height-99 {
-    height: 99.5%!important;
+.section__title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20vh;
+    font-size: 70px;
+    align-content: center;
 }
 
-.border-solid {
-    border-style: solid;
+.content__style {
+    height: 50vh;
 }
-
-.border-dashed {
-    border-style: dashed;
-}
-
-.fa-10x {
-    font-size: 10em !important;
-}
-
-.h-90 {
-    height: 90% !important;
-} */

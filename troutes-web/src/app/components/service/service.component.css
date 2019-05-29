@@ -1,0 +1,31 @@
+.card__style {
+    margin-top: 1px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border: solid #1b1a120c 3px;
+}
+
+.card__style:hover {
+    font-size: 20px;
+    margin-bottom: 10px;
+    border: 3px solid rgb(63, 62, 62) !important;
+    box-shadow: 0 20px 20px 0 rgba(3, 3, 3, 0.2), 0 20px 40px 0 rgba(0, 0, 0, 0.19);
+}
+
+.title-size {
+    font-size: 50px;
+    color: rgb(18, 78, 105);
+}
+
+.body-text-size {
+    font-size: 30px;
+}
+
+.date-color {
+    color: orange;
+}
+
+.date-text-size {
+    font-size: 40px;
+}

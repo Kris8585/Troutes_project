@@ -9,7 +9,6 @@ import { DataInformationService } from 'src/app/services/data-information/data-i
 })
 export class NewsComponent implements OnInit {
   public jumboStyle: any;
-  //news$: Observable<any>;
   public newsID: string;
   public news: NewsType;
   paramSuscription: Subscription;
@@ -23,8 +22,6 @@ export class NewsComponent implements OnInit {
 
   }
   ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
     this.paramSuscription.unsubscribe();
     this.newsSuscription.unsubscribe();
   }

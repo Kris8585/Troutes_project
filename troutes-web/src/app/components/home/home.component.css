@@ -97,4 +97,7 @@
         top: -58px;
         padding: 1.25rem;
     }
+    .size-font {
+        font-size: 70px !important;
+    }
 }

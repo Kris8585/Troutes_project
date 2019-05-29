@@ -1,3 +1,31 @@
-<p>
-  service works!
-</p>
+<link rel="stylesheet" href="https://use.typekit.net/qlg2swg.css">
+
+<section class="font-style__xants_regular section__title text-center bg-primary text-white">
+    <p>SERVICIOS</p>
+</section>
+<hr>
+
+<section>
+    <div class="container-fluid">
+        <div class="row no-gutters">
+            <div class="col-md-4" *ngFor="let item of services$ | async">
+                <div class="card card__style">
+                    <img class="card-img-top" src="{{item.image}}" alt="Card image cap">
+                    <div class="card-body">
+                        <p class="card-title font-style__xants_regular  title-size">{{item.title}}</p>
+                        <p class="card-text font-style__alegreya_italic body-text-size ">{{item.description}}</p>
+                        <hr>
+                        <p class="card-text date-text-size date-color ">{{item.date}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+
+
+</section>

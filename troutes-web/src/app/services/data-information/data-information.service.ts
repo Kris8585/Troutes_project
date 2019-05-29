@@ -54,4 +54,9 @@ export class DataInformationService {
   getCommentByAttractionId(attractionId: number): Observable<CommentaryType[]> {
     return this._angularFirestore.collection<CommentaryType>('comments', ref => ref.where('attractionId', '==', attractionId)).valueChanges();
   }
+  //---------------------------Services---------------------------
+  getAllServices(): Observable<ServiceType[]>{
+     return this._angularFirestore.collection<ServiceType>('services').valueChanges();
+  }
+
 }

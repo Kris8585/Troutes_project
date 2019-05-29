@@ -1,5 +1,14 @@
 .footer {
-    height: 26.2vh;
+    height: 30vh;
+}
+
+.margin-s {
+    margin-left: 10px;
+    font-size: 30px;
+}
+
+.color-hr {
+    background-color: antiquewhite !important;
 }
 
 @media (max-width: 600px) {
