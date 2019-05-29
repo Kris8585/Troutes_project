@@ -9,10 +9,28 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.bntEnableEditing {
+    left: 81%;
+    position: relative;
+}
+
+.profile__image {
+    width: 250px;
+    height: 250px;
+    border-radius: 100%;
+    object-fit: cover;
+}
+
 .attractions__follow {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .comments__follow {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.btnUpdate {
+    left: -17%;
+    top: -3px;
+    position: relative;
 }

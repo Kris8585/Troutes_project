@@ -9,10 +9,10 @@ import { SnotifyService } from 'ng-snotify';
 })
 export class RegisterService {
 
-  constructor(private _angularFireAuth: AngularFireAuth, 
-              private _angularFirestore: AngularFirestore, 
-              private _loginService:LoginService,
-              private _snotifyService:SnotifyService) { }
+  constructor(private _angularFireAuth: AngularFireAuth,
+    private _angularFirestore: AngularFirestore,
+    private _loginService: LoginService,
+    private _snotifyService: SnotifyService) { }
 
   saveUser(user: UserType) {
     this._angularFirestore.collection<UserType>('users').add(user);
@@ -24,12 +24,20 @@ export class RegisterService {
       user.userId = result.user.uid;
       this.saveUser(user);
       this._snotifyService.success('El usuario fue registrado correctamente, Bienvenido!', 'Excelente');
-      this._loginService.login(user.email,password);
+      this._loginService.login(user.email, password);
     }).catch((error) => {
       this._snotifyService.warning('No se ha podido registrar el usuario por:' + error, 'Registro de usuarios');
-    }); 
+    });
 
   }
 
-
+  setUpdateUser(user: UserType): string {
+    if (user.userId && user.userId != '') {
+      this._angularFirestore.collection<UserType>('users').doc(user.userId).set(user);
+    } else {
+      user.userId = this._angularFirestore.createId();
+      this._angularFirestore.collection<UserType>('users').add(user);
+    }
+    return user.userId;
+  }
 }
