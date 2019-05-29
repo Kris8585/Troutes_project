@@ -31,7 +31,6 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit() {
-   //  this._loginService.isUser("bUiIHukfgmh87QwS62EPmS0a9Qu2", null);
     setTimeout(() => {
       this.user = this._loginService.getCurrentUser();
      

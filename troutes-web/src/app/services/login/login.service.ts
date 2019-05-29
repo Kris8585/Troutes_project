@@ -155,6 +155,9 @@ export class LoginService {
     }).catch((error) => {
 
       this._snotifyService.warning('No se ha podido iniciar sesión', 'Atención');
+      console.log(error.message);
+      console.log(error);
+      
 
     });
 
@@ -174,12 +177,13 @@ export class LoginService {
     }).catch((error) => {
 
       this._snotifyService.warning('No se ha podido iniciar sesión', 'Atención');
+     
+      
 
     });
 
-
-
   }
+
 
   private runDowm(value: auth.UserCredential, checkUserId: string) {
     if (this.getUserBd() == "null") {
