@@ -47,7 +47,7 @@
                                     <label for="password_register">Contraseña</label>
                                     <input class="form-control" formControlName="password_register" id="password_register" type="password" placeholder="Contraseña">
                                 </div>
-                                <button type="submit" class="btn btn-secondary mx-auto" [ngClass]="{'disabled': !formGroupRegister.valid}" (click)="register()">Login</button>
+                                <button type="submit" class="btn btn-secondary mx-auto" [ngClass]="{'disabled': !formGroupRegister.valid}" (click)="register()">Registrar</button>
                             </form>
                         </div>
                         <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
@@ -56,7 +56,7 @@
                                     <label for="email_reset">Correo</label>
                                     <input class="form-control" formControlName="email_reset" id="email_reset" type="email" placeholder="Correo">
                                 </div>
-                                <button type="submit" class="btn btn-secondary mx-auto" [ngClass]="{'disabled': !formGroupResetPassword.valid}" (click)="resetPassword()">Login</button>
+                                <button type="submit" class="btn btn-secondary mx-auto" [ngClass]="{'disabled': !formGroupResetPassword.valid}" (click)="resetPassword()">Continuar</button>
                             </form>
                         </div>
                     </div>

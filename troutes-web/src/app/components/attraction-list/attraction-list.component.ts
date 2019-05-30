@@ -19,6 +19,16 @@ export class AttractionListComponent implements OnInit {
   ngOnInit() {
   }
 
+
+  searhAttractive = (attr: string) => {
+
+    if(attr){
+      this.attractivesList$ = this._dataInformationService.getAtractionByName(attr);
+    }
+   
+
+  }
+
   seePlace(attractiveName: string) {
     // let tempAtractivo = this.atractivos[index];
     this._router.navigate(['public/details/', attractiveName]);

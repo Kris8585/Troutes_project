@@ -9,6 +9,18 @@
     height: 50px;
 }
 
+.search__button {
+    display: inline-block;
+    position: relative;
+    top: -5px;
+    height: 50px;
+    background: transparent;
+}
+
+.size-font {
+    font-size: 20px;
+}
+
 .places__list {
     margin-top: 7vh;
     margin-left: 6vw;

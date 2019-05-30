@@ -3,6 +3,7 @@ import { LoginService } from 'src/app/services/login/login.service';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SnotifyService } from 'ng-snotify';
+import { RegisterService } from 'src/app/services/register/register.service';
 
 
 @Component({
@@ -20,25 +21,20 @@ export class LoginComponent implements OnInit {
     private _formBuilderSession: FormBuilder,
     private _formBuilderRegister: FormBuilder,
     private _formBuilderResetPassword: FormBuilder,
-    private _snotifyService: SnotifyService) {
+    private _snotifyService: SnotifyService,
+    public _registerService: RegisterService) {
 
     this.initForms();
 
-  }
-
-  login() {
-    if (this.formGroupSession.valid) {
-      this._loginService.login(this.formGroupSession.value.email_session, this.formGroupSession.value.password_session);
-    } else {
-      this._snotifyService.warning('Correo o contraseña incorrectos', 'Atención');
-    }
   }
 
   ngOnInit() {
     this._loginService.singOut();
   }
 
-  //Creado Cris
+  //--------------------------------------------------------------------------------------
+  //---------------------------------------Init Forms------------------------------------
+  //--------------------------------------------------------------------------------------
   initForms() {
     this.initLoginForm();
     this.initRegisterForm();
@@ -60,18 +56,15 @@ export class LoginComponent implements OnInit {
     });
   }
 
+
+  //--------------------------------------------------------------------------------------
+  //------------------------------------Reset Password------------------------------------
+  //--------------------------------------------------------------------------------------
+
   initResetPassword = () => {
     this.formGroupResetPassword = this._formBuilderResetPassword.group({
       email_reset: ["", [Validators.required]],
     });
-  }
-
-  register() {
-    if (this.formGroupRegister.valid) {
-      //this._loginService.login(this.formGroup.value.email,this.formGroup.value.password);
-    } else {
-      //this.snotifyService.warning('Correo o contraseña incorrectos', 'Atención'); 
-    }
   }
 
 
@@ -83,5 +76,38 @@ export class LoginComponent implements OnInit {
 
     }
   }
+
+  //--------------------------------------------------------------------------------------
+  //--------------------------------------Register----------------------------------------
+  //--------------------------------------------------------------------------------------
+  register() {
+    if(this.formGroupRegister.valid){ 
+      const user:UserType={
+        'profile_photo':'',
+        'email':this.formGroupRegister.value.email_register,
+        'name':this.formGroupRegister.value.fullName_register,
+        'role':'Viewer',
+        'userId':null,
+         'nationality':'',
+         'description':'',
+      }
+     this._registerService.register(user,this.formGroupRegister.value.password_register);
+    }else{ 
+      this._snotifyService.warning('Nombre, Correo o contraseña incorrectos', 'No se puede guardar'); 
+    } 
+ }
+
+  //--------------------------------------------------------------------------------------
+  //--------------------------------------Login--------------------------------------------
+  //--------------------------------------------------------------------------------------
+
+  login() {
+    if (this.formGroupSession.valid) {
+      this._loginService.login(this.formGroupSession.value.email_session, this.formGroupSession.value.password_session);
+    } else {
+      this._snotifyService.warning('Correo o contraseña incorrectos', 'Atención');
+    }
+  }
+
 
 }
