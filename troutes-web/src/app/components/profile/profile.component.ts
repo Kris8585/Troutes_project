@@ -111,8 +111,12 @@ export class ProfileComponent implements OnInit {
     task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe(() => {
       this.isLoadingImage = false;
       this.formGroupSession.value.profileImage_session = this.urlImage;
-      this.userLog.profile_photo = this.formGroupSession.value.profileImage_session;
-      console.log('Imagen cargada');
+
+
+        this.userLog.profile_photo = this.formGroupSession.value.profileImage_session;
+   
+      
+
     });
   }
 
