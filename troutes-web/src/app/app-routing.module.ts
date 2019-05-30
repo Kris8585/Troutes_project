@@ -30,24 +30,24 @@ const routes: Routes = [
       { path: 'news/:newId', component: NewsComponent }
     ]
   },
- 
+
   {
     path: 'account', component: AccountComponent, children: [
       { path: 'login', component: LoginComponent }
-   ]
+    ]
   },
   {
-    // canActivate: [AuthenticationGuard],
-    path: 'secure', component: SecureComponent, children: [
+    // 
+    path: 'secure', component: SecureComponent, canActivate: [AuthenticationGuard], children: [
 
-      { path: 'attraction-editor', component: AttractionAdminComponent },
+      /* { path: 'attraction-editor', component: AttractionAdminComponent },
       { path: 'news-admin', component: NewsAdminComponent },
       { path: 'profile', component: ProfileComponent },
-      { path: 'assing-editor', component: AssingEditorComponent }
-      /* { path: 'attraction-editor', component: AttractionAdminComponent, canActivate: [AuthorizationGuard], data: { role: 'Editor' } },
+      { path: 'assing-editor', component: AssingEditorComponent } */
+      { path: 'attraction-editor', component: AttractionAdminComponent, canActivate: [AuthorizationGuard], data: { role: 'Editor' } },
       { path: 'news-admin', component: NewsAdminComponent, canActivate: [AuthorizationGuard], data: { role: 'Admin' } },
       { path: 'profile', component: ProfileComponent },
-      { path: 'assing-editor', component: AssingEditorComponent, canActivate: [AuthorizationGuard], data: { role: 'Admin' } } */
+      { path: 'assing-editor', component: AssingEditorComponent, canActivate: [AuthorizationGuard], data: { role: 'Admin' } }
     ]
   },
   { path: '**', pathMatch: 'full', redirectTo: 'public/home' }

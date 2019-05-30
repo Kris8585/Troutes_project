@@ -1,33 +1,7 @@
-<h1>Editor Noticas</h1>
+<h1>Editor Atractivos</h1>
 <div class="main__container">
     <section class="attractions__list">
         <div class="container-fluid">
-            <!-- <div class="row">
-                <div class="col-12" *ngIf="attractionList$|async">
-                    <h1>No tienes sitios asignados</h1>
-                </div>
-                <div class="col-12 attractions__card" *ngFor="let attraction of attractionList$|async; let i=index">
-                    <div class="card mb-3" style="max-width: 100%;">
-                        <div class="row no-gutters">
-                            <div class="col-md-3">
-                                <img [src]="attraction.images[0].imageUrl" class="card-img news__image" alt="..." *ngIf="attraction.images[0].imageUrl">
-                                <img [src]="attraction.images[0].imageUrl" class="card-img news__image" alt="..." *ngIf="!attraction.images[0].imageUrl">
-                            </div>
-                            <div class="col-md-7">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{attraction.name}}</h5>
-                                    <p class="card-text">{{attraction.description}}.</p>
-                                    <p class="card-text"><small class="text-muted">{{attraction.modifyDate}}</small></p>
-                                </div>
-                            </div>
-                            <div class="col-md-2 d-inline attractions__actions">
-                                <a class="btn btn-info actions action__edit" (click)="editAttraction(attraction,attractiveMaintenance)">Editar</a>
-                                <a class="btn btn-warning mt-5 actions action__delete" (click)="deleteAttraction(attraction,attractiveMaintenance)"> Eliminar</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
             <div class="row">
                 <div class="col-12">
                     <div class="tblTabla table-responsive">
@@ -94,13 +68,24 @@
                 <input type="text" class="form-control" formControlName="videUrl" id="videUrl" placeholder="Descripcion">
             </div>
             <div class="form-group col-12 ">
-                <label for="images">Video</label>
-                <input type="text" class="form-control" formControlName="images" id="images" placeholder="Imagenes">
+                <img class="profile__image" [src]="attractionMantenance.images[0].imageUrl" alt="">
+                <hr>
+                <!-- <input type="hidden" #imgUserInput class="form-control" formControlName="images" id="images" [value]='urlImage|async'>
+                <ng-container>
+                    <div class="custom-file">
+                        <input type="file" accept=".png, .jpg" (change)="onUpload($event)" class="custom-file-input" id="custom-file-input" [readonly]='!isUpdateInit'>
+                        <label class="custom-file-label" for="custom-file-input">Choose file</label>
+                    </div>
+                    <br>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped" role="progressbar" [style.width]="(uploadPercent|async)+'%'"></div>
+                    </div>
+                </ng-container> -->
             </div>
-            <div class="form-group col-12 ">
+            <!-- <div class="form-group col-12 ">
                 <label for="schedule">Horario</label>
                 <input type="text" class="form-control" formControlName="schedule" id="schedule" placeholder="Horario">
-            </div>
+            </div> -->
         </form>
     </div>
     <div class="modal-footer">

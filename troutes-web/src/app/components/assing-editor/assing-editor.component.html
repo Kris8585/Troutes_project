@@ -49,12 +49,12 @@
     <div class="modal-body">
         <form [formGroup]="formGroupAttractive" id="formGroupAttractive" class="row ">
             <div class="form-group col-12 custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" formControlName="attractiveActive" id="attractiveActive" [attr.disabled]="acctionMantenance==0">
+                <input type="checkbox" class="custom-control-input" formControlName="attractiveActive" id="attractiveActive">
                 <label class="custom-control-label" for="attractiveActive">Activa Atractivo</label>
             </div>
             <div class="form-group col-12 ">
                 <label for="attractiveName">Nombre Atractivo</label>
-                <input type="text" class="form-control" formControlName="attractiveName" id="attractiveName" placeholder="Nombre del Atractivo" [attr.disabled]="acctionMantenance==1">
+                <input type="text" class="form-control" formControlName="attractiveName" id="attractiveName" placeholder="Nombre del Atractivo">
                 <div *ngIf="formGroupAttractive.controls[ 'attractiveName'].dirty ">
                     <div class="form-control-feedback text-danger " *ngIf="formGroupAttractive.controls[ 'attractiveName'].errors?.required ">
                         El Nombre del Atractivo es requerido

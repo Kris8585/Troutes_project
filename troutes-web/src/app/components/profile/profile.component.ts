@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit {
   followAttraction: TouristAttractionsType[] = [];
   commentsDone$: Observable<CommentaryType[]>;
   userId: string;
-
+  defaulImage = 'https://firebasestorage.googleapis.com/v0/b/troutes-c1ba9.appspot.com/o/uploads%2FRana-de-WhatsApp.jpg?alt=media&token=8eef682b-7d1e-45d6-89b4-cdc13ad55528';
   isUpdateInit: boolean = false;
   isLoadingImage = false;
   public formGroupSession: FormGroup;
@@ -54,7 +54,7 @@ export class ProfileComponent implements OnInit {
       descriprion_session: ["", [Validators.required]],
       name_session: ["", [Validators.required]],
       nationality_session: ["", [Validators.required]],
-      profileImage_session: ["",],
+      //profileImage_session: ["",],
     });
   }
 
@@ -69,7 +69,7 @@ export class ProfileComponent implements OnInit {
         'description': this.formGroupSession.value.descriprion_session,
         'name': this.formGroupSession.value.name_session,
         'nationality': this.formGroupSession.value.nationality_session,
-        'profile_photo': this.inputImageUser.nativeElement.value
+        'profile_photo': this.defaulImage
       }
       this.userId = this._registerService.setUpdateUser(userUpdate);
       this._snotifyService.success('Información guardada correctamente', 'Información');

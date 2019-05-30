@@ -21,9 +21,9 @@
                 <ul class="nav nav-tabs dashboard__options d-block ">
                     <li class="nav-item "><a class="nav-link" routerLinkActive="active" (click)="goToHome()">Home</a></li>
                     <li class="nav-item "><a class="nav-link" routerLinkActive="active" [routerLink]="[ '/secure/profile']">Perfil</a></li>
-                    <li class="nav-item "><a class="nav-link" routerLinkActive="active" [routerLink]="[ '/secure/attraction-editor']">Atractivos Editor</a></li>
-                    <li class="nav-item "><a class="nav-link" routerLinkActive="active" [routerLink]="[ '/secure/news-admin']">Noticias Control</a></li>
-                    <li class="nav-item "><a class="nav-link" routerLinkActive="active" [routerLink]="[ '/secure/assing-editor']">Atractivos Asignador</a></li>
+                    <li class="nav-item "><a class="nav-link" routerLinkActive="active" [routerLink]="[ '/secure/attraction-editor']" *ngIf="logUser.role=='Editor'">Atractivos Editor</a></li>
+                    <li class="nav-item "><a class="nav-link" routerLinkActive="active" [routerLink]="[ '/secure/news-admin']" *ngIf="logUser.role=='Admin'">Noticias Control</a></li>
+                    <li class="nav-item "><a class="nav-link" routerLinkActive="active" [routerLink]="[ '/secure/assing-editor']" *ngIf="logUser.role=='Admin'">Atractivos Asignador</a></li>
                     <li class="nav-item "><a class="nav-link" (click)="callLogOut() ">LogOut</a></li>
                 </ul>
             </div>

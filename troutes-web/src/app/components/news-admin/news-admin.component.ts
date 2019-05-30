@@ -20,6 +20,7 @@ export class NewsAdminComponent implements OnInit {
   acctionMantenance: number = 0;
   newMantenance: NewsType;
   //Subida Imagen
+  defaultImage = 'https://firebasestorage.googleapis.com/v0/b/troutes-c1ba9.appspot.com/o/uploads%2Fnews%2FP_20151031_202612.jpg?alt=media&token=8770dc90-a424-4d09-b7b0-d74cd03de0d7';
   uploadPercent: Observable<number>;
   urlImage: Observable<string>;
   attractionSubscription: Subscription;
@@ -73,7 +74,7 @@ export class NewsAdminComponent implements OnInit {
       title: [this.newMantenance.tittle, [Validators.required, Validators.minLength(5)]],
       postTitle: [this.newMantenance.postTittle, [Validators.required, Validators.minLength(15)]],
       description: [this.newMantenance.description, [Validators.required, Validators.minLength(15)]],
-      image: [this.newMantenance.image, [Validators.required]],
+      //image: [this.newMantenance.image, [Validators.required]],
       creationDate: [this.newMantenance.creationDate, [Validators.required]],
       modifyDate: [new Date().toString(), [Validators.required]]
     })
@@ -85,7 +86,7 @@ export class NewsAdminComponent implements OnInit {
       title: ['', [Validators.required, Validators.minLength(5)]],
       postTitle: ['', [Validators.required, Validators.minLength(5)]],
       description: ['', [Validators.required, Validators.minLength(15)]],
-      image: [''],
+      //image: [''],
       creationDate: [''],
       modifyDate: ['']
     })
@@ -110,7 +111,7 @@ export class NewsAdminComponent implements OnInit {
   }
   ///Funciones de accion de Crud
   newNews() {
-    this.formGroupNews.value.image = 'https://firebasestorage.googleapis.com/v0/b/troutes-c1ba9.appspot.com/o/uploads%2Fnews%2Fnews_b9hn5eff0en?alt=media&token=60a645da-0efc-4742-8cc5-f65b638f3425';
+    //this.formGroupNews.value.image = 'https://firebasestorage.googleapis.com/v0/b/troutes-c1ba9.appspot.com/o/uploads%2Fnews%2Fnews_b9hn5eff0en?alt=media&token=60a645da-0efc-4742-8cc5-f65b638f3425';
     if (this.formGroupNews.valid) {
       const newNews: NewsType = {
         'id': '1',
@@ -118,11 +119,10 @@ export class NewsAdminComponent implements OnInit {
         'tittle': this.formGroupNews.value.title,
         'postTittle': this.formGroupNews.value.postTitle,
         'description': this.formGroupNews.value.description,
-        'image': '',
+        'image': this.defaultImage,
         'creationDate': new Date().toString(),
         'modifyDate': new Date().toString(),
       }
-      newNews.image = 'https://firebasestorage.googleapis.com/v0/b/troutes-c1ba9.appspot.com/o/uploads%2Fnews%2Fnews_b9hn5eff0en?alt=media&token=60a645da-0efc-4742-8cc5-f65b638f3425';
       let newId = this._dataService.saveNews(newNews);
       this.decline();
       //Llmar misma ruta
