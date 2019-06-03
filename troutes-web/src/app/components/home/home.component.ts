@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { DataInformationService } from 'src/app/services/data-information/data-information.service';
-import { LoginComponent } from '../login/login.component';
 import { LoginService } from 'src/app/services/login/login.service';
 
 import { Router } from '@angular/router';
@@ -14,42 +13,34 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  newsSubscription: Subscription;
-  newId: string;
+
   attractions$: Observable<any>;
-  editor$: Observable<any>;
+  
   user: UserType;
-  isDataLoaded: boolean = false;
+
   constructor(private _router: Router,
-    private _dataInformationService: DataInformationService,
-    private _loginService: LoginService) {
-    this.attractions$ = _dataInformationService.getAllAttractions();
-    this.editor$ = _dataInformationService.getUserByRole('Editor');
-    //debugger
+              private _loginService: LoginService,
+              private _dataInformationService:DataInformationService) {
+  this.attractions$ = this._dataInformationService.getAllAttractions();
+ 
   }
-
-
 
   ngOnInit() {
     setTimeout(() => {
       this.user = this._loginService.getCurrentUser();
-     
+      
+
       if (!this.user) {
         this._loginService.singOut();
        
       }
     }, 1000);
 
-
-
-
-
-
   }
 
+
+
   seePlace(namePlace: string) {
-    // console.log(indice);
-    //debugger;
     this._router.navigate(['public/details/', namePlace]);
   }
 

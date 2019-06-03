@@ -1,13 +1,26 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, Subject } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataInformationService {
-  constructor(private _angularFirestore: AngularFirestore) { }
+
+  state$:Subject<string>;
+  constructor(private _angularFirestore: AngularFirestore) {
+    this.state$ = new Subject<string>();
+   }
+
+  //----------------------------Title-----------------------------
+  setState(state:string){
+    this.state$.next(state);
+  }
+  
+  getState(){
+    return  this.state$;
+  }
 
   //----------------------------User------------------------------
   getUserByEmail(email: string): Observable<UserType[]> {

@@ -13,7 +13,8 @@ export class NewsComponent implements OnInit {
   public news: NewsType;
   paramSuscription: Subscription;
   newsSuscription: Subscription;
-  constructor(private _route: ActivatedRoute, private _dataInformationService: DataInformationService) {
+  constructor(private _route: ActivatedRoute, 
+              private _dataInformationService: DataInformationService) {
 
   }
 

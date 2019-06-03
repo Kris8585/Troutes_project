@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 })
 export class AttractionListComponent implements OnInit {
   attractivesList$: Observable<any>;
-
-  constructor(private _router: Router, private _dataInformationService: DataInformationService) {
+  attr:string;
+  constructor(public _router: Router, public _dataInformationService: DataInformationService) {
     this.attractivesList$ = this._dataInformationService.getAllAttractions();
 
   }
@@ -19,18 +19,14 @@ export class AttractionListComponent implements OnInit {
   ngOnInit() {
   }
 
-
   searhAttractive = (attr: string) => {
 
     if(attr){
       this.attractivesList$ = this._dataInformationService.getAtractionByName(attr);
     }
-   
-
   }
 
   seePlace(attractiveName: string) {
-    // let tempAtractivo = this.atractivos[index];
     this._router.navigate(['public/details/', attractiveName]);
   }
 }

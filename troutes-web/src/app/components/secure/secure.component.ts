@@ -10,10 +10,8 @@ import { Router } from '@angular/router';
 export class SecureComponent implements OnInit {
 
   logUser: UserType;
-  constructor(
-    private _router: Router,
-    private _loginService: LoginService
-  ) { }
+  constructor(private _router: Router,
+              private _loginService: LoginService) { }
 
   ngOnInit() {
     this.logUser = this._loginService.getCurrentUser();

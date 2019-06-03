@@ -101,12 +101,14 @@ export class LoginService {
     this._angularFireAuth.auth.signOut();
     this._router.navigateByUrl('/account/login');
     this.isUserBd = "";
+    this._dataInformationService.setState("INICIAR SESIÓN");
   }
 
   singOut() {
     this.currentUser = null;
     this._angularFireAuth.auth.signOut();
     this.isUserBd = "";
+    this._dataInformationService.setState("INICIAR SESIÓN");
   }
 
 //--------------------------------------------------------------------
@@ -130,15 +132,13 @@ export class LoginService {
       .catch((error) => this._snotifyService.warning('Se ha presentado el siguiente error: ' + error, 'Atención'))
   }
 
-  
 //--------------------------------------------------------------------
 //---------------------------Navigation-------------------------------
 //--------------------------------------------------------------------
   goTo() {
     this._router.navigateByUrl('/public/home')
   }
-
-  
+ 
 //--------------------------------------------------------------------
 //--------------------------LogIn Social------------------------------
 //--------------------------------------------------------------------
@@ -183,8 +183,6 @@ export class LoginService {
     });
 
   }
-
-
   private runDowm(value: auth.UserCredential, checkUserId: string) {
     if (this.getUserBd() == "null") {
       const user: UserType = {

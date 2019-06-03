@@ -78,6 +78,7 @@ slide p {
         padding-bottom: 2.75rem;
         width: 96%;
         padding-left: 5.25rem;
+        height: 102px;
     }
     .new__detail img {
         position: absolute;
@@ -96,5 +97,8 @@ slide p {
         right: 0;
         top: 0;
         bottom: 0;
+    }
+    .movilInvisible {
+        display: none;
     }
 }

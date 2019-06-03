@@ -39,11 +39,6 @@ const routes: Routes = [
   {
     // 
     path: 'secure', component: SecureComponent, canActivate: [AuthenticationGuard], children: [
-
-      /* { path: 'attraction-editor', component: AttractionAdminComponent },
-      { path: 'news-admin', component: NewsAdminComponent },
-      { path: 'profile', component: ProfileComponent },
-      { path: 'assing-editor', component: AssingEditorComponent } */
       { path: 'attraction-editor', component: AttractionAdminComponent, canActivate: [AuthorizationGuard], data: { role: 'Editor' } },
       { path: 'news-admin', component: NewsAdminComponent, canActivate: [AuthorizationGuard], data: { role: 'Admin' } },
       { path: 'profile', component: ProfileComponent },
