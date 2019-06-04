@@ -154,11 +154,12 @@ export class LoginService {
       }
     }).catch((error) => {
 
-      this._snotifyService.warning('No se ha podido iniciar sesión', 'Atención');
-      console.log(error.message);
-      console.log(error);
-      
+      this._ngZone.run(() =>{
+        this._snotifyService.warning('No se ha podido iniciar sesión', 'Atención');
+        this._snotifyService.error(error.message, 'Atención');
+      });
 
+      
     });
 
   }
@@ -169,20 +170,20 @@ export class LoginService {
 
 
       if (this._angularFireAuth.auth.currentUser) {
-
         let checkUserId = value.user.uid;
         this.isUser(checkUserId, value);
         this._ngZone.run(() => { this.goTo(); });
       }
     }).catch((error) => {
 
-      this._snotifyService.warning('No se ha podido iniciar sesión', 'Atención');
-     
-      
-
+      this._ngZone.run(() =>{
+        this._snotifyService.warning('No se ha podido iniciar sesión', 'Atención');
+        this._snotifyService.error(error.message, 'Atención');
+      });
     });
 
   }
+  
   private runDowm(value: auth.UserCredential, checkUserId: string) {
     if (this.getUserBd() == "null") {
       const user: UserType = {
@@ -198,6 +199,7 @@ export class LoginService {
       this._angularFirestore.collection<UserType>('users').add(user);
     }
     else {
+      
       this.setCurrenUserId(checkUserId);
     }
   }

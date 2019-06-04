@@ -30,6 +30,35 @@ export class UploadService {
 
   }
 
+  // pushUpload(upload: UploadClass, elementoNombre: string) {
+
+  //   let storageRef = firebase.storage().ref();
+  //   let uploadTask = storageRef.child(`${this.basePath}/${upload.file.name}`).put(upload.file);
+
+  //   uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+  //     (snapshot) => {
+  //       upload.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+  //     },
+  //     (error) => {
+  //       this.snotifyService.warning('Se ha presentado el siguiente error:' + error, 'Atención');
+  //     },
+  //     () => {
+  //       uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+
+  //         upload.url = downloadURL;
+  //         upload.name = upload.file.name;
+  //         this.saveFileData(upload, elementoNombre);
+
+  //       });
+
+  //     }
+  //   );
+  // }
+
+
+
+
+
   private saveFileData(upload: UploadClass, userId: string) {
 
     this._angularFirestore.collection<UserType>('users').ref.where('userId', '==', userId).get()
@@ -38,7 +67,7 @@ export class UploadService {
       querySnapshot.docs.forEach(doc => {
         var elementRef = this._angularFirestore.collection('users').doc(doc.id);
       
-        let nuevoArregloDeImagenes= doc.get('imagenes');
+        let nuevoArregloDeImagenes= doc.get('profile_photo');
         nuevoArregloDeImagenes.push(upload.url);
        
         return elementRef.update({ 
@@ -54,34 +83,30 @@ export class UploadService {
     });
   
   }
+
  
-  deleteUpload(upload: Upload) {
-    this.deleteFileFirestore(upload.$key)
-      .then(() => {
-        this.deleteFileStorage(upload.name)
-      })
-      .catch(error => console.log(error))
-  }
-
-  private deleteFileFirestore(id: string) {
-    return this.angularFirestore.collection<Upload>('documents').doc(id).delete();
-  }
-
-  private deleteFileStorage(name: string) {
-    let storageRef = firebase.storage().ref();
-    storageRef.child(`${this.basePath}/${name}`).delete()
-  }
-
-}
+ 
+  // private deleteFileFirestore(id: string) {
+  //   return this._angularFirestore.collection<UploadClass>('documents').doc(id).delete();
+  // }
 
 
 
+ 
+  // deleteUpload(upload: UploadClass) {
+  //   this.deleteFileFirestore(upload.$key)
+  //     .then(() => {
+  //       this.deleteFileStorage(upload.name)
+  //     })
+  //     .catch(error => console.log(error))
+  // }
 
+  
 
-
-
-
-
+  // private deleteFileStorage(name: string) {
+  //   let storageRef = firebase.storage().ref();
+  //   storageRef.child(`${this.basePath}/${name}`).delete()
+  // }
 
 
 

@@ -48,7 +48,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
   }
 
-  initUserForm = () => {
+  initUserForm = () => { 
     this.formGroupSession = this._formBuilderSession.group({
       email_session: ["", [Validators.required]],
       descriprion_session: ["", [Validators.required]],
