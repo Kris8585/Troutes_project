@@ -11,9 +11,9 @@ export const environment = {
     projectId: "troutes-c1ba9",
     storageBucket: "troutes-c1ba9.appspot.com",
     messagingSenderId: "768595591471",
-    appId: "1:768595591471:web:fcf8893b4d3bd4a1"
-    
-}
+    appId: "1:768595591471:web:fcf8893b4d3bd4a1"   
+},
+googleMapsKey: 'AIzaSyDNXYMIgkO9qlxYDlhQvWmzJPZIuR7Tsd8'
 };
 
 /*

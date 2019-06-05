@@ -17,6 +17,7 @@ import { NewsComponent } from './components/news/news.component';
 import { AttractionListComponent } from "./components/attraction-list/attraction-list.component";
 import { PublicComponent } from './components/public/public.component';
 import { AssingEditorComponent } from './components/assing-editor/assing-editor.component';
+import { LocationComponent } from './components/location/location.component';
 const routes: Routes = [
 
   {
@@ -27,7 +28,8 @@ const routes: Routes = [
       { path: 'service', component: ServiceComponent },
       { path: 'attraction-list', component: AttractionListComponent },
       { path: 'details/:attractionName', component: DetailsComponent },
-      { path: 'news/:newId', component: NewsComponent }
+      { path: 'news/:newId', component: NewsComponent },
+      { path: 'location', component: LocationComponent }
     ]
   },
 

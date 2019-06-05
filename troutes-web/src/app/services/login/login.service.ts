@@ -6,7 +6,6 @@ import { DataInformationService } from '../data-information/data-information.ser
 import { SnotifyService } from 'ng-snotify';
 import { auth } from 'firebase/app';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { filter } from 'rxjs/operators';
 
 
 @Injectable({
@@ -183,7 +182,6 @@ export class LoginService {
     });
 
   }
-  
   private runDowm(value: auth.UserCredential, checkUserId: string) {
     if (this.getUserBd() == "null") {
       const user: UserType = {

@@ -46,6 +46,12 @@ import { AssingEditorComponent } from './components/assing-editor/assing-editor.
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { LocationComponent } from './components/location/location.component';
+import { GeoService } from './services/geo/geo.service';
+import { AgmCoreModule } from '@agm/core';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+
+
 
 @NgModule({
   declarations: [
@@ -70,7 +76,8 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
     RatingComponent,
     DomSecurityPipe,
     PublicComponent,
-    AssingEditorComponent
+    AssingEditorComponent,
+    LocationComponent
   ],
   imports: [
     BrowserModule,
@@ -88,10 +95,14 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
     ModalModule.forRoot(),
     PaginationModule.forRoot(),
     RatingModule.forRoot(),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    AngularFireModule.initializeApp(environment.firebase),
+    AgmCoreModule.forRoot({ apiKey: environment.googleMapsKey }),
+    AngularFireDatabaseModule,
+    
 
   ],
-  providers: [AngularFireAuth, LoginService, RegisterService, DataInformationService,
+  providers: [AngularFireAuth, LoginService, RegisterService, DataInformationService, GeoService,
     AuthenticationGuard, AuthorizationGuard, { provide: 'SnotifyToastConfig', useValue: ToastDefaults },
     SnotifyService],
   bootstrap: [AppComponent]
