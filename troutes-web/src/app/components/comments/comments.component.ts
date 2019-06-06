@@ -11,34 +11,16 @@ import { LoginService } from 'src/app/services/login/login.service';
   styleUrls: ['./comments.component.css']
 })
 export class CommentsComponent implements OnInit {
-  /**
-     * Almacena el ID que corresponde al atractivo que se tiene abierto
-     */
-  @Input() attractiveId: number;
-  /**
-   * Almacena el ID que corresponde al usuario que tiene la sesion iniciada
-   */
-  ///@Input() userId: string;
-  currentUser: UserType;
-  /**
-   * Envia el mensaje de emision con el puntaje medio del atractivo
-   */
-  @Output() scoreEmmitter = new EventEmitter<number>();
-  /**
-   * Controla el formulario, que se utiliza para el control de datos
-   */
 
+  @Input() attractiveId: string;
+  @Input() isAttractive: boolean;
+  @Output() scoreEmmitter = new EventEmitter<number>();
   @Input() showReview: boolean;
 
+  currentUser: UserType;
   public formGroupComment: FormGroup;
   formBuilder: FormBuilder;
-  /**
-   * Contiene todos los comentarios que se han hecho en el sistema
-   */
   attractiveComments: CommentaryType[] = [];
-  /**
-   * Almacena los comentarios que corresponden a un solo atractivo, el cual es el que se esta visitando
-   */
   comments: CommentaryType[];
   comments$: Observable<any>;
   //paramSuscription: Subscription;
@@ -106,16 +88,28 @@ export class CommentsComponent implements OnInit {
     return tempUser;
   }
   loadCommnents() {
-
-    this.commentsSuscription = this._dataInformationService.getAllComments().subscribe(
-      (elements) => {
-        elements.forEach(comment => {
-          this.attractiveComments.push(comment);
+    if (this.isAttractive) {
+      this.commentsSuscription = this._dataInformationService.getCommentByAttractionId(this.attractiveId).subscribe(
+        (elements) => {
+          elements.forEach(comment => {
+            this.attractiveComments.push(comment);
+          });
+          this.returnedComments = this.attractiveComments.slice(0, this.itemsPerPage);
+          this.puntajeMedioEmit();
+          this.iniciarComentario();
         });
-        this.returnedComments = this.attractiveComments.slice(0, this.itemsPerPage);
-        this.puntajeMedioEmit();
-        this.iniciarComentario();
-      });
+    } else {
+      this.commentsSuscription = this._dataInformationService.getCommentByUserId(this.currentUser.userId).subscribe(
+        (elements) => {
+          elements.forEach(comment => {
+            this.attractiveComments.push(comment);
+          });
+          this.returnedComments = this.attractiveComments.slice(0, this.itemsPerPage);
+          this.puntajeMedioEmit();
+          this.iniciarComentario();
+        });
+    }
+
   }
 
   pageChanged(event: PageChangedEvent): void {
@@ -155,12 +149,12 @@ export class CommentsComponent implements OnInit {
     });
   };
 
-  cargarComentario = (id: number) => {
+  cargarComentario = (commentId: string) => {
     // const listaNoticias = this.dataStorageService.getObjectValue('noticias');
     this.returnedComments.forEach(commentInside => {
-      if (commentInside.commentId == id) {
+      if (commentInside.commentId == commentId) {
         this.formGroupComment = this.formBuilder.group({
-          commentId: [id, [Validators.required]],
+          commentId: [commentId, [Validators.required]],
           userId: [commentInside.userId],
           attractiveId: [commentInside.attractiveId],
           comment: [

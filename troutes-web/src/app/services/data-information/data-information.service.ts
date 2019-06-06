@@ -8,18 +8,18 @@ import { Observable, Subscription, Subject } from 'rxjs';
 })
 export class DataInformationService {
 
-  state$:Subject<string>;
+  state$: Subject<string>;
   constructor(private _angularFirestore: AngularFirestore) {
     this.state$ = new Subject<string>();
-   }
+  }
 
   //----------------------------Title-----------------------------
-  setState(state:string){
+  setState(state: string) {
     this.state$.next(state);
   }
-  
-  getState(){
-    return  this.state$;
+
+  getState() {
+    return this.state$;
   }
 
   //----------------------------User------------------------------
@@ -83,11 +83,19 @@ export class DataInformationService {
 
   //---------------------------Followers---------------------------
 
-  getFollowers(attractionId: number): Observable<FollowerType[]> {
+  getFollowers(attractionId: string): Observable<FollowerType[]> {
     return this._angularFirestore.collection<FollowerType>('followers', ref => ref.where('attractionId', '==', attractionId)).valueChanges();
   }
   getFollowedSites(userId: string): Observable<FollowerType[]> {
     return this._angularFirestore.collection<FollowerType>('followers', ref => ref.where('userId', '==', userId)).valueChanges();
+  }
+  deleteFollowSite(follower: FollowerType) {
+    return this._angularFirestore.collection<FollowerType>('followers').doc(follower.followerId).delete();
+  }
+  setFollow(follower: FollowerType) {
+    follower.followerId = this._angularFirestore.createId();
+    this._angularFirestore.collection<TouristAttractionsType>('followers').doc(follower.followerId).set(follower);
+    return follower.followerId;
   }
   //---------------------------Comments---------------------------
   getAllComments(): Observable<CommentaryType[]> {
@@ -99,8 +107,8 @@ export class DataInformationService {
   getCommentByUserId(userId: string): Observable<CommentaryType[]> {
     return this._angularFirestore.collection<CommentaryType>('comments', ref => ref.where('userId', '==', userId)).valueChanges();
   }
-  getCommentByAttractionId(attractionId: number): Observable<CommentaryType[]> {
-    return this._angularFirestore.collection<CommentaryType>('comments', ref => ref.where('attractionId', '==', attractionId)).valueChanges();
+  getCommentByAttractionId(attractionId: string): Observable<CommentaryType[]> {
+    return this._angularFirestore.collection<CommentaryType>('comments', ref => ref.where('attractiveId', '==', attractionId)).valueChanges();
   }
   //---------------------------Services---------------------------
   getAllServices(): Observable<ServiceType[]> {

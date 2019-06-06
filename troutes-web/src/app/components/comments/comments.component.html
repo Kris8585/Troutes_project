@@ -15,12 +15,12 @@
                         <div class="card text-white bg-dark mb-3 " style="max-width: 18rem; ">
                             <div class="card-header text-center font-weight-bold">
                                 Usuario + {{comment.commentId}}
-                                <!--  <button class="btn btn-info" (click)="mantenimientoComentario(comment,mantenerComentario,1) " *ngIf="comment.userId==iIdUsuario ">
+                                <button class="btn btn-info" (click)="mantenimientoComentario(comment,mantenerComentario,1) " *ngIf="comment.userId==iIdUsuario ">
                                     <fa name="edit"></fa>
                                 </button>
-                            <button class= "btn btn-danger" (click)="mantenimientoComentario(comment,mantenerComentario,2) " *ngIf="comment.userId==iIdUsuario ">
+                                <button class="btn btn-danger" (click)="mantenimientoComentario(comment,mantenerComentario,2) " *ngIf="comment.userId==iIdUsuario ">
                                     <fa name="trash"></fa>
-                                </button> -->
+                                </button>
                             </div>
                             <div class="card-body text-white">
                                 <app-rating [iScore]="comment.score" [iReadOnly]="true"></app-rating>

@@ -5,8 +5,9 @@ import { Lightbox, LightboxConfig, IAlbum } from 'ngx-lightbox';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { DataInformationService } from 'src/app/services/data-information/data-information.service';
 import { Subscription } from 'rxjs';
-import * as moment from 'moment';
+
 import { LoginService } from 'src/app/services/login/login.service';
+import { ShceduleService } from "../../services/schedule/shcedule.service";
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
@@ -18,6 +19,7 @@ export class DetailsComponent implements OnInit {
   attraction: TouristAttractionsType;
   paramSuscription: Subscription;
   attractionSuscription: Subscription;
+  followersSuscription: Subscription;
   attractiveSchedule: any[] = [];
   atractivoSeguidores$: UserType[] = [];
   isDataLoaded: boolean = false;
@@ -30,33 +32,39 @@ export class DetailsComponent implements OnInit {
     backdrop: true,
     ignoreBackdropClick: false
   };
-  seguidor: boolean = false;
+  isfollow: boolean = false;
+  currentFollower: FollowerType;
 
   /*   sesionInicada: boolean = false;
     sesionUsarioId: number = 0;
     sesionRol: number; */
   persona: UserType;
+  currentUser: UserType;
   showReview: boolean;
   user: UserType;
   public _albums: Array<IAlbum>;
-
+  followersCount: number = 0;
   constructor(private _route: ActivatedRoute,
     private _dataInformationService: DataInformationService,
     private _loginService: LoginService,
     private _lightbox: Lightbox,
+    private _scheduleService: ShceduleService,
     private _lighboxConfig: LightboxConfig,
     private _modalService: BsModalService) {
     this._lighboxConfig.fadeDuration = 1;
   }
 
   ngOnInit() {
+    this.currentUser = this._loginService.getCurrentUser();
     this.loadAttrative();
+
   }
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
     this.paramSuscription.unsubscribe();
     this.attractionSuscription.unsubscribe();
+    this.followersSuscription.unsubscribe();
     this.isDataLoaded = false;
   }
   loadAttrative() {
@@ -66,8 +74,9 @@ export class DetailsComponent implements OnInit {
         this.attraction = elements[0];
         this.attraction.videUrl = "https://www.youtube.com/embed/" + this.attraction.videUrl;
         this.loadAlbum();
-        this.getSchedule();
+        this.attractiveSchedule = this._scheduleService.getSchedule(this.attraction.schedule);
         this.isDataLoaded = true;
+        this.getCountFollow();
       })
     })
   }
@@ -99,102 +108,35 @@ export class DetailsComponent implements OnInit {
     }
   }
 
-  getSchedule() {
-    this.attractiveSchedule = [];
-    this.attraction.schedule.forEach(selectSchedule => {
-      let scheduleString = '';
-      let activo = false;
-      scheduleString = this.getDayWord(selectSchedule.day)
-        + ' ' +
-        moment(selectSchedule.startTime, 'HH:mm a').format('LT')
-        + ' ' +
-        moment(selectSchedule.endTime, 'HH:mm a').format('LT');
-      const horario = {
-        scheduleString: scheduleString,
-        active: this.chackRunnigSchedule(
-          selectSchedule.startTime,
-          selectSchedule.endTime,
-          selectSchedule.day
-        )
-      };
-      this.attractiveSchedule.push(horario);
-    });
-    //console.log(this.attractiveSchedule);
-  }
-
-  //Indica si el sitio se encuentra abierto a la hora en que se consulta
-  chackRunnigSchedule(horarioInit: string, horarioEnd: string, dia: string) {
-    var moment = require('moment');
-    if (this.getNumberDay(dia) == moment().isoWeekday()) {
-      const horaInit = moment(horarioInit, 'HH:mm a'); //moment(this.atractivoSeleccionado.horario[0].horaInicio,'MM-DD-YYYY hh:mm A');
-      const horaEnd = moment(horarioEnd, 'HH:mm a');
-      const hActual = moment(moment().format('LT'), 'HH:mm a');
-      return moment(hActual).isBetween(horaInit, horaEnd);
-    }
-    return false;
-  }
-  //Retorna la palabra del dia en base a una letra
-  getDayWord(dayWord: string) {
-    if (dayWord == 'L') {
-      return 'Lunes';
-    }
-    if (dayWord == 'M') {
-      return 'Martes';
-    }
-    if (dayWord == 'I') {
-      return 'Miercoles';
-    }
-    if (dayWord == 'J') {
-      return 'Jueves';
-    }
-    if (dayWord == 'V') {
-      return 'Viernes';
-    }
-    if (dayWord == 'S') {
-      return 'Sábado';
-    }
-    if (dayWord == 'D') {
-      return 'Domingo';
-    }
-  }
-  //retorna un numero que indica el dia del horario
-  getNumberDay(dayWord: string) {
-    if (dayWord == 'L') {
-      return 1;
-    }
-    if (dayWord == 'M') {
-      return 2;
-    }
-    if (dayWord == 'I') {
-      return 3;
-    }
-    if (dayWord == 'J') {
-      return 4;
-    }
-    if (dayWord == 'V') {
-      return 5;
-    }
-    if (dayWord == 'S') {
-      return 6;
-    }
-    if (dayWord == 'D') {
-      return 7;
-    }
-  }
-
-  validClose() {
-    var countFalse = 0;
-    this.attractiveSchedule.forEach(element => {
-      if (element.active == false) {
-        countFalse++;
-      }
-    })
-    return countFalse == this.attractiveSchedule.length ? true : false;
-  }
   averageScoreMethod(eAverageScore: number) {
     this.averageScore = eAverageScore;
   }
 
+  follow() {
+    if (this.isfollow) {
+      this._dataInformationService.deleteFollowSite(this.currentFollower);
+    } else {
+      const newFollow: FollowerType = {
+        'followerId': '',
+        'userId': this.currentUser.userId,
+        'attractionId': this.attraction.attractionId
+      }
+      this._dataInformationService.setFollow(newFollow);
+    }
+  }
+  getCountFollow() {
+    this.followersSuscription = this._dataInformationService.getFollowers(this.attraction.attractionId).subscribe((followers) => {
+      this.followersCount = followers.length;
+      try {
+        this.isfollow = followers.some(followUser => followUser.userId === this.currentUser.userId && followUser.attractionId == this.attraction.attractionId);
+        this.currentFollower = followers.find(followUser => followUser.userId === this.currentUser.userId && followUser.attractionId == this.attraction.attractionId);
+      } catch (error) {
+        this.isfollow = false;
+        this.currentFollower = null;
+      }
+
+    });
+  }
   /* seguir() {
     const listaPersona = this._dataStorage.getObjectValue(this._dataControl.keyPersona);
 

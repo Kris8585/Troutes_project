@@ -5,18 +5,16 @@
                 <h1 class="display-6 mt-4">{{attraction.name}}</h1>
             </div>
             <div class="col-md-12 pt-3">
+                <h2>Seguidores:{{followersCount}} | {{isfollow}}</h2>
                 <app-rating class="active" [(iScore)]="averageScore" [iReadOnly]="true"></app-rating>
             </div>
-            <div class="col-md-6 header__follow">
-                <!--  <button class="btn btn-primary" *ngIf="!seguidor" (click)="seguir()"><fa name="check-double"></fa> Seguir</button>
-                <button class="btn btn-primary" *ngIf="seguidor" (click)="seguir()"><fa name="user-times"></fa> Dejar de seguir</button>
-                <button type="button" class="btn btn-info" (click)="openModalHorarios(horariosVisita)">
-                            <fa name="clipboard-list"></fa> Seguidores <span class="badge badge-light">{{atractivoSeguidores.length>0?atractivoSeguidores.length:0}}</span>
-                          </button> -->
+            <div class="col-md-6 header__follow" *ngIf="currentUser">
+                <button class="btn btn-primary" *ngIf="!isfollow" (click)="follow()"><fa name="check-double"></fa> Seguir</button>
+                <button class="btn btn-primary" *ngIf="isfollow" (click)="follow()"><fa name="user-times"></fa> Dejar de seguir</button>
             </div>
             <div class="col-md-12 mt-3">
                 <div class="d-flex flex-row justify-content-center mt-3 mb-3">
-                    <span class="badge badge-danger close__open__badge" *ngIf="validClose()">Cerrado</span>
+                    <span class="badge badge-danger close__open__badge" *ngIf="_scheduleService.validClose()">Cerrado</span>
                 </div>
                 <div class="row d-flex flex-row justify-content-center mb-3 header__schedule__list">
                     <p class="header__schedule font-weight-bold col-sm-12 col-md-1" *ngFor="let schedule of attractiveSchedule; let i=index " [ngClass]="{ 'header__active__schedule': schedule.active, 'pHorarioNoActivo':!schedule.active} ">{{schedule.scheduleString}}</p>
@@ -59,28 +57,8 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
-                <app-comments [attractiveId]="attraction.attractionId" [showReview]="showReview" (scoreEmmitter)="averageScoreMethod($event)"></app-comments>
+                <app-comments [attractiveId]="attraction.attractionId" [isAttractive]="true" [showReview]="showReview" (scoreEmmitter)="averageScoreMethod($event)"></app-comments>
             </div>
         </div>
     </div>
 </section>
-
-
-
-
-<!-- Modal Horario -->
-<ng-template #horariosVisita>
-    <div class="modal-header ">
-        <h4 class="modal-title pull-left ">Horarios de Visita</h4>
-        <button type="button " class="close pull-right " aria-label="Close" (click)="modalRef.hide() ">
-            <span aria-hidden="true ">&times;</span>
-          </button>
-    </div>
-    <div class="modal-body ">
-        <div class="container ">
-            <div class="row ">
-                Los horarios de visita son
-            </div>
-        </div>
-    </div>
-</ng-template>
