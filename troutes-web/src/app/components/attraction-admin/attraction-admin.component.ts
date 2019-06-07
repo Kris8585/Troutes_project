@@ -31,8 +31,9 @@ export class AttractionAdminComponent implements OnInit {
     private _dataInformationService: DataInformationService,
     private _loginService: LoginService,
     private _activatedRoute: ActivatedRoute) {
-    this.listAllAttractives();
+
     this.logUser = this._loginService.getCurrentUser();
+    this.listAllAttractives();
   }
 
   ngOnInit() {

@@ -3,7 +3,7 @@
         <h2>Comentarios</h2>
     </div>
     <div class="col-sm-12 col-md-6 col-lg-6">
-        <button (click)="mantenimientoComentario(0,mantenerComentario,0)" *ngIf="showReview">Crear reseña</button>
+        <button class="btn btn-primary" (click)="newCommentMaintenance(null,mantenerComentario)" *ngIf="currentUser && !userHasComment">Crear reseña</button>
     </div>
 </div>
 <div class="row ">
@@ -14,11 +14,11 @@
                     <div *ngFor="let comment of returnedComments; let i=index ">
                         <div class="card text-white bg-dark mb-3 " style="max-width: 18rem; ">
                             <div class="card-header text-center font-weight-bold">
-                                Usuario + {{comment.commentId}}
-                                <button class="btn btn-info" (click)="mantenimientoComentario(comment,mantenerComentario,1) " *ngIf="comment.userId==iIdUsuario ">
+                                <!--    Usuario + {{comment.commentId}} -->
+                                <button class="btn btn-info" (click)="editCommentMaintenance(comment,mantenerComentario) " *ngIf="currentUser && comment.userId==currentUser.userId">
                                     <fa name="edit"></fa>
                                 </button>
-                                <button class="btn btn-danger" (click)="mantenimientoComentario(comment,mantenerComentario,2) " *ngIf="comment.userId==iIdUsuario ">
+                                <button class="btn btn-danger" (click)="deleteCommentMaintenance(comment,deleteAttraction) " *ngIf="currentUser && comment.userId==currentUser.userId">
                                     <fa name="trash"></fa>
                                 </button>
                             </div>
@@ -52,9 +52,8 @@
 <!-- Modal Comentario -->
 <ng-template #mantenerComentario>
     <div class=" modal-header mModal ">
-        <h4 class="modal-title pull-left " *ngIf="commentAction==0 ">Nuevo Comentario</h4>
-        <h4 class="modal-title pull-left " *ngIf="commentAction==1 ">Editar Comentario</h4>
-        <h4 class="modal-title pull-left " *ngIf="commentAction==2 ">Eliminar Comentario</h4>
+        <h4 class="modal-title pull-left " *ngIf="acctionMantenance==0 ">Nuevo Comentario</h4>
+        <h4 class="modal-title pull-left " *ngIf="acctionMantenance==1 ">Editar Comentario</h4>
         <button type="button " class="close pull-right " aria-label="Close " (click)="modalRef.hide() ">
             <span aria-hidden="true ">&times;</span>
         </button>
@@ -62,21 +61,9 @@
     <div class="modal-body ">
         <div class="container mModal ">
             <form [formGroup]="formGroupComment " id="formGroupComment " class="row ">
-                <div class="form-group col-4 ">
-                    <label for="commentId ">Id del Comentario</label>
-                    <input class="form-control " formControlName="commentId " id="commentId " type="number " readonly>
-                </div>
-                <div class="form-group col-4 ">
-                    <label for="userId ">Id del Usuario</label>
-                    <input class="form-control " formControlName="userId " id="userId " type="number " readonly>
-                </div>
-                <div class="form-group col-4 ">
-                    <label for="attractiveId ">Id del Atractivo</label>
-                    <input class="form-control " formControlName="attractiveId " id="attractiveId " type="number " readonly>
-                </div>
                 <div class="form-group col-12 ">
-                    <label for="comment ">Comentario</label>
-                    <input type="text " class="form-control " formControlName="comment " id="comment " placeholder="Escriba el comentario ">
+                    <label for="comment">Comentario</label>
+                    <input type="text" class="form-control " formControlName="comment" id="comment" placeholder="Escriba el comentario ">
                     <div *ngIf="formGroupComment.controls[ 'comment'].dirty ">
                         <div class="form-control-feedback text-danger " *ngIf="formGroupComment.controls[ 'comment'].errors?.required ">
                             El título es requerido
@@ -88,24 +75,22 @@
                 </div>
                 <div class="form-group col-12 ">
                     <label for="puntaje ">Puntaje</label>
-                    <app-rating [(iScore)]="maintenanceComment.score " [iReadOnly]="commentAction==2? true: false " (oPuntajeEmitter)="puntajeAsignar($event) "></app-rating>
-                    <!-- <app-p-atractivo [iReadOnly]="accionComentario==2? true: false " [iPuntaje]="comentarioAccion.puntaje " (oPuntajeEmitter)="puntajeAsignar($event) ">
-                    </app-p-atractivo> -->
-                    <!-- <input class="form-control " formControlName="puntaje " id="puntaje " type="number " readonly> -->
+                    <app-rating class="mt-1" [(iScore)]="maintenanceComment.score" [iReadOnly]="acctionMantenance==2? true: false " (oScoreEmitter)="assingNewScore($event) "></app-rating>
                 </div>
-                <div class="form-group col-12 ">
+                <!--                 <div class="form-group col-12 ">
                     <label for="creationDate ">Fecha Creación</label>
                     <input type="datetime " class="form-control " formControlName="creationDate " id="creationDate " readonly>
-                </div>
+                </div> -->
             </form>
-            <div *ngIf="commentAction==2 ">
-                <p>Desea eliminar?</p>
-                <button type="button " class="btn btn-warning " (click)="confirmDelete() ">Yes</button>
-                <button type="button " class="btn btn-primary " (click)="declineDelete() ">No</button>
-            </div>
-
-            <button type="submit " class="btn btn-primary float-right m-b-5 " [ngClass]="{ 'disabled':!formGroupComment.valid} " (click)="guardarComentario(formGroupComment) " *ngIf="commentAction!=2 ">Guardar</button>
-
+            <button type="submit " class="btn btn-primary float-right m-b-5 " [ngClass]="{ 'disabled':!formGroupComment.valid} " (click)="commentMantenace()">Guardar</button>
         </div>
+    </div>
+</ng-template>
+
+<ng-template #deleteAttraction>
+    <div class="modal-body text-center">
+        <p>Desea Eliminar?</p>
+        <button type="button" class="btn btn-default" (click)="appyDelete()">Yes</button>
+        <button type="button" class="btn btn-primary" (click)="decline()">No</button>
     </div>
 </ng-template>

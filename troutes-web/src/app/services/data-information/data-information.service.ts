@@ -110,6 +110,18 @@ export class DataInformationService {
   getCommentByAttractionId(attractionId: string): Observable<CommentaryType[]> {
     return this._angularFirestore.collection<CommentaryType>('comments', ref => ref.where('attractiveId', '==', attractionId)).valueChanges();
   }
+  saveComment(comment: CommentaryType) {
+    if (comment.commentId && comment.commentId != '') {
+      this._angularFirestore.collection<CommentaryType>('comments').doc(comment.commentId).update(comment);
+    } else {
+      comment.commentId = this._angularFirestore.createId();
+      this._angularFirestore.collection<CommentaryType>('comments').doc(comment.commentId).set(comment);
+    }
+    return comment.commentId;
+  }
+  deleteComment(comment: CommentaryType) {
+    this._angularFirestore.collection<CommentaryType>('comments').doc(comment.commentId).delete();
+  }
   //---------------------------Services---------------------------
   getAllServices(): Observable<ServiceType[]> {
     return this._angularFirestore.collection<ServiceType>('services').valueChanges();

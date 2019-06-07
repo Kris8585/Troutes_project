@@ -2,9 +2,10 @@ import { Component, OnInit, Input, Output, EventEmitter, TemplateRef, ChangeDete
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-import { combineLatest, Subscription, Observable } from 'rxjs';
+import { combineLatest, Subscription, Observable, empty } from 'rxjs';
 import { DataInformationService } from 'src/app/services/data-information/data-information.service';
 import { LoginService } from 'src/app/services/login/login.service';
+import { SnotifyService } from 'ng-snotify';
 @Component({
   selector: 'app-comments',
   templateUrl: './comments.component.html',
@@ -14,18 +15,17 @@ export class CommentsComponent implements OnInit {
 
   @Input() attractiveId: string;
   @Input() isAttractive: boolean;
-  @Output() scoreEmmitter = new EventEmitter<number>();
   @Input() showReview: boolean;
+  @Output() scoreEmmitter = new EventEmitter<number>();
 
   currentUser: UserType;
   public formGroupComment: FormGroup;
   formBuilder: FormBuilder;
   attractiveComments: CommentaryType[] = [];
   comments: CommentaryType[];
-  comments$: Observable<any>;
-  //paramSuscription: Subscription;
   commentsSuscription: Subscription;
   isCommentsLoaded: boolean = false;
+  userHasComment: boolean = false;
   /**
    * Lista de comentarios que se muestran pagina por pagina en el sistema de paginacion
    */
@@ -58,26 +58,20 @@ export class CommentsComponent implements OnInit {
    * 1=Editar
    * 2=Eliminar
    */
-  private commentAction: number;
   private maintenanceComment: CommentaryType;
-
+  private acctionMantenance: number;
 
   constructor(private _modalService: BsModalService,
     private _loginService: LoginService,
     private _dataInformationService: DataInformationService,
-    private _changeDetection: ChangeDetectorRef) { }
+    private _snotifyService: SnotifyService, ) { }
 
   ngOnInit() {
     this.currentUser = this.loadCurrentUser();
     this.formBuilder = new FormBuilder();
     this.loadCommnents();
-    /*  this.puntajeMedioEmit();
-     this.iniciarComentario(); */
   }
   ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
-    //this.paramSuscription.unsubscribe();
     this.commentsSuscription.unsubscribe();
   }
   loadCurrentUser(): UserType {
@@ -91,22 +85,32 @@ export class CommentsComponent implements OnInit {
     if (this.isAttractive) {
       this.commentsSuscription = this._dataInformationService.getCommentByAttractionId(this.attractiveId).subscribe(
         (elements) => {
+          this.attractiveComments = [];
+          this.userHasComment = false;
           elements.forEach(comment => {
             this.attractiveComments.push(comment);
           });
-          this.returnedComments = this.attractiveComments.slice(0, this.itemsPerPage);
+          if (this.attractiveComments.length > 0) {
+            if (this.currentUser) {
+              this.userHasComment = this.attractiveComments.some(tempComment => tempComment.userId == this.currentUser.userId && tempComment.attractiveId == this.attractiveId);
+            }
+            this.returnedComments = this.attractiveComments.slice(0, this.itemsPerPage);
+          }
           this.puntajeMedioEmit();
-          this.iniciarComentario();
+          //this.iniciarComentario();
+
         });
     } else {
       this.commentsSuscription = this._dataInformationService.getCommentByUserId(this.currentUser.userId).subscribe(
         (elements) => {
+          this.attractiveComments = [];
+          this.userHasComment = false;
           elements.forEach(comment => {
             this.attractiveComments.push(comment);
           });
           this.returnedComments = this.attractiveComments.slice(0, this.itemsPerPage);
           this.puntajeMedioEmit();
-          this.iniciarComentario();
+          //this.iniciarComentario();
         });
     }
 
@@ -127,7 +131,6 @@ export class CommentsComponent implements OnInit {
         nMedio += x.score;
       });
       nMedio = Math.round(nMedio / this.attractiveComments.length);
-
     }
     this.scoreEmmitter.emit(nMedio);
   }
@@ -137,83 +140,113 @@ export class CommentsComponent implements OnInit {
     this.formGroupComment.value.puntaje = puntos;
   }
 
-
-  iniciarComentario = () => {
+  newCommentMaintenance(comment: CommentaryType, template: TemplateRef<any>) {
+    this.modalRef = this._modalService.show(template);
+    this.acctionMantenance = 0;
+    this.maintenanceComment = null;
+    const tempComment: CommentaryType = {
+      'attractiveId': '',
+      'comment': '',
+      'commentId': '',
+      'creationDate': '',
+      'score': 0,
+      'userId': ''
+    };
+    this.maintenanceComment = tempComment
+    this.newCommentForm();
+  }
+  editCommentMaintenance(comment: CommentaryType, template: TemplateRef<any>) {
+    this.modalRef = this._modalService.show(template);
+    this.acctionMantenance = 1;
+    this.maintenanceComment = comment;
+    this.editCommentForm();
+  }
+  deleteCommentMaintenance(comment: CommentaryType, template: TemplateRef<any>) {
+    this.modalRef = this._modalService.show(template);
+    this.acctionMantenance = 2;
+    this.maintenanceComment = comment;
+  }
+  commentMantenace() {
+    //nuevo
+    if (this.acctionMantenance == 0) {
+      this.newComment();
+    }
+    else if (this.acctionMantenance == 1) {
+      this.editComment();
+      //editar
+    }
+    else if (this.acctionMantenance == 2) {
+      //eliminar
+      this.deleteComment();
+    } else {
+      this._snotifyService.warning('Accion de mantenimiento no definida', 'Atención');
+    }
+  }
+  newCommentForm() {
     this.formGroupComment = this.formBuilder.group({
-      commentId: ['(nueva)', [Validators.required]],
-      userId: [''],
-      attractiveId: [''],
+      commentId: [''],
+      userId: [this.currentUser.userId],
+      attractiveId: [this.attractiveId],
       comment: ['', [Validators.required, Validators.minLength(15)]],
       score: [''],
       creationDate: [new Date()]
     });
-  };
-
-  cargarComentario = (commentId: string) => {
-    // const listaNoticias = this.dataStorageService.getObjectValue('noticias');
-    this.returnedComments.forEach(commentInside => {
-      if (commentInside.commentId == commentId) {
-        this.formGroupComment = this.formBuilder.group({
-          commentId: [commentId, [Validators.required]],
-          userId: [commentInside.userId],
-          attractiveId: [commentInside.attractiveId],
-          comment: [
-            commentInside.comment,
-            [Validators.required, Validators.minLength(15)]
-          ],
-          score: [commentInside.score],
-          creationDate: [commentInside.creationDate]
-        });
-      }
-    });
-  };
-
-  guardarComentario(_formGroup: FormGroup) {
-    // Asigna el valor del ID del usuario
-    this.formGroupComment.value.idUsuario = this.currentUser.userId;
-    // Asigna el ID del atractivo que esta siendo visitado
-    this.formGroupComment.value.idAtractivo = this.attractiveId;
-    // console.log(_formGroup);
-    if (this.formGroupComment.valid) {
-      let comentarioIndex = -1;
-      // const listaNoticias = this.dataStorageService.getObjectValue('noticias');
-      this.attractiveComments.forEach((comentario, index) => {
-        if (comentario.commentId == this.formGroupComment.value.id) {
-          comentarioIndex = index;
-        }
-      });
-      if (comentarioIndex >= 0) {
-        this.attractiveComments[comentarioIndex] = this.formGroupComment.value;
-      } else {
-        // Si no existe un ID significa que es nuevo y se asigna el ultimo en la lista
-        const ultimoGuardado = this.attractiveComments.reduce(function (prev, current) {
-          return (prev.commentId > current.commentId) ? prev : current;
-        })
-        //this.formGroupComentario.value.id = this.comentarios.length;
-        this.formGroupComment.value.id = +ultimoGuardado.commentId + 1;
-        this.attractiveComments.push(this.formGroupComment.value);
-      }
-
-      this.formGroupComment.patchValue({ fechaCreacion: new Date() });
-      //this._dataStorage.setObjectValue(this._dataControl.keyComentarios, this.attractiveComments);
-      //TODO- Aqui funcion para guardar a firebase
-      alert('Informacion guardada');
-      // Recarga los comntario para agregar el nuevo
-      //this.loadCommnents();
-      // Si la accion es crear o elminar se limpia el formulario y se esconde la ventana
-      if (this.commentAction != 1) {
-        this.iniciarComentario();
-        this.modalRef.hide();
-      }
-      // se coloca la paginacion en el primer lugar
-      this.setPage(1);
-      // Se emite el valor medio del atractivo actualmente
-      this.puntajeMedioEmit();
-    } else {
-      alert('Debe completar la informacion correctamente');
-    }
-
   }
+  editCommentForm() {
+    this.formGroupComment = this.formBuilder.group({
+      commentId: [this.maintenanceComment.commentId, [Validators.required]],
+      userId: [this.maintenanceComment.userId, [Validators.required]],
+      attractiveId: [this.maintenanceComment.attractiveId, [Validators.required]],
+      comment: [this.maintenanceComment.comment, [Validators.required]],
+      score: [this.maintenanceComment.score, [Validators.required]],
+      creationDate: [this.maintenanceComment.creationDate]
+    });
+  }
+
+  deleteComment() {
+    if (this.maintenanceComment && this.maintenanceComment.commentId != '') {
+      this._dataInformationService.deleteComment(this.maintenanceComment);
+      this._snotifyService.success('Información eliminada correctamente', 'Información');
+    } else {
+      this._snotifyService.warning('No ha sido posible reaizar la accion solicitada', 'Atención');
+    }
+    this.modalRef.hide();
+  }
+  editComment() {
+    if (this.formGroupComment.valid) {
+      const newComment: CommentaryType = {
+        'attractiveId': this.maintenanceComment.attractiveId,
+        'userId': this.maintenanceComment.userId,
+        'comment': this.formGroupComment.value.comment,
+        'commentId': this.formGroupComment.value.commentId,
+        'score': this.formGroupComment.value.score,
+        'creationDate': new Date().toString()
+      }
+      let commentId = this._dataInformationService.saveComment(newComment);
+      this._snotifyService.success('Información guardada correctamente', 'Información');
+      this.decline();
+    } else {
+      this._snotifyService.warning('Debe completar la información correctamente', 'Atención');
+    }
+  }
+  newComment() {
+    if (this.formGroupComment.valid) {
+      const newComment: CommentaryType = {
+        'attractiveId': this.formGroupComment.value.attractiveId,
+        'userId': this.formGroupComment.value.userId,
+        'comment': this.formGroupComment.value.comment,
+        'commentId': '',
+        'score': this.formGroupComment.value.score,
+        'creationDate': new Date().toString()
+      }
+      let commentId = this._dataInformationService.saveComment(newComment);
+      this._snotifyService.success('Información guardada correctamente', 'Información');
+      this.decline();
+    } else {
+      this._snotifyService.warning('Debe completar la información correctamente', 'Atención');
+    }
+  }
+
 
   setPage(pageNo: number): void {
     this.currentPage = pageNo;
@@ -226,53 +259,22 @@ export class CommentsComponent implements OnInit {
         this.attractiveComments.splice(index, 1);
       }
     });
-
-    //this.loadCommnents();
     this.setPage(1);
     this.puntajeMedioEmit();
     this.modalRef.hide();
-    // this.comentarioAccion
   }
 
-  declineDelete() {
-    this.iniciarComentario();
+  decline() {
     this.modalRef.hide();
   }
-
-
-  mantenimientoComentario(comentarioID: CommentaryType, templateModal: TemplateRef<any>, accion: number) {
-    // Alamcen la accion a realizar por el usuario
-    this.commentAction = accion;
-    // Alamacena el objeto comentario que el uaurio esta abriendo
-    this.maintenanceComment = comentarioID;
-    // Carga el comentario
-    this.cargarComentario(this.maintenanceComment.commentId);
-    // console.log('Eliminar comentario: ' + comentarioID.id + ' | Accion: ' + (accion === 0 ? 'Editar' : 'Eliminar'));
-    // Permite detectar la accion de la ventana modal en este caso si esta es escondida
-    const _combine = combineLatest(
-      this._modalService.onHide,
-      this._modalService.onHidden
-    ).subscribe(() => this._changeDetection.markForCheck());
-
-    this.subscriptions.push(
-      this._modalService.onHidden.subscribe((reason: string) => {
-        this.iniciarComentario();
-        this.unsubscribe();
-      })
-    )
-    this.subscriptions.push(_combine);
-    this.modalRef = this._modalService.show(
-      templateModal,
-      Object.assign({}, { class: 'modal-lg' }, this.config)
-    );
-
+  appyDelete() {
+    this.deleteComment();
+    this.setPage(1);
+    this.puntajeMedioEmit();
+    this.modalRef.hide();
+    this._snotifyService.success('Información eliminada correctamente', 'Información');
   }
-
-  unsubscribe() {
-    this.subscriptions.forEach((subscription: Subscription) => {
-      subscription.unsubscribe();
-    });
-    this.subscriptions = [];
+  assingNewScore($event: number) {
+    this.formGroupComment.value.score = $event;
   }
-
 }
