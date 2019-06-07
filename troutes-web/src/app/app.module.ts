@@ -53,6 +53,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,7 +78,8 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
     DomSecurityPipe,
     PublicComponent,
     AssingEditorComponent,
-    LocationComponent
+    LocationComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -96,7 +98,6 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
     PaginationModule.forRoot(),
     RatingModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    AngularFireModule.initializeApp(environment.firebase),
     AgmCoreModule.forRoot({ apiKey: environment.googleMapsKey }),
     AngularFireDatabaseModule,
     
