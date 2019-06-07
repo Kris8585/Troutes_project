@@ -1,3 +1,19 @@
-<p>
-  location works!
-</p>
+<div *ngIf="latitude && longitude">
+    <agm-map [zoom]="8" [latitude]="latitude" [longitude]="longitude" #map name="map">
+        <agm-marker [latitude]="latitude" [longitude]="longitude">
+            <agm-info-window>
+                <h3>Hola!</h3>
+                <p>Estas aqui! latitud:{{latitude}}, longitud {{longitude}}</p>
+            </agm-info-window>
+        </agm-marker>
+
+        <agm-marker id="attraction-points" *ngFor="let item of attractions$ | async; let i = index" [latitude]="item.location.latitude" [longitude]="item.location.longitude" [iconUrl]="iconsList[i]">
+            <agm-info-window #iw>
+                <h3>{{item.name}}</h3>
+                <p>{{item.location.indications}}</p>
+
+            </agm-info-window>
+        </agm-marker>
+
+    </agm-map>
+</div>

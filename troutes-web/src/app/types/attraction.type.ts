@@ -10,7 +10,11 @@ type TouristAttractionsType = {
     ];
 
 
-    location: string;
+    location: {
+        indications:string;
+        latitude:number;
+        longitude:number;
+    }
     videUrl: string;
     schedule: [{
         schId: number;
