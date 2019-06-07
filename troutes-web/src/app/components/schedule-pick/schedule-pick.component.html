@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-12 text-center">
+        <h5>Seleccion de horario</h5>
+    </div>
+    <div class="col-12">
+        <label class="checkbox-inline checkDia" *ngFor="let pickDay of scheduleList; let i=index">
+          <input type="checkbox" value="" [(ngModel)]="pickDay.active" [checked]="pickDay.active" (change)="onDiaSelect(pickDay)">
+          {{_scheduleServices.getDayWord(pickDay.day)}}
+        </label>
+    </div>
+    <ng-container *ngFor="let pickDay of scheduleList; let i=index">
+        <div class="col-sm-12 col-md-4 col-lg-3 diaPick" *ngIf="pickDay.active">
+            <div class="col-12">
+                {{_scheduleServices.getDayWord(pickDay.day)}}
+            </div>
+            <div class="col-12 text-center">
+                <label for="timeStart">Abre: </label>
+                <input type="time" id="timeStart" class="iTime" name="usr_time" value="{{pickDay.startTime}}" [(ngModel)]="pickDay.startTime" (change)="onDiaSelect(pickDay.day)">
+            </div>
+            <div class="col-12 text-center">
+                <label for="timeEnd">Cierra: </label>
+                <input type="time" id="timeEnd" class="iTime" name="usr_time" value="{{pickDay.endTime}}" [(ngModel)]="pickDay.endTime" (change)="onDiaSelect(pickDay.day)">
+            </div>
+        </div>
+    </ng-container>
+</div>

@@ -50,6 +50,7 @@ import { LocationComponent } from './components/location/location.component';
 import { GeoService } from './services/geo/geo.service';
 import { AgmCoreModule } from '@agm/core';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { SchedulePickComponent } from './components/schedule-pick/schedule-pick.component';
 
 
 
@@ -77,7 +78,8 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
     DomSecurityPipe,
     PublicComponent,
     AssingEditorComponent,
-    LocationComponent
+    LocationComponent,
+    SchedulePickComponent
   ],
   imports: [
     BrowserModule,

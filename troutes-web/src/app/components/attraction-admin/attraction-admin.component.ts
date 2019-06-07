@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef, ElementRef, ViewChild } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { DataInformationService } from 'src/app/services/data-information/data-information.service';
 import { ActivatedRoute } from '@angular/router';
 import { SnotifyService } from 'ng-snotify';
@@ -23,6 +23,7 @@ export class AttractionAdminComponent implements OnInit {
   urlImage: Observable<string>;
   attractionSubscription: Subscription;
   logUser: UserType;
+  selectSchedule: string[] = [];
   @ViewChild('imgUserInput') inputImageUser: ElementRef;
   constructor(private _modalService: BsModalService,
     private _formBuilderAttractive: FormBuilder,
@@ -71,13 +72,31 @@ export class AttractionAdminComponent implements OnInit {
       creationDate: [this.attractionMantenance.creationDate],
       modifyDate: [this.attractionMantenance.modifyDate],
       //images: [this.attractionMantenance.images],
-      //schedule: [this.attractionMantenance.schedule]
+      schedule: this._formBuilderAttractive.array(
+        [Validators.required]
+      )
     })
+  }
+  addShedule(daySchedule?: string) {
+    (<FormArray>this.formGroupAttractive.controls['schedule']).push(
+      new FormControl(daySchedule, Validators.required)
+    );
+  }
+  cleanSchedule() {
+    while (this.formGroupAttractive.value.schedule.length !== 0) {
+      (<FormArray>this.formGroupAttractive.controls['schedule']).removeAt(0);
+    }
+    /*  for (let index = 0; index < this.formGroupAttractive.value.schedule.length; index++) {
+       //const element = this.formGroupAttractive.value.schedule[index];
+       (<FormArray>this.formGroupAttractive.controls['schedule']).removeAt(index)
+     }
+     (<FormArray>this.formGroupAttractive.controls['schedule']).updateOn(); */
+
   }
 
   editAttractive() {
     debugger
-    if (this.formGroupAttractive.valid && this.attractionMantenance) {
+    if (this.formGroupAttractive.valid && this.attractionMantenance && this.formGroupAttractive.value.schedule.length > 0) {
       const id = Math.random().toString(36).substring(2);
       let image: any = {
         id: id,
@@ -98,7 +117,7 @@ export class AttractionAdminComponent implements OnInit {
         'images': this.attractionMantenance.images,
         'location': this.attractionMantenance.location,
         'videUrl': this.getVideoID(this.formGroupAttractive.value.videUrl),
-        'schedule': this.getSchedule(),
+        'schedule': this.formGroupAttractive.value.schedule,
         'editorId': this.attractionMantenance.editorId,
         'active': true,
         'creationDate': this.attractionMantenance.creationDate,
@@ -168,5 +187,15 @@ export class AttractionAdminComponent implements OnInit {
     }
     ];
     return horario;
+  }
+
+  newSchedule($event: string[]) {
+    let tempSchedule = $event;
+    this.selectSchedule = tempSchedule;
+    console.log(this.formGroupAttractive.value.schedule);
+    this.cleanSchedule();
+    tempSchedule.forEach(element => {
+      this.addShedule(element);
+    });
   }
 }
