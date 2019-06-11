@@ -130,6 +130,7 @@ export class AssingEditorComponent implements OnInit {
     })
   }
   editAttractive() {
+
     if (this.formGroupAttractive.valid && this.attractionMantenance) {
       const newAttractive: TouristAttractionsType = {
         'id': '1',
@@ -170,7 +171,6 @@ export class AssingEditorComponent implements OnInit {
         'name': this.formGroupAttractive.value.attractiveName,
         'description': '',
         'images': [{
-          'id': null,
           'imageUrl': '',
         }
         ],

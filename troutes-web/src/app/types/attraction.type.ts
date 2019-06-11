@@ -4,12 +4,9 @@ type TouristAttractionsType = {
     name: string;
     description: string;
     images: [{
-        id: number;
         imageUrl: string;
     }
     ];
-
-
     location: string;
     videUrl: string;
     schedule: [{

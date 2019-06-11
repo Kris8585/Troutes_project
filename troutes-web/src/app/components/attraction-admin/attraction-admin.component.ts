@@ -2,12 +2,11 @@ import { Component, OnInit, TemplateRef, ElementRef, ViewChild } from '@angular/
 import { Observable, Subscription } from 'rxjs';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { DataInformationService } from 'src/app/services/data-information/data-information.service';
-import { ActivatedRoute } from '@angular/router';
 import { SnotifyService } from 'ng-snotify';
-import { AngularFireStorage } from "@angular/fire/storage";
-import { finalize } from "rxjs/operators";
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { LoginService } from 'src/app/services/login/login.service';
+import { UploadsService } from 'src/app/services/uploads/uploads.service';
+import { Upload } from 'src/app/classes/uploads/upload';
 @Component({
   selector: 'app-attraction-admin',
   templateUrl: './attraction-admin.component.html',
@@ -28,10 +27,9 @@ export class AttractionAdminComponent implements OnInit {
   constructor(private _modalService: BsModalService,
     private _formBuilderAttractive: FormBuilder,
     private _snotifyService: SnotifyService,
-    private _fireStorage: AngularFireStorage,
     private _dataInformationService: DataInformationService,
     private _loginService: LoginService,
-    private _activatedRoute: ActivatedRoute) {
+    private _uploadService: UploadsService) {
 
     this.logUser = this._loginService.getCurrentUser();
     this.listAllAttractives();
@@ -44,18 +42,11 @@ export class AttractionAdminComponent implements OnInit {
     this.attractionList$ = this._dataInformationService.getAtractionByEditorId(this.logUser.userId);
   }
 
-
-  /* editAttraction(attraction: TouristAttractionsType, template: TemplateRef<any>) {
-    console.log('Editar: ' + attraction);
-    this.modalRef = this._modalService.show(template);
-  } */
-
   editAttraction(attractive: TouristAttractionsType, template: TemplateRef<any>) {
     console.log('Editar: ' + attractive);
     this.modalRef = this._modalService.show(template);
     this.attractionMantenance = attractive;
     this.editAtractiveForm();
-    //this.attractiveMaintenance(attractive,1);
   }
 
   editAtractiveForm() {
@@ -71,7 +62,9 @@ export class AttractionAdminComponent implements OnInit {
       active: [this.attractionMantenance.active],
       creationDate: [this.attractionMantenance.creationDate],
       modifyDate: [this.attractionMantenance.modifyDate],
-      //images: [this.attractionMantenance.images],
+      images: this._formBuilderAttractive.array(
+        [Validators.required]
+      ),
       schedule: this._formBuilderAttractive.array(
         [Validators.required]
       )
@@ -86,35 +79,28 @@ export class AttractionAdminComponent implements OnInit {
     while (this.formGroupAttractive.value.schedule.length !== 0) {
       (<FormArray>this.formGroupAttractive.controls['schedule']).removeAt(0);
     }
-    /*  for (let index = 0; index < this.formGroupAttractive.value.schedule.length; index++) {
-       //const element = this.formGroupAttractive.value.schedule[index];
-       (<FormArray>this.formGroupAttractive.controls['schedule']).removeAt(index)
-     }
-     (<FormArray>this.formGroupAttractive.controls['schedule']).updateOn(); */
-
+  }
+  addImage(imageUrl?: any) {
+    (<FormArray>this.formGroupAttractive.controls['images']).push(
+      new FormControl(imageUrl, Validators.required)
+    );
+  }
+  cleanImages() {
+    while (this.formGroupAttractive.value.images.length !== 0) {
+      (<FormArray>this.formGroupAttractive.controls['images']).removeAt(0);
+    }
   }
 
   editAttractive() {
-    debugger
+
+    this.imageControl();
     if (this.formGroupAttractive.valid && this.attractionMantenance && this.formGroupAttractive.value.schedule.length > 0) {
-      const id = Math.random().toString(36).substring(2);
-      let image: any = {
-        id: id,
-        imageUrl: this.defaultImage
-      };
-      if (this.attractionMantenance.images.length > 0) {
-        this.attractionMantenance.images.push(image);
-      } else {
-        this.attractionMantenance.images.push(image);
-      }
-      //this.formGroupAttractive.value.image
-      this.attractionMantenance.images.push(image);
       const newAttractive: TouristAttractionsType = {
         'id': '1',
         'attractionId': this.attractionMantenance.attractionId,
         'name': this.formGroupAttractive.value.name,
         'description': this.formGroupAttractive.value.description,
-        'images': this.attractionMantenance.images,
+        'images': this.formGroupAttractive.value.images,
         'location': this.attractionMantenance.location,
         'videUrl': this.getVideoID(this.formGroupAttractive.value.videUrl),
         'schedule': this.formGroupAttractive.value.schedule,
@@ -125,77 +111,57 @@ export class AttractionAdminComponent implements OnInit {
       }
       let attractiveId = this._dataInformationService.saveAttractive(newAttractive);
       this.decline();
-      //Llmar misma ruta
       this._snotifyService.success('Información guardada correctamente', 'Información');
     } else {
       this._snotifyService.warning('Debe completar la información correctamente', 'Atención');
     }
   }
 
+  private imageControl() {
+    if (this._uploadService.deleteIMageList.length > 0) {
+      this._uploadService.deleteIMageList.forEach(elementUrl => {
+        this.attractionMantenance.images.forEach((maintenanceImage, index) => {
+          if (elementUrl == maintenanceImage.imageUrl) {
+            this.attractionMantenance.images.splice(index, 1);
+          }
+        });
+      });
+    }
+    this.assingImages(this._uploadService.multipleLoadCurrent);
+  }
+
   decline() {
     this.modalRef.hide();
+    this._uploadService.multipleLoadCurrent = [];
+    this._uploadService.deleteIMageList = [];
   }
+
   getVideoID(fullURL: string) {
     var newID = fullURL.split('v=')[1].split('&')[0];
     return newID;
   }
 
-  onUpload(event) {
-    //this.isLoadingImage = true;
-    const id = Math.random().toString(36).substring(2);
-    const file = event.target.files[0];
-    const filePath = `upload/profile_${id}`;
-    const ref = this._fireStorage.ref(filePath);
-    const task = this._fireStorage.upload(filePath, file);
-    this.uploadPercent = task.percentageChanges();
-    task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe(() => {
-      //this.isLoadingImage = false;
-      this.formGroupAttractive.value.profileImage_session = this.urlImage;
-      // let image: any = {
-      //   id: id,
-      //   imageUrl: this.urlImage
-      // };
-      // console.log(image);
-      // this.attractionMantenance.images.push(image);
-      console.log('Imagen cargada');
-    });
-  }
-  getSchedule() {
-    let horario: any = [{
-      "id": 1,
-      "dia": "L",
-      "horaInicio": "08:00",
-      "horaFin": "15:00"
-    },
-    {
-      "id": 2,
-      "dia": "M",
-      "horaInicio": "08:00",
-      "horaFin": "15:00"
-    },
-    {
-      "id": 3,
-      "dia": "I",
-      "horaInicio": "08:00",
-      "horaFin": "13:00"
-    },
-    {
-      "id": 4,
-      "dia": "J",
-      "horaInicio": "08:00",
-      "horaFin": "15:00"
-    }
-    ];
-    return horario;
-  }
-
   newSchedule($event: string[]) {
     let tempSchedule = $event;
     this.selectSchedule = tempSchedule;
-    console.log(this.formGroupAttractive.value.schedule);
     this.cleanSchedule();
     tempSchedule.forEach(element => {
       this.addShedule(element);
     });
+  }
+
+  assingImages(imagesList: Upload[]) {
+    this.cleanImages();
+    let currentList = this.attractionMantenance.images;
+    imagesList.forEach(newImage => {
+      const tempImage = {
+        imageUrl: newImage.url
+      }
+      currentList.push(tempImage);
+    });
+    currentList.forEach(image => {
+      this.addImage(image);
+    });
+    this._uploadService.multipleLoadCurrent = [];
   }
 }
