@@ -2,3 +2,104 @@
         width: 100vw;
         height: 100vh;
     }
+    
+    .card_title {
+        font-size: 40px;
+        color: rgb(4, 136, 48);
+    }
+    
+    .card_title_sch {
+        font-size: 40px;
+        color: rgb(238, 124, 18);
+    }
+    
+    .card-background {
+        background: #000000e1;
+    }
+    
+    .card-body {
+        background: #000000c2;
+        text-align: center;
+        color: white;
+    }
+    
+    .btn_close {
+        margin-left: 83%;
+        margin-top: 0%;
+        width: 4px;
+        background-color: transparent;
+    }
+    
+    .card-head {
+        text-align: center;
+    }
+    
+    .btn-floating {
+        position: static;
+        background-color: transparent;
+        width: 5px;
+        margin-left: 85%;
+    }
+    
+    .btn-floating:hover {
+        color: red;
+    }
+    
+    .btn-sch {
+        width: 30px;
+        font-size: 20px;
+        margin-right: 5px;
+        background: transparent;
+        color: white;
+        border: solid 0.5px white;
+    }
+    
+    .btn-sch:hover {
+        background: white;
+        color: black;
+        border: solid 0.5px black;
+    }
+    
+    .btn-search {
+        width: 30px;
+        font-size: 20px;
+        margin-left: 10px;
+        background: transparent;
+        color: white;
+        border: solid 0.5px transparent;
+    }
+    
+    .btn-search:hover {
+        color: rgb(3, 7, 66);
+    }
+    
+    .card-title {
+        color: white;
+        margin-top: 100%;
+        margin-bottom: 10%;
+        margin-left: 60%;
+    }
+    
+    .card-over {
+        position: fixed;
+        top: 5vh;
+        width: 400px;
+        z-index: 9;
+        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .85)!important;
+        border: 1px #363535;
+    }
+    
+    .card-overScedule {
+        position: fixed;
+        z-index: 100;
+        left: 27vw;
+        top: 25vh;
+    }
+    
+    .card-overSearch {
+        align-content: center;
+        position: fixed;
+        z-index: 9;
+        right: 3vw;
+        top: 70vh;
+    }

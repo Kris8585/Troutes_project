@@ -47,7 +47,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { LocationComponent } from './components/location/location.component';
-import { GeoService } from './services/geo/geo.service';
 import { AgmCoreModule } from '@agm/core';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 
@@ -103,7 +102,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
     
 
   ],
-  providers: [AngularFireAuth, LoginService, RegisterService, DataInformationService, GeoService,
+  providers: [AngularFireAuth, LoginService, RegisterService, DataInformationService, 
     AuthenticationGuard, AuthorizationGuard, { provide: 'SnotifyToastConfig', useValue: ToastDefaults },
     SnotifyService],
   bootstrap: [AppComponent]

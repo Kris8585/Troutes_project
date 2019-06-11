@@ -1,19 +1,86 @@
-<div *ngIf="latitude && longitude">
-    <agm-map [zoom]="8" [latitude]="latitude" [longitude]="longitude" #map name="map">
+<link rel="stylesheet" href="https://use.typekit.net/qlg2swg.css">
+
+<div *ngIf="location.lat && location.lng">
+
+    <div id="floating-card" class="card mt-3 ml-3 card-over card-background" *ngIf="attractionDetails && showDetails">
+        <button class="btn btn-floating" (click)="showDetails=!showDetails"><a><span class="fa fa-times-circle"></span></a></button>
+        <div class="card-header">
+            <div class="row card-head">
+                <h5 class="font-style__xants_regular card_title"> {{attractionDetails.name}}</h5>
+            </div>
+        </div>
+
+        <div id="schedule-card" class="card mt-3 ml-3 card-overScedule card-background" *ngIf="attractionDetails && showDetails && showSchedule">
+            <div class="card-header">
+                <div class="row card-head">
+                    <h5 class="font-style__xants_regular card_title_sch">Horarios</h5>
+                </div>
+            </div>
+
+            <div class="card-body ">
+                <div *ngFor="let sch of attractionDetails.schedule">
+                    <p class="text-white">{{sch.day}} {{sch.startTime}} - {{sch.endTime}} </p>
+                </div>
+            </div>
+        </div>
+
+
+
+        <img src="{{attractionDetails.images[0].imageUrl}}" class="card-img-top">
+
+        <div class="card-body ">
+            <h4 class="text-white">Coordenadas</h4>
+            <hr>
+            <div class="row">
+                <div class="col-6">
+                    <p class="card-text">Longitud: {{attractionDetails.location.longitude}}</p>
+                    <p class="card-text">Latitud: {{attractionDetails.location.latitude}}</p>
+                </div>
+
+                <div class="col-6">
+                    <button class=" btn-sch" (click)="showSchedule=!showSchedule"><a><span class="fa fa-calendar"></span></a></button>
+                    <button class="btn btn-primary" (click)="detailsClick(attractionDetails.name)">Detalles</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="search-card" class="card mt-3 ml-3 card-overSearch card-background">
+        <div class="card-header ">
+            <h4 class="text-white">Buscar</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6"><input type="text" [(ngModel)]="site" placeholder="Ingrese nombre de sitio"></div>
+                <div class="col-6"><button (click)="searchAttraction(site)" class="btn-search"><a> <span class="fa fa-search"></span></a></button></div>
+            </div>
+        </div>
+    </div>
+
+
+    <agm-map [zoom]="location.zoom" [latitude]="location.lat" [longitude]="location.lng" #map name="map" [mapTypeId]="'hybrid'">
         <agm-marker [latitude]="latitude" [longitude]="longitude">
             <agm-info-window>
-                <h3>Hola!</h3>
-                <p>Estas aqui! latitud:{{latitude}}, longitud {{longitude}}</p>
+                <h3>Ubicación actual: </h3>
+                <p>Latitud: {{latitude}}, Longitud: {{longitude}}</p>
             </agm-info-window>
         </agm-marker>
 
-        <agm-marker id="attraction-points" *ngFor="let item of attractions$ | async; let i = index" [latitude]="item.location.latitude" [longitude]="item.location.longitude" [iconUrl]="iconsList[i]">
-            <agm-info-window #iw>
-                <h3>{{item.name}}</h3>
-                <p>{{item.location.indications}}</p>
 
-            </agm-info-window>
-        </agm-marker>
+        <ng-container *ngFor="let item of attractions$ | async; let i = index">
+            <agm-marker id="attraction-points" *ngIf="item.active" [latitude]="item.location.latitude" [longitude]="item.location.longitude" [iconUrl]="iconsList[i]" (markerClick)="markerClick(i,iw)">
+                <agm-info-window #iw>
+                    <h3>{{item.name}}</h3>
+                    <p>{{item.location.indications}}</p>
+
+                </agm-info-window>
+            </agm-marker>
+        </ng-container>
+
+
+
 
     </agm-map>
 </div>
