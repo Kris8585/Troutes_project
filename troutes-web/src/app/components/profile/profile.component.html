@@ -15,21 +15,8 @@
                     </div>
                     <form [formGroup]="formGroupSession" id="formGroupSession" class="row">
                         <div class="form-group col-4 d-block">
-                            <img class="profile__image" [src]="userLog.profile_photo" *ngIf="userLog" alt="">
-                            <!-- <img class="profile__image" [src]="userLog.profile_photo" *ngIf="userLog && !urlImage|async" alt="">
-                            <img class="profile__image" [src]="urlImage|async" alt="" *ngIf="urlImage|async">
-                            <hr>
-                            <input type="hidden" #imgUserInput class="form-control" formControlName="profileImage_session" id="profileImage_session" [value]='urlImage|async'>
-                            <ng-container *ngIf="isUpdateInit">
-                                <div class="custom-file">
-                                    <input type="file" accept=".png, .jpg" (change)="onUpload($event)" class="custom-file-input" id="custom-file" [readonly]='!isUpdateInit'>
-                                    <label class="custom-file-label" for="custom-file">Choose file</label>
-                                </div>
-                                <br>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-striped" role="progressbar" [style.width]="(uploadPercent|async)+'%'"></div>
-                                </div>
-                            </ng-container> -->
+                            <img class="profile__image" [src]="userLog.profile_photo" *ngIf="userLog && !isUpdateInit" alt="">
+                            <app-upload-form [isMultiLoad]="false" [imageAcction]="userLog?userLog.profile_photo:null" *ngIf="isUpdateInit"></app-upload-form>
                         </div>
                         <div class="col-7">
                             <div class="row">
