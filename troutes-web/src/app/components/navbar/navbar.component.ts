@@ -21,6 +21,12 @@ export class NavbarComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    if(this.stateSubscription){
+      this.stateSubscription.unsubscribe();
+    }
+    
+  }
   ngOnInit() {
     setTimeout(() => {
       this.currentUser = this._loginService.getCurrentUser();
