@@ -17,6 +17,10 @@
         background: #000000e1;
     }
     
+    .card-backgroundSearching {
+        background: #155206c9;
+    }
+    
     .card-body {
         background: #000000c2;
         text-align: center;
@@ -70,7 +74,7 @@
     }
     
     .btn-search:hover {
-        color: rgb(3, 7, 66);
+        color: #155206c9;
     }
     
     .card-title {
@@ -83,7 +87,7 @@
     .card-over {
         position: fixed;
         top: 5vh;
-        width: 400px;
+        width: 350px;
         z-index: 9;
         box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .85)!important;
         border: 1px #363535;
@@ -91,9 +95,8 @@
     
     .card-overScedule {
         position: fixed;
-        z-index: 100;
-        left: 27vw;
-        top: 25vh;
+        z-index: 9;
+        top: 25%;
     }
     
     .card-overSearch {
@@ -102,4 +105,74 @@
         z-index: 9;
         right: 3vw;
         top: 70vh;
+    }
+    
+    .card-overSearchStatus {
+        align-content: center;
+        position: fixed;
+        z-index: 9;
+        right: 3vw;
+        top: 50vh;
+    }
+    
+    .img-overlay {
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        border: solid 2px black;
+    }
+    
+    .label-style {
+        visibility: hidden;
+    }
+    
+    .indications-style {
+        visibility: hidden;
+    }
+    
+    .img-overlay:hover {
+        position: fixed;
+        width: 200px;
+        height: 200px;
+        z-index: 9;
+        animation: jello 1s;
+    }
+    
+    .img-overlay:hover~.label-style {
+        visibility: visible;
+        animation: jello 1s;
+        font-size: 25px;
+        position: fixed;
+        z-index: 9;
+        background: black;
+    }
+    
+    .p-indications {
+        margin: 10px 10px 10px 10px;
+    }
+    
+    .img-overlay:hover~.indications-style {
+        visibility: visible;
+        width: 300px;
+        animation: jello 1s;
+        position: fixed;
+        margin-top: 40px;
+        margin-left: 10vh;
+        font-size: 20px;
+        z-index: 9;
+        border: solid 2px black;
+        background: rgba(90, 2, 2, 0.801);
+    }
+    
+    .btn-close {
+        background: transparent;
+        border: transparent;
+        width: 25px;
+        color: white;
+    }
+    
+    .btn-close:hover {
+        border-radius: 50%;
+        background: #2e0202c2;
+        color: #3d3c3cc2;
     }

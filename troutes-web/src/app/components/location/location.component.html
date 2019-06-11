@@ -3,29 +3,13 @@
 <div *ngIf="location.lat && location.lng">
 
     <div id="floating-card" class="card mt-3 ml-3 card-over card-background" *ngIf="attractionDetails && showDetails">
-        <button class="btn btn-floating" (click)="showDetails=!showDetails"><a><span class="fa fa-times-circle"></span></a></button>
+        <button class="btn btn-floating" (click)="showDetails=!showDetails"><a><span
+                    class="fa fa-times-circle"></span></a></button>
         <div class="card-header">
             <div class="row card-head">
                 <h5 class="font-style__xants_regular card_title"> {{attractionDetails.name}}</h5>
             </div>
         </div>
-
-        <div id="schedule-card" class="card mt-3 ml-3 card-overScedule card-background" *ngIf="attractionDetails && showDetails && showSchedule">
-            <div class="card-header">
-                <div class="row card-head">
-                    <h5 class="font-style__xants_regular card_title_sch">Horarios</h5>
-                </div>
-            </div>
-
-            <div class="card-body ">
-                <div *ngFor="let sch of attractionDetails.schedule">
-                    <p class="text-white">{{sch.day}} {{sch.startTime}} - {{sch.endTime}} </p>
-                </div>
-            </div>
-        </div>
-
-
-
         <img src="{{attractionDetails.images[0].imageUrl}}" class="card-img-top">
 
         <div class="card-body ">
@@ -38,13 +22,31 @@
                 </div>
 
                 <div class="col-6">
-                    <button class=" btn-sch" (click)="showSchedule=!showSchedule"><a><span class="fa fa-calendar"></span></a></button>
                     <button class="btn btn-primary" (click)="detailsClick(attractionDetails.name)">Detalles</button>
                 </div>
             </div>
         </div>
     </div>
 
+
+
+
+
+    <div id="searching-cardstatus" class="card mt-3 ml-3 card-overSearchStatus card-backgroundSearching" *ngIf="showSearching">
+        <div class="card-header ">
+            <div class="row">
+                <div class="col-9">
+                    <h5 class="text-white">Buscando</h5>
+                </div>
+                <div class="col-3"><button class="btn-close" (click)="closeClick()"><a><span class="fa fa-close"></span> </a></button></div>
+            </div>
+        </div>
+        <div class="card-body">
+            <p>{{searchSite}}</p>
+
+        </div>
+
+    </div>
 
 
     <div id="search-card" class="card mt-3 ml-3 card-overSearch card-background">
@@ -54,7 +56,8 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-6"><input type="text" [(ngModel)]="site" placeholder="Ingrese nombre de sitio"></div>
-                <div class="col-6"><button (click)="searchAttraction(site)" class="btn-search"><a> <span class="fa fa-search"></span></a></button></div>
+                <div class="col-6"><button (click)="searchAttraction(site)" class="btn-search"><a> <span
+                                class="fa fa-search"></span></a></button></div>
             </div>
         </div>
     </div>
@@ -68,15 +71,17 @@
             </agm-info-window>
         </agm-marker>
 
-
         <ng-container *ngFor="let item of attractions$ | async; let i = index">
-            <agm-marker id="attraction-points" *ngIf="item.active" [latitude]="item.location.latitude" [longitude]="item.location.longitude" [iconUrl]="iconsList[i]" (markerClick)="markerClick(i,iw)">
-                <agm-info-window #iw>
-                    <h3>{{item.name}}</h3>
-                    <p>{{item.location.indications}}</p>
 
-                </agm-info-window>
-            </agm-marker>
+            <agm-overlay id="attraction-points" *ngIf="item.active" [latitude]="item.location.latitude" [longitude]="item.location.longitude" (markerClick)="markerClick(i)">
+                <img class="img-overlay" src="{{item.images[0].imageUrl}}">
+                <label class="label-style font-style__sarina_regular">{{item.name}}</label>
+                <div class="indications-style">
+                    <p class="p-indications font-style__alegreya_italic">{{item.location.indications}}</p>
+                </div>
+
+
+            </agm-overlay>
         </ng-container>
 
 

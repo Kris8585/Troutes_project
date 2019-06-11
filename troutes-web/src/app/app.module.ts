@@ -52,6 +52,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { SchedulePickComponent } from './components/schedule-pick/schedule-pick.component';
 import { UploadFormComponent } from './components/upload-form/upload-form.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { AgmOverlays } from "agm-overlays"
 
 
 
@@ -82,7 +83,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     AssingEditorComponent,
     LocationComponent,
     SchedulePickComponent,
-    UploadFormComponent
+    UploadFormComponent,
+   
   ],
   imports: [
     BrowserModule,
@@ -103,7 +105,11 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AgmCoreModule.forRoot({ apiKey: environment.googleMapsKey }),
     SweetAlert2Module.forRoot(),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    AgmOverlays,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBMQY92YzctL2HTASa8CJVOtXz77SRkXFI'
+    })
   ],
   providers: [AngularFireAuth, LoginService, RegisterService, DataInformationService, 
     AuthenticationGuard, AuthorizationGuard, { provide: 'SnotifyToastConfig', useValue: ToastDefaults },

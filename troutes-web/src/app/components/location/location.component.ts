@@ -17,53 +17,32 @@ export class LocationComponent implements OnInit {
   latitude: number;
   longitude: number;
   attractions$: Observable<any>;
-  attrSubscription: Subscription;
   attrDetails: Subscription;
   searchSunscription: Subscription;
-
-  iconsList: any[];
-  icons: any;
-  icon: any;
   attractionDetails: TouristAttractionsType;
   showDetails: boolean;
   showSchedule: boolean;
-  currentIW: AgmInfoWindow = null;
-  previousIW: AgmInfoWindow = null;
-  location = {
-    lat: 0,
-    lng: 0,
-    zoom: 13
-  };
+  showSearching: boolean;
+  searchSite: string;
+  site: string;
+  location: any;
 
   constructor(private _dataInformationService: DataInformationService,
     private _router: Router,
     private _snotifyService: SnotifyService) {
 
-    this.iconsList = new Array;
+    this.location = {
+      lat: 0,
+      lng: 0,
+      zoom: 13
+    };
+
     this.showDetails = true;
     this.showSchedule = false;
-
+    this.showSearching = false;
+    this.latitude = 0;
+    this.longitude = 0;
     this.attractions$ = this._dataInformationService.getAllAttractions();
-    this.attrSubscription = this._dataInformationService.getAllAttractions().subscribe((attr) => {
-
-
-      attr.forEach(touristAttr => {
-        this.icon = {
-
-          url: touristAttr.images[0].imageUrl,
-          scaledSize: {
-            width: 60,
-            height: 60,
-          },
-
-        }
-        this.iconsList.push(this.icon);
-      });
-
-
-    });
-
-
 
   }
 
@@ -89,8 +68,8 @@ export class LocationComponent implements OnInit {
 
   ngOnDestroy(): void {
 
-    if (this.attrSubscription && this.attrDetails) {
-      this.attrSubscription.unsubscribe();
+    if (this.attrDetails) {
+
       this.attrDetails.unsubscribe();
     }
 
@@ -111,17 +90,38 @@ export class LocationComponent implements OnInit {
 
   }
 
+  private closeClick() {
+    this.showSearching = false;
+    this.showDetails = false;
+    this.location = {
+      lat: this.latitude,
+      lng: this.longitude,
+      zoom: 8
+    }
+
+
+  }
+
 
   private searchAttraction(attrName: string) {
 
     if (attrName) {
       this.searchSunscription = this._dataInformationService.getAtractionByName(attrName).subscribe((attr) => {
 
-
-        this.location = {
-          lat: attr[0].location.latitude,
-          lng: attr[0].location.longitude,
-          zoom: 15
+        if (attr.length <= 0) {
+          this.searchSite = "' " + attrName.toString() + " '" + ' no encontrado';
+          this.showSearching = true;
+        } else {
+          if (attr[0].active) {
+            this.searchSite = attrName.toString();
+            this.showSearching = true;
+            this.showDetails = true;
+            this.location = {
+              lat: attr[0].location.latitude,
+              lng: attr[0].location.longitude,
+              zoom: 15
+            }
+          }
         }
 
         if (this.showDetails) {
@@ -133,10 +133,10 @@ export class LocationComponent implements OnInit {
     } else {
       this._snotifyService.warning("Digite el nombre del sitio", 'Atención');
     }
-
+    this.site = "";
   }
 
-  private markerClick(index: number, infoWindow: any) {
+  private markerClick(index: number) {
 
     if (!this.showDetails) {
       this.showDetails = true;
@@ -148,11 +148,6 @@ export class LocationComponent implements OnInit {
       this.attractionDetails = attr[index];
     });
 
-    if (this.previousIW) {
-      this.currentIW = infoWindow;
-      this.previousIW.close();
-    }
-    this.previousIW = infoWindow;
 
   }
 

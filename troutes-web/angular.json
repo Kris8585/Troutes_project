@@ -27,6 +27,7 @@
                             "./node_modules/bootswatch/dist/lux/bootstrap.min.css",
                             "./node_modules/font-awesome/css/font-awesome.css",
                             "./node_modules/ngx-lightbox/lightbox.css",
+                            "node_modules/animate.css/animate.min.css",
                             "src/styles.css"
                         ],
                         "scripts": [
