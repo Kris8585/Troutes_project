@@ -47,7 +47,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { LocationComponent } from './components/location/location.component';
-import { GeoService } from './services/geo/geo.service';
 import { AgmCoreModule } from '@agm/core';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { SchedulePickComponent } from './components/schedule-pick/schedule-pick.component';
@@ -106,7 +105,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     SweetAlert2Module.forRoot(),
     AngularFireDatabaseModule
   ],
-  providers: [AngularFireAuth, LoginService, RegisterService, DataInformationService, GeoService,
+  providers: [AngularFireAuth, LoginService, RegisterService, DataInformationService, 
     AuthenticationGuard, AuthorizationGuard, { provide: 'SnotifyToastConfig', useValue: ToastDefaults },
     SnotifyService],
   bootstrap: [AppComponent]
