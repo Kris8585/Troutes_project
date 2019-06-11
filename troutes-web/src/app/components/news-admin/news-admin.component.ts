@@ -4,8 +4,8 @@ import { Observable, Subscription } from 'rxjs';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SnotifyService } from 'ng-snotify';
-import { AngularFireStorage } from "@angular/fire/storage";
-import { finalize } from "rxjs/operators";
+
+import { UploadsService } from 'src/app/services/uploads/uploads.service';
 @Component({
   selector: 'app-news-admin',
   templateUrl: './news-admin.component.html',
@@ -19,8 +19,6 @@ export class NewsAdminComponent implements OnInit {
   subscriptions: Subscription[] = [];
   acctionMantenance: number = 0;
   newMantenance: NewsType;
-  //Subida Imagen
-  defaultImage = 'https://firebasestorage.googleapis.com/v0/b/troutes-c1ba9.appspot.com/o/uploads%2Fnews%2FP_20151031_202612.jpg?alt=media&token=8770dc90-a424-4d09-b7b0-d74cd03de0d7';
   uploadPercent: Observable<number>;
   urlImage: Observable<string>;
   attractionSubscription: Subscription;
@@ -30,9 +28,9 @@ export class NewsAdminComponent implements OnInit {
   constructor(
     private _modalService: BsModalService,
     private _formBuilderNews: FormBuilder,
-    private _fireStorage: AngularFireStorage,
     private _snotifyService: SnotifyService,
-    private _dataService: DataInformationService
+    private _dataService: DataInformationService,
+    private _uploadService: UploadsService
   ) {
     this.loadAllNews();
   }
@@ -44,29 +42,25 @@ export class NewsAdminComponent implements OnInit {
     this.newsList$ = this._dataService.getAllNews();
   }
 
-  //Definion de acciones cuando estamos en lista
   newNewsControl(news: NewsType, template: TemplateRef<any>) {
-    console.log('Editar: ' + news);
-    this.modalRef = this._modalService.show(template);
     this.acctionMantenance = 0;
     this.newMantenance = news;
     this.newNewsForm();
+    this.modalRef = this._modalService.show(template);
   }
   editNewsControl(news: NewsType, template: TemplateRef<any>) {
-    console.log('Editar: ' + news);
-    this.modalRef = this._modalService.show(template);
     this.acctionMantenance = 1;
     this.newMantenance = news;
     this.editNewsForm();
+    this.modalRef = this._modalService.show(template);
   }
 
   deleteNewsControl(news: NewsType, template: TemplateRef<any>) {
-    console.log('Elimianr: ' + news);
-    this.modalRef = this._modalService.show(template);
     this.acctionMantenance = 2;
     this.newMantenance = news;
+    this.modalRef = this._modalService.show(template);
   }
-  //Iniciacializacion de forms
+
   editNewsForm() {
     this.formGroupNews = this._formBuilderNews.group({
       id: [this.newMantenance.id],
@@ -74,7 +68,7 @@ export class NewsAdminComponent implements OnInit {
       title: [this.newMantenance.tittle, [Validators.required, Validators.minLength(5)]],
       postTitle: [this.newMantenance.postTittle, [Validators.required, Validators.minLength(15)]],
       description: [this.newMantenance.description, [Validators.required, Validators.minLength(15)]],
-      //image: [this.newMantenance.image, [Validators.required]],
+      image: [this.newMantenance.image, [Validators.required]],
       creationDate: [this.newMantenance.creationDate, [Validators.required]],
       modifyDate: [new Date().toString(), [Validators.required]]
     })
@@ -86,15 +80,12 @@ export class NewsAdminComponent implements OnInit {
       title: ['', [Validators.required, Validators.minLength(5)]],
       postTitle: ['', [Validators.required, Validators.minLength(5)]],
       description: ['', [Validators.required, Validators.minLength(15)]],
-      //image: [''],
+      image: [''],
       creationDate: [''],
       modifyDate: ['']
     })
   }
   newsMantenance() {
-    console.log('Boton me dio');
-    debugger
-    //nuevo
     if (this.acctionMantenance == 0) {
       this.newNews();
     }
@@ -109,29 +100,33 @@ export class NewsAdminComponent implements OnInit {
       this._snotifyService.warning('Accion de mantenimiento no definida', 'Atención');
     }
   }
-  ///Funciones de accion de Crud
+
   newNews() {
-    //this.formGroupNews.value.image = 'https://firebasestorage.googleapis.com/v0/b/troutes-c1ba9.appspot.com/o/uploads%2Fnews%2Fnews_b9hn5eff0en?alt=media&token=60a645da-0efc-4742-8cc5-f65b638f3425';
-    if (this.formGroupNews.valid) {
+    if (this._uploadService.multipleLoadCurrent.length > 0) {
+      this.formGroupNews.value.image = this._uploadService.multipleLoadCurrent[0].url;
+    }
+    if (this.formGroupNews.valid && this.formGroupNews.value.image) {
       const newNews: NewsType = {
         'id': '1',
         'newsId': '',
         'tittle': this.formGroupNews.value.title,
         'postTittle': this.formGroupNews.value.postTitle,
         'description': this.formGroupNews.value.description,
-        'image': this.defaultImage,
+        'image': this.formGroupNews.value.image,
         'creationDate': new Date().toString(),
         'modifyDate': new Date().toString(),
       }
       let newId = this._dataService.saveNews(newNews);
       this.decline();
-      //Llmar misma ruta
       this._snotifyService.success('Información guardada correctamente', 'Información');
     } else {
       this._snotifyService.warning('Debe completar la información correctamente', 'Atención');
     }
   }
   editNews() {
+    if (this._uploadService.multipleLoadCurrent.length > 0) {
+      this.formGroupNews.value.image = this._uploadService.multipleLoadCurrent[0].url;
+    }
     if (this.formGroupNews.valid && this.newMantenance) {
       const newNews: NewsType = {
         'id': this.newMantenance.id,
@@ -139,7 +134,7 @@ export class NewsAdminComponent implements OnInit {
         'tittle': this.formGroupNews.value.title,
         'postTittle': this.formGroupNews.value.postTitle,
         'description': this.formGroupNews.value.description,
-        'image': this.newMantenance.image,
+        'image': this.formGroupNews.value.image,
         'creationDate': this.newMantenance.creationDate,
         'modifyDate': new Date().toString(),
       }
@@ -159,25 +154,11 @@ export class NewsAdminComponent implements OnInit {
       this._snotifyService.warning('No ha sido posible reaizar la accion solicitada', 'Atención');
     }
   }
-  //Subida Imagen
-  onUpload(event) {
-    //this.isLoadingImage = true;
-    const id = Math.random().toString(36).substring(2);
-    const file = event.target.files[0];
-    const filePath = `uploads/news/news_${id}`;
-    const ref = this._fireStorage.ref(filePath);
-    const task = this._fireStorage.upload(filePath, file);
-    this.uploadPercent = task.percentageChanges();
-    task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe(() => {
-      //this.isLoadingImage = false;
-      this.formGroupNews.value.image = this.urlImage;
-      //this.userLog.profile_photo = this.formGroupNews.value.image;
-      console.log('Imagen cargada');
-    });
-  }
-  ///
+
   decline() {
     this.modalRef.hide();
+    this._uploadService.multipleLoadCurrent = [];
+    this._uploadService.deleteIMageList = [];
   }
   appyDelete() {
     this.deleteNews();

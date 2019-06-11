@@ -1,0 +1,20 @@
+.diaPick {
+    color: black;
+    border: 1px solid black;
+    margin-left: 23px;
+    margin-bottom: 10px;
+    padding-bottom: 2px;
+    padding-left: 2px;
+}
+
+.checkDia {
+    margin-right: 10px;
+}
+
+.iTime {
+    font-family: 'PT Sans', sans-serif;
+    font-size: 1.1rem;
+    display: block;
+    padding: 0.5rem 0rem;
+    margin-left: -14px;
+}
