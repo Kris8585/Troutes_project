@@ -94,7 +94,7 @@ export class AssingEditorComponent implements OnInit {
   attractiveMaintenance() {
     //nuevo
     if (this.acctionMantenance == 0) {
-      //this.newAtractive();
+      this.newAtractive();
     }
     else if (this.acctionMantenance == 1) {
       this.editAttractive();
