@@ -97,7 +97,7 @@ export class DetailsComponent implements OnInit {
     for (let index = 0; index < imageArray.length; index++) {
       const element = imageArray[index];
       const src = imageArray[index].imageUrl;
-      const caption = 'Image' + index;
+      const caption = 'Image' + imageArray[index].id;
       const thumb = 'imageArray[index].imageUrl';
       const album = {
         src: src,

@@ -130,7 +130,6 @@ export class AssingEditorComponent implements OnInit {
     })
   }
   editAttractive() {
-
     if (this.formGroupAttractive.valid && this.attractionMantenance) {
       const newAttractive: TouristAttractionsType = {
         'id': '1',
@@ -162,39 +161,40 @@ export class AssingEditorComponent implements OnInit {
       this._snotifyService.warning('No ha sido posible reaizar la accion solicitada', 'Atención');
     }
   }
-  newAtractive() {
-    debugger
-    if (this.formGroupAttractive.valid) {
-      const newAttractive: TouristAttractionsType = {
-        'id': '1',
-        'attractionId': '',
-        'name': this.formGroupAttractive.value.attractiveName,
-        'description': '',
-        'images': [{
-          'imageUrl': '',
-        }
-        ],
-        'location': '',
-        'videUrl': '',
-        'schedule': [{
-          'schId': null,
-          'day': '',
-          'startTime': '',
-          'endTime': ''
-        }],
-        'editorId': this.formGroupAttractive.value.attractiveEditorId,
-        'active': false,
-        'creationDate': new Date().toString(),
-        'modifyDate': new Date().toString(),
-      }
-      let attractiveId = this._dataService.saveAttractive(newAttractive);
-      this.decline();
-      //Llmar misma ruta
-      this._snotifyService.success('Información guardada correctamente', 'Información');
-    } else {
-      this._snotifyService.warning('Debe completar la información correctamente', 'Atención');
-    }
-  }
+  // newAtractive() {
+  //   debugger
+  //   if (this.formGroupAttractive.valid) {
+  //     const newAttractive: TouristAttractionsType = {
+  //       'id': '1',
+  //       'attractionId': '',
+  //       'name': this.formGroupAttractive.value.attractiveName,
+  //       'description': '',
+  //       'images': [{
+  //         'id': null,
+  //         'imageUrl': '',
+  //       }
+  //       ],
+  //       'location': '',
+  //       'videUrl': '',
+  //       'schedule': [{
+  //         'schId': null,
+  //         'day': '',
+  //         'startTime': '',
+  //         'endTime': ''
+  //       }],
+  //       'editorId': this.formGroupAttractive.value.attractiveEditorId,
+  //       'active': false,
+  //       'creationDate': new Date().toString(),
+  //       'modifyDate': new Date().toString(),
+  //     }
+  //     let attractiveId = this._dataService.saveAttractive(newAttractive);
+  //     this.decline();
+  //     //Llmar misma ruta
+  //     this._snotifyService.success('Información guardada correctamente', 'Información');
+  //   } else {
+  //     this._snotifyService.warning('Debe completar la información correctamente', 'Atención');
+  //   }
+  // }
 
   decline() {
     this.modalRef.hide();

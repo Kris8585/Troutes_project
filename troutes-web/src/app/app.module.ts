@@ -50,9 +50,7 @@ import { LocationComponent } from './components/location/location.component';
 import { GeoService } from './services/geo/geo.service';
 import { AgmCoreModule } from '@agm/core';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { SchedulePickComponent } from './components/schedule-pick/schedule-pick.component';
-import { UploadFormComponent } from './components/upload-form/upload-form.component';
-import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+
 
 
 
@@ -81,8 +79,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     PublicComponent,
     AssingEditorComponent,
     LocationComponent,
-    SchedulePickComponent,
-    UploadFormComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -102,8 +99,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     RatingModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AgmCoreModule.forRoot({ apiKey: environment.googleMapsKey }),
-    SweetAlert2Module.forRoot(),
     AngularFireDatabaseModule,
+    
 
   ],
   providers: [AngularFireAuth, LoginService, RegisterService, DataInformationService, GeoService,

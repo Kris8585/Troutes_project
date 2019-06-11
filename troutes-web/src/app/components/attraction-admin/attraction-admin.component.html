@@ -70,11 +70,22 @@
             <div class="form-group col-12 ">
                 <img class="profile__image" [src]="attractionMantenance.images[0].imageUrl" alt="">
                 <hr>
-                <app-upload-form [isMultiLoad]="true" [imagesAcctions]="attractionMantenance.images"></app-upload-form>
+                <!-- <input type="hidden" #imgUserInput class="form-control" formControlName="images" id="images" [value]='urlImage|async'>
+                <ng-container>
+                    <div class="custom-file">
+                        <input type="file" accept=".png, .jpg" (change)="onUpload($event)" class="custom-file-input" id="custom-file-input" [readonly]='!isUpdateInit'>
+                        <label class="custom-file-label" for="custom-file-input">Choose file</label>
+                    </div>
+                    <br>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped" role="progressbar" [style.width]="(uploadPercent|async)+'%'"></div>
+                    </div>
+                </ng-container> -->
             </div>
-            <div class="form-group col-12 ">
-                <app-schedule-pick [horarioAtractivo]="attractionMantenance.schedule" (oHorarioSelecionado)="newSchedule($event)"></app-schedule-pick>
-            </div>
+            <!-- <div class="form-group col-12 ">
+                <label for="schedule">Horario</label>
+                <input type="text" class="form-control" formControlName="schedule" id="schedule" placeholder="Horario">
+            </div> -->
         </form>
     </div>
     <div class="modal-footer">
