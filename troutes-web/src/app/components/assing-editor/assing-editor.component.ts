@@ -26,14 +26,12 @@ export class AssingEditorComponent implements OnInit {
     this._formBuilderAttractive = new FormBuilder();
     this.getAllAttractions();
     this.getAllEditors();
-    //this.initAttractivoEditorForm();
+
   }
 
   ngOnInit() {
   }
   ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
     this.editorsSuscription.unsubscribe();
   }
   initAttractivoEditorForm = () => {
@@ -53,7 +51,6 @@ export class AssingEditorComponent implements OnInit {
         this.editorsList.push(editor);
       });
     })
-    //this.editorsList$ = this._dataService.getUsersRol();
   }
 
   getEditorName(attraction: string) {
@@ -75,7 +72,7 @@ export class AssingEditorComponent implements OnInit {
     this.acctionMantenance = 1;
     this.attractionMantenance = attractive;
     this.editAtractiveForm();
-    //this.attractiveMaintenance(attractive,1);
+
   }
   newEditorAttractive(attractive: TouristAttractionsType, template: TemplateRef<any>) {
     debugger;
@@ -84,7 +81,7 @@ export class AssingEditorComponent implements OnInit {
     this.acctionMantenance = 0;
     this.attractionMantenance = null;
     this.newAtractivoForm();
-    //this.attractiveMaintenance(attractive, 0);
+
   }
   deleteEditorAttractive(attractive: TouristAttractionsType, template: TemplateRef<any>) {
     console.log('Elimianr: ' + attractive);
@@ -110,10 +107,6 @@ export class AssingEditorComponent implements OnInit {
       this._snotifyService.warning('Accion de mantenimiento no definida', 'Atención');
     }
 
-    // this.formGroupAttractive = this._formBuilderAttractive.group({
-    //   attractiveName: [attractive.name],
-    //   attractiveEditorId: [attractive.editorId],
-    // })
   }
   newAtractivoForm() {
     this.formGroupAttractive = this._formBuilderAttractive.group({
@@ -172,9 +165,12 @@ export class AssingEditorComponent implements OnInit {
         'description': '',
         'images': [{
           'imageUrl': '',
-        }
-        ],
-        'location': '',
+        }],
+        'location': {
+          'indications': '',
+          'latitude': null,
+          'longitude': null,
+        },
         'videUrl': '',
         'schedule': [{
           'schId': null,

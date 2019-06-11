@@ -56,6 +56,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,7 +83,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     AssingEditorComponent,
     LocationComponent,
     SchedulePickComponent,
-    UploadFormComponent,
+    UploadFormComponent
   ],
   imports: [
     BrowserModule,
@@ -103,8 +104,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AgmCoreModule.forRoot({ apiKey: environment.googleMapsKey }),
     SweetAlert2Module.forRoot(),
-    AngularFireDatabaseModule,
-
+    AngularFireDatabaseModule
   ],
   providers: [AngularFireAuth, LoginService, RegisterService, DataInformationService, GeoService,
     AuthenticationGuard, AuthorizationGuard, { provide: 'SnotifyToastConfig', useValue: ToastDefaults },

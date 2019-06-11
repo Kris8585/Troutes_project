@@ -7,8 +7,6 @@ type TouristAttractionsType = {
         imageUrl: string;
     }
     ];
-
-
     location: {
         indications: string;
         latitude: number;
