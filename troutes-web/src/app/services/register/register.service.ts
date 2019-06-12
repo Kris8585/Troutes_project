@@ -17,7 +17,7 @@ export class RegisterService {
     private _snotifyService: SnotifyService) { }
 
   saveUser(user: UserType) {
-    this._angularFirestore.collection<UserType>('users').add(user);
+    this._angularFirestore.collection<UserType>('users').doc(user.userId).set(user);
   }
 
   register(user: UserType, password: string) {

@@ -20,12 +20,8 @@ export class ProfileComponent implements OnInit {
   userId: string;
   isUpdateInit: boolean = false;
   public formGroupSession: FormGroup;
-
-  //uploadPercent: Observable<number>;
-  urlImage: Observable<string>;
-  //attractionSubscription: Subscription;
-  @ViewChild('imgUserInput') inputImageUser: ElementRef;
-
+  isFollowing: boolean = false;
+  hasComments: boolean = false;
   constructor(private _router: Router,
     private _registerService: RegisterService,
     private _loginService: LoginService,
@@ -56,8 +52,6 @@ export class ProfileComponent implements OnInit {
   }
 
   updateProfile() {
-    debugger
-    console.log(this.urlImage);
     if (this._uploadService.multipleLoadCurrent.length > 0) {
       this.formGroupSession.value.profileImage_session = this._uploadService.multipleLoadCurrent[0].url;
     }
@@ -108,12 +102,13 @@ export class ProfileComponent implements OnInit {
       followSites.forEach(site => {
         this._dataInformationService.getAtractionById(site.attractionId).subscribe((attractions) => {
           attractions.forEach(attr => {
-            console.log(attr)
             this.followAttraction.push(attr);
+            this.isFollowing = true;
           });
         });
       });
     });
+
   }
   getAllAttractions() {
     this._dataInformationService.getAllAttractions().subscribe((attraction) => {

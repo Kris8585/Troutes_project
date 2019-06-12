@@ -28,9 +28,9 @@ export class LoginService {
     private _angularFirestore: AngularFirestore,
     private _ngZone: NgZone) { }
 
-//--------------------------------------------------------------------
-//--------------------------Current user------------------------------
-//--------------------------------------------------------------------
+  //--------------------------------------------------------------------
+  //--------------------------Current user------------------------------
+  //--------------------------------------------------------------------
   setCurrentUser(email: string) {
     this.userSuscription = this._dataInformationService.getUserByEmail(email).subscribe(
       (siteUsers) => {
@@ -53,9 +53,9 @@ export class LoginService {
     return this.currentUser;
   }
 
-//--------------------------------------------------------------------
-//-------------------------User Exist---------------------------------
-//--------------------------------------------------------------------
+  //--------------------------------------------------------------------
+  //-------------------------User Exist---------------------------------
+  //--------------------------------------------------------------------
 
   isUser(userId: string, val) {
 
@@ -79,11 +79,11 @@ export class LoginService {
     return this.isUserBd;
   }
 
-//--------------------------------------------------------------------
-//----------------------------Login-----------------------------------
-//--------------------------------------------------------------------
+  //--------------------------------------------------------------------
+  //----------------------------Login-----------------------------------
+  //--------------------------------------------------------------------
 
- 
+
   login(email: string, password: string) {
 
     this._angularFireAuth.auth.signInWithEmailAndPassword(email, password).then((value) => {
@@ -110,9 +110,9 @@ export class LoginService {
     this._dataInformationService.setState("INICIAR SESIÓN");
   }
 
-//--------------------------------------------------------------------
-//-----------------------Current User Role----------------------------
-//--------------------------------------------------------------------
+  //--------------------------------------------------------------------
+  //-----------------------Current User Role----------------------------
+  //--------------------------------------------------------------------
   checkCurrentUserRole(role: string) {
     return this.currentUser && this.currentUser.role.includes(role);
   }
@@ -121,9 +121,9 @@ export class LoginService {
     return this.currentUser.role;
   }
 
-//--------------------------------------------------------------------
-//---------------------------Recovery---------------------------------
-//--------------------------------------------------------------------
+  //--------------------------------------------------------------------
+  //---------------------------Recovery---------------------------------
+  //--------------------------------------------------------------------
 
   recovery(email: string) {
     this._angularFireAuth.auth.sendPasswordResetEmail(email)
@@ -131,18 +131,18 @@ export class LoginService {
       .catch((error) => this._snotifyService.warning('Se ha presentado el siguiente error: ' + error, 'Atención'))
   }
 
-//--------------------------------------------------------------------
-//---------------------------Navigation-------------------------------
-//--------------------------------------------------------------------
+  //--------------------------------------------------------------------
+  //---------------------------Navigation-------------------------------
+  //--------------------------------------------------------------------
   goTo() {
     this._router.navigateByUrl('/public/home')
   }
- 
-//--------------------------------------------------------------------
-//--------------------------LogIn Social------------------------------
-//--------------------------------------------------------------------
-  loginFacebook(){
-     this._angularFireAuth.auth.signInWithPopup(new auth.FacebookAuthProvider()).then((value) => {
+
+  //--------------------------------------------------------------------
+  //--------------------------LogIn Social------------------------------
+  //--------------------------------------------------------------------
+  loginFacebook() {
+    this._angularFireAuth.auth.signInWithPopup(new auth.FacebookAuthProvider()).then((value) => {
 
 
       if (this._angularFireAuth.auth.currentUser) {
@@ -153,12 +153,12 @@ export class LoginService {
       }
     }).catch((error) => {
 
-      this._ngZone.run(() =>{
+      this._ngZone.run(() => {
         this._snotifyService.warning('No se ha podido iniciar sesión', 'Atención');
         this._snotifyService.error(error.message, 'Atención');
       });
 
-      
+
     });
 
   }
@@ -175,7 +175,7 @@ export class LoginService {
       }
     }).catch((error) => {
 
-      this._ngZone.run(() =>{
+      this._ngZone.run(() => {
         this._snotifyService.warning('No se ha podido iniciar sesión', 'Atención');
         this._snotifyService.error(error.message, 'Atención');
       });
@@ -194,10 +194,10 @@ export class LoginService {
         'profile_photo': value.user.photoURL
       };
       this.setCurrentObject(user);
-      this._angularFirestore.collection<UserType>('users').add(user);
+      this._angularFirestore.collection<UserType>('users').doc(user.userId).set(user);
     }
     else {
-      
+
       this.setCurrenUserId(checkUserId);
     }
   }
