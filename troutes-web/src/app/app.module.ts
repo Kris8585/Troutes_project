@@ -52,9 +52,15 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { SchedulePickComponent } from './components/schedule-pick/schedule-pick.component';
 import { UploadFormComponent } from './components/upload-form/upload-form.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material';
 
-
-
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -87,7 +93,9 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebase),
+    BrowserAnimationsModule,
+    MatButtonModule,
+    AngularFireDatabaseModule,
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireAuthModule,
@@ -95,6 +103,13 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     FormsModule,
     AngularFontAwesomeModule,
     LightboxModule,
+    MatSidenavModule,
+    MatTooltipModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatSnackBarModule,
+    MatListModule,
+    AngularFireModule.initializeApp(environment.firebase),
     SnotifyModule.forRoot(),
     CarouselModule.forRoot(),
     ModalModule.forRoot(),
@@ -102,10 +117,9 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     RatingModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AgmCoreModule.forRoot({ apiKey: environment.googleMapsKey }),
-    SweetAlert2Module.forRoot(),
-    AngularFireDatabaseModule
+    SweetAlert2Module.forRoot()
   ],
-  providers: [AngularFireAuth, LoginService, RegisterService, DataInformationService, 
+  providers: [AngularFireAuth, LoginService, RegisterService, DataInformationService,
     AuthenticationGuard, AuthorizationGuard, { provide: 'SnotifyToastConfig', useValue: ToastDefaults },
     SnotifyService],
   bootstrap: [AppComponent]
