@@ -44,7 +44,13 @@ export class RegisterService {
       this._loginService.login(user.email, password);
 
     }).catch((error) => {
-      this._snotifyService.warning('No se ha podido registrar el usuario por:' + error, 'Registro de usuarios');
+
+      Swal.fire({
+        type: 'warning',
+        text: 'No se ha podido registrar el usuario por:' + error,
+        showConfirmButton: false,
+        timer: 1500
+      });
     });
 
   }

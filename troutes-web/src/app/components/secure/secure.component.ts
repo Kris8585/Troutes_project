@@ -10,6 +10,7 @@ import { MatDrawer, MatSnackBar } from '@angular/material';
 export class SecureComponent implements OnInit {
 
   logUser: UserType;
+  side:any;
   @ViewChild('drawer') drawer: MatDrawer;
   generalActions: any[] = [
     { name: 'Perfil', description: 'Ver Perfil', link: '/secure/profile',role:'' },
