@@ -46,55 +46,10 @@
                 </button>
                 <span>Trunca Routes</span>
                 <span class="example-spacer"></span>
-                <!-- <button color="primary" matTooltip="Ver notificaciones" mat-flat-button aria-label="toggle sidebar">
-            <mat-icon>error</mat-icon>
-        </button> -->
-                <!--   <button color="primary" matTooltip="Más acciones" mat-flat-button aria-label="toggle sidebar">
-            <mat-icon>more_vert</mat-icon>
-        </button> -->
             </mat-toolbar-row>
         </mat-toolbar>
-        <!--Router Oulet-->
+
         <router-outlet>
         </router-outlet>
     </mat-drawer-content>
 </mat-drawer-container>
-
-
-
-<!-- <div class="container-fluid">
-    <div class="row">
-        <nav class="col-sm-12 col-md-3 col-lg-3 navbar navbar-expand-lg navbar-dark bg-primary sidebar">
-            <div class="sidebar-sticky">
-                <h1 class="text-center text-white">Dashboard</h1>
-                <div class="row dashboard__profile mt-4 mb-5">
-                    <div class="col-12 dashboard__image">
-                        <ng-container *ngIf="logUser && logUser.profile_photo; else elseTemplate">
-                            <img class="profile__image" [src]="logUser.profile_photo" alt="">
-                        </ng-container>
-                        <ng-template #elseTemplate>
-                            <img class="profile__image" src="../../../assets/images/no-image.jpg" alt="">
-                        </ng-template>
-                    </div>
-                    <div class="col-12 dashboard__profile_data text-center">
-                        <h4 class="text-white" *ngIf="logUser;">{{logUser.name}}</h4>
-                        <p class=" text-white" *ngIf="logUser;">{{logUser.description}}</p>
-                        <h4 class="text-white " *ngIf="!logUser;">Bienvenido</h4>
-                    </div>
-                </div>
-                <ul class="nav nav-tabs dashboard__options d-block ">
-                    <li class="nav-item "><a class="nav-link" routerLinkActive="active" (click)="goToHome()">Home</a></li>
-                    <li class="nav-item "><a class="nav-link" routerLinkActive="active" [routerLink]="[ '/secure/profile']">Perfil</a></li>
-                    <li class="nav-item "><a class="nav-link" routerLinkActive="active" [routerLink]="[ '/secure/attraction-editor']" *ngIf="logUser.role=='Editor'">Atractivos Editor</a></li>
-                    <li class="nav-item "><a class="nav-link" routerLinkActive="active" [routerLink]="[ '/secure/news-admin']" *ngIf="logUser.role=='Admin'">Noticias Control</a></li>
-                    <li class="nav-item "><a class="nav-link" routerLinkActive="active" [routerLink]="[ '/secure/assing-editor']" *ngIf="logUser.role=='Admin'">Atractivos Asignador</a></li>
-                    <li class="nav-item "><a class="nav-link" (click)="callLogOut() ">LogOut</a></li>
-                </ul>
-            </div>
-        </nav>
-        <div class="col-md-9 col-sm-12 col-lg-9 px-4 ">
-            <router-outlet>
-            </router-outlet>
-        </div>
-    </div>
-</div> -->

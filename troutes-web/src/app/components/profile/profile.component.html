@@ -63,19 +63,6 @@
                         </ng-template>
                     </mat-card>
                 </div>
-                <!--  <div class="col-md-2 col-sm-12 place__general" *ngFor="let place of followAttraction; let i=index">
-                        <div class="place__tile card bg-dark border-secondary text-primary text-center" (click)="seePlace(place.name)">
-                            <ng-container *ngIf="place.images[0].imageUrl==='' || place.images[0].imageUrl===null; else elseTemplate">
-                                <img src="../../../assets/images/no-image.jpg" class="card-img" alt="...">
-                            </ng-container>
-                            <ng-template #elseTemplate>
-                                <img [src]="place.images[0].imageUrl" class="card-img" alt="...">
-                            </ng-template>
-                            <div class="card-img-overlay">
-                                <h6 class="card-title">{{place.name}}</h6>
-                            </div>
-                        </div>
-                    </div> -->
             </div>
         </div>
     </section>
@@ -87,19 +74,10 @@
                     <h4>Comentarios</h4>
                 </div>
                 <div class="col-4" *ngFor="let comment of commentsDone$|async">
-                    <!--                     <h1 *ngFor="let comment of commentsDone$|async">{{comment.commentId}}</h1> -->
-                    <!--  <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
-                        <div class="card-header">{{comment}}</div>
-                        <div class="card-body text-white">
-                            <app-rating [iScore]="comment.score" [iReadOnly]="true"></app-rating>
-                            <p class="card-text text-white">{{comment.comment}}</p>
-                            <p class="card-text"><small class="text-muted ">Creado el:
-                                        {{comment.creationDate}}</small></p>
-                        </div>
-                    </div> -->
                     <mat-card class="matCard__comment">
-                        <mat-card-header>
-                            <mat-card-title>{{comment}}</mat-card-title>
+                        <mat-card-header class="matCard__comment__header">
+                            <mat-card-title>{{getAtracttionComment(comment.attractiveId)}}</mat-card-title>
+                            <button mat-icon-button (click)="gotoAttraction(comment.attractiveId)"><mat-icon aria-label="Opcion para visitar atractivo">pageview</mat-icon>Visitar</button>
                         </mat-card-header>
                         <mat-card-content>
                             <app-rating [iScore]="comment.score" [iReadOnly]="true"></app-rating>

@@ -103,6 +103,10 @@
     padding-bottom: 20px;
 }
 
-.matCard__comment{
-background-color: black;
+.matCard__comment {
+    background-color: black;
+}
+
+.matCard__comment__header {
+    color: white;
 }

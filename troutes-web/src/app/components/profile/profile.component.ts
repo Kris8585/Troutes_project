@@ -15,14 +15,15 @@ import { RegisterService } from 'src/app/services/register/register.service';
 export class ProfileComponent implements OnInit {
   userLog: UserType;
   followAttraction: TouristAttractionsType[] = [];
+  attractionList: TouristAttractionsType[] = [];
   commentsDone$: Observable<CommentaryType[]>;
   userId: string;
   isUpdateInit: boolean = false;
   public formGroupSession: FormGroup;
 
-  uploadPercent: Observable<number>;
+  //uploadPercent: Observable<number>;
   urlImage: Observable<string>;
-  attractionSubscription: Subscription;
+  //attractionSubscription: Subscription;
   @ViewChild('imgUserInput') inputImageUser: ElementRef;
 
   constructor(private _router: Router,
@@ -37,6 +38,7 @@ export class ProfileComponent implements OnInit {
     this.resetUser();
     this.getFollowPlaces();
     this.getDoneComments();
+    this.getAllAttractions();
 
   }
 
@@ -102,7 +104,7 @@ export class ProfileComponent implements OnInit {
   }
 
   getFollowPlaces() {
-    this._dataInformationService.getFollowedSites('bUiIHukfgmh87QwS62EPmS0a9Qu2').subscribe((followSites) => {
+    this._dataInformationService.getFollowedSites(this.userLog.userId).subscribe((followSites) => {
       followSites.forEach(site => {
         this._dataInformationService.getAtractionById(site.attractionId).subscribe((attractions) => {
           attractions.forEach(attr => {
@@ -113,16 +115,29 @@ export class ProfileComponent implements OnInit {
       });
     });
   }
+  getAllAttractions() {
+    this._dataInformationService.getAllAttractions().subscribe((attraction) => {
+      attraction.forEach(site => {
+        this.attractionList.push(site);
+      });
+    })
+  }
 
   getDoneComments() {
     this.commentsDone$ = this._dataInformationService.getCommentByUserId(this.userLog.userId);
   }
-
+  getAtracttionComment(attractionId: string): string {
+    let attractionName = this.attractionList.find(site => site.attractionId == attractionId).name;
+    return attractionName;
+  }
 
   seePlace(namePlace: string) {
     this._router.navigate(['public/details/', namePlace]);
   }
 
-
+  gotoAttraction(attractionId: string) {
+    let attractionName = this.attractionList.find(site => site.attractionId == attractionId).name;
+    this._router.navigate(['public/details/', attractionName]);
+  }
 
 }
