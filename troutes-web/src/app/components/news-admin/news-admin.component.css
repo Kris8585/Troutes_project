@@ -42,3 +42,9 @@
     margin-left: 50%;
     margin-bottom: 14px;
 }
+
+@media (max-width: 575.98px) {
+    .news__image {
+        margin-left: 18%;
+    }
+}
