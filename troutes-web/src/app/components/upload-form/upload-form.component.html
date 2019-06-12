@@ -10,16 +10,37 @@
 </div>
 
 <ng-container *ngIf="!isMultiLoad; else elseTemplate">
-    <label>
-       <input type="file" (change)="detectFiles($event)">
-    </label>
-    <button [disabled]="!selectedFiles" (click)="uploadSingle()">Upload Single</button>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroupFileAddon01">Subir</span>
+        </div>
+        <div class="custom-file">
+            <!--             <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"> -->
+            <input class="custom-file-input" type="file" (change)="detectFiles($event)" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+            <label class="custom-file-label" for="inputGroupFile01">Escoger Archivo</label>
+        </div>
+    </div>
+    <!--  <label>
+       <input class="custom-file-input" type="file" (change)="detectFiles($event)">
+    </label> -->
+    <!-- <button mat-button [disabled]="!selectedFiles" (click)="uploadSingle()">Upload Single</button> -->
 </ng-container>
 <ng-template #elseTemplate>
-    <label>
-       <input type="file" (change)="detectFiles($event)" multiple>
-    </label>
-    <button [disabled]="!selectedFiles" (click)="uploadMulti()">Upload Multiple</button>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroupFileAddon02">Subir</span>
+        </div>
+        <div class="custom-file">
+            <!--             <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"> -->
+            <input class="custom-file-input" type="file" (change)="detectFiles($event)" id="inputGroupFile02" aria-describedby="inputGroupFileAddon02" multiple>
+            <!--             <input class="custom-file-input" type="file" (change)="detectFiles($event)" multiple> -->
+            <label class="custom-file-label" for="inputGroupFile02">Escoger Archivo</label>
+        </div>
+    </div>
+    <!-- <label>
+       <input class="custom-file-input" type="file" (change)="detectFiles($event)" multiple>
+    </label> -->
+    <!-- <button mat-button [disabled]="!selectedFiles" (click)="uploadMulti()">Upload Multiple</button> -->
 </ng-template>
 <section class="loaded__Images">
     <div class="container">
@@ -27,7 +48,7 @@
             <ng-container *ngFor="let image of imagesForSave; let i=index">
                 <div class="col-4 images__manten" *ngIf="image.active">
                     <img [src]="image.imageUrl" alt="">
-                    <button class="btn btn-danger" (click)="deleteImage(image)" *ngIf="isMultiLoad">Eliminar</button>
+                    <button mat-button color="warn" class="btn btn-danger" (click)="deleteImage(image)" *ngIf="isMultiLoad">Eliminar</button>
                 </div>
             </ng-container>
         </div>

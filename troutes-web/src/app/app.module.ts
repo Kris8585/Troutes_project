@@ -52,10 +52,17 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { SchedulePickComponent } from './components/schedule-pick/schedule-pick.component';
 import { UploadFormComponent } from './components/upload-form/upload-form.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import { AgmOverlays } from "agm-overlays"
+import { AgmOverlays } from "agm-overlays";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material';
 
-
-
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatListModule } from '@angular/material/list';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -84,12 +91,14 @@ import { AgmOverlays } from "agm-overlays"
     LocationComponent,
     SchedulePickComponent,
     UploadFormComponent,
-   
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebase),
+    BrowserAnimationsModule,
+    MatButtonModule,
+    AngularFireDatabaseModule,
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireAuthModule,
@@ -97,6 +106,14 @@ import { AgmOverlays } from "agm-overlays"
     FormsModule,
     AngularFontAwesomeModule,
     LightboxModule,
+    MatSidenavModule,
+    MatTooltipModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatSnackBarModule,
+    MatListModule,
+    MatCardModule,
+    AngularFireModule.initializeApp(environment.firebase),
     SnotifyModule.forRoot(),
     CarouselModule.forRoot(),
     ModalModule.forRoot(),
@@ -111,7 +128,7 @@ import { AgmOverlays } from "agm-overlays"
       apiKey: 'AIzaSyBMQY92YzctL2HTASa8CJVOtXz77SRkXFI'
     })
   ],
-  providers: [AngularFireAuth, LoginService, RegisterService, DataInformationService, 
+  providers: [AngularFireAuth, LoginService, RegisterService, DataInformationService,
     AuthenticationGuard, AuthorizationGuard, { provide: 'SnotifyToastConfig', useValue: ToastDefaults },
     SnotifyService],
   bootstrap: [AppComponent]

@@ -1,5 +1,6 @@
 @import "~bootswatch/dist/lux/bootstrap.min.css";
 @import "~ng-snotify/styles/material";
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 .font-style__Joschmi {
     font-family: joschmi, sans-serif !important;
     font-weight: 400 !important;
@@ -47,4 +48,14 @@
 
 .content__style {
     height: 50vh;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
 }

@@ -1,4 +1,4 @@
-    .dashboard__image {
+/*     .dashboard__image {
         padding-left: 50px;
     }
     
@@ -53,4 +53,53 @@
     
     .dashboard__options .nav-link.active {
         color: black!important;
-    }
+    } */
+
+.profile__image {
+    /*  border-radius: 180px; */
+    -o-object-fit: cover;
+    object-fit: cover;
+    width: 100%;
+    height: 290px;
+}
+
+mat-list-item:hover {
+    background-color: gray!important;
+}
+
+.example-container {
+    height: 100vh;
+}
+
+.example-icon {
+    padding: 0 14px;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.side-image {
+    width: 300px;
+}
+
+.card {
+    border-radius: 0px;
+    border: none;
+}
+
+.card-img {
+    border-radius: 0px;
+}
+
+.card-title {
+    text-shadow: 6px 2px 8px black;
+}
+
+.card-text {
+    text-shadow: 6px 2px 8px black;
+}
+
+.mat-list-icon {
+    color: rgba(0, 0, 0, 0.54);
+}

@@ -1,36 +1,55 @@
-<div class="container-fluid">
-    <div class="row">
-        <nav class="col-sm-12 col-md-3 col-lg-3 navbar navbar-expand-lg navbar-dark bg-primary sidebar">
-            <div class="sidebar-sticky">
-                <h1 class="text-center text-white">Dashboard</h1>
-                <div class="row dashboard__profile mt-4 mb-5">
-                    <div class="col-12 dashboard__image">
-                        <ng-container *ngIf="logUser && logUser.profile_photo; else elseTemplate">
-                            <img class="profile__image" [src]="logUser.profile_photo" alt="">
-                        </ng-container>
-                        <ng-template #elseTemplate>
-                            <img class="profile__image" src="../../../assets/images/no-image.jpg" alt="">
-                        </ng-template>
-                    </div>
-                    <div class="col-12 dashboard__profile_data text-center">
-                        <h4 class="text-white" *ngIf="logUser;">{{logUser.name}}</h4>
-                        <p class=" text-white" *ngIf="logUser;">{{logUser.description}}</p>
-                        <h4 class="text-white " *ngIf="!logUser;">Bienvenido</h4>
-                    </div>
-                </div>
-                <ul class="nav nav-tabs dashboard__options d-block ">
-                    <li class="nav-item "><a class="nav-link" routerLinkActive="active" (click)="goToHome()">Home</a></li>
-                    <li class="nav-item "><a class="nav-link" routerLinkActive="active" [routerLink]="[ '/secure/profile']">Perfil</a></li>
-                    <li class="nav-item "><a class="nav-link" routerLinkActive="active" [routerLink]="[ '/secure/attraction-editor']" *ngIf="logUser.role=='Editor'">Atractivos Editor</a></li>
-                    <li class="nav-item "><a class="nav-link" routerLinkActive="active" [routerLink]="[ '/secure/news-admin']" *ngIf="logUser.role=='Admin'">Noticias Control</a></li>
-                    <li class="nav-item "><a class="nav-link" routerLinkActive="active" [routerLink]="[ '/secure/assing-editor']" *ngIf="logUser.role=='Admin'">Atractivos Asignador</a></li>
-                    <li class="nav-item "><a class="nav-link" (click)="callLogOut() ">LogOut</a></li>
-                </ul>
+<mat-drawer-container class="example-container" [hasBackdrop]="true">
+    <mat-drawer #drawer [mode]="side">
+        <div class="card bg-dark text-white side-image">
+            <!--      <img [src]="logUser.profile_photo" class="card-img"> -->
+            <ng-container *ngIf="logUser && logUser.profile_photo; else elseTemplate">
+                <img class="profile__image" [src]="logUser.profile_photo" alt="">
+            </ng-container>
+            <ng-template #elseTemplate>
+                <img class="profile__image" src="../../../assets/images/no-image.jpg" alt="">
+            </ng-template>
+            <div class="card-img-overlay">
+                <h5 class="card-title" *ngIf="logUser">{{logUser.name}}</h5>
             </div>
-        </nav>
-        <div class="col-md-9 col-sm-12 col-lg-9 px-4 ">
-            <router-outlet>
-            </router-outlet>
         </div>
-    </div>
-</div>
+        <mat-list>
+            <h3 mat-subheader>Opciones</h3>
+            <mat-list-item>
+                <mat-icon mat-list-icon>arrow_forward_ios</mat-icon>
+                <!-- <h4 mat-line>Home</h4> -->
+                <a mat-line class="nav-link" routerLinkActive="active" (click)="goToHome()">Home</a>
+                <p mat-line> Ir a menu principal </p>
+            </mat-list-item>
+            <ng-container *ngFor="let action of generalActions">
+                <mat-list-item *ngIf="action.role=='' || logUser.role==action.role">
+                    <mat-icon mat-list-icon>arrow_forward_ios</mat-icon>
+                    <!--  <h4 mat-line>{{action.name}}</h4> -->
+                    <a mat-line class="nav-link" routerLinkActive="active" [routerLink]="[action.link ]">{{action.name}}</a>
+                    <p mat-line> {{action.description}} </p>
+                </mat-list-item>
+            </ng-container>
+            <mat-divider></mat-divider>
+            <h3 mat-subheader>Sesión</h3>
+            <mat-list-item (click)="openSnackBar()">
+                <mat-icon mat-list-icon>person</mat-icon>
+                <!-- <h4 mat-line>Cerrar sesión</h4> -->
+                <a mat-line class="nav-link" (click)="callLogOut() ">Cerrar sesión</a>
+                <p mat-line> Cierre de sesion</p>
+            </mat-list-item>
+        </mat-list>
+    </mat-drawer>
+    <mat-drawer-content>
+        <mat-toolbar color="primary">
+            <mat-toolbar-row>
+                <button (click)="drawer.toggle()" matTooltip="Mostrar barra lateral" color="primary" mat-flat-button aria-label="toggle sidebar">
+                    <mat-icon>dehaze</mat-icon>
+                </button>
+                <span>Trunca Routes</span>
+                <span class="example-spacer"></span>
+            </mat-toolbar-row>
+        </mat-toolbar>
+
+        <router-outlet>
+        </router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>
