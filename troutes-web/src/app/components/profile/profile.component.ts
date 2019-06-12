@@ -120,6 +120,8 @@ export class ProfileComponent implements OnInit {
 
   getDoneComments() {
     this.commentsDone$ = this._dataInformationService.getCommentByUserId(this.userLog.userId);
+    console.log(this.commentsDone$);
+    
   }
   getAtracttionComment(attractionId: string): string {
     let attractionName = this.attractionList.find(site => site.attractionId == attractionId).name;

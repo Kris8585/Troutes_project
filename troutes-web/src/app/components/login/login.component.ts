@@ -106,12 +106,7 @@ export class LoginComponent implements OnInit {
     if (this.formGroupSession.valid) {
 
       this._loginService.login(this.formGroupSession.value.email_session, this.formGroupSession.value.password_session);
-      Swal.fire({
-        type: 'success',
-        text: 'Usuario iniciado correctamente',
-        showConfirmButton: false,
-        timer: 1500
-      });
+    
     } else {
       this._snotifyService.warning('Correo o contraseña incorrectos', 'Atención');
     }
