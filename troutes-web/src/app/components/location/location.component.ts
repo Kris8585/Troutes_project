@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { DataInformationService } from 'src/app/services/data-information/data-information.service';
-import { AgmInfoWindow } from '@agm/core';
 import { Router } from '@angular/router';
 import { SnotifyService } from 'ng-snotify';
 

@@ -4,6 +4,7 @@ import { LoginService } from 'src/app/services/login/login.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SnotifyService } from 'ng-snotify';
 import { RegisterService } from 'src/app/services/register/register.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -81,21 +82,21 @@ export class LoginComponent implements OnInit {
   //--------------------------------------Register----------------------------------------
   //--------------------------------------------------------------------------------------
   register() {
-    if(this.formGroupRegister.valid){ 
-      const user:UserType={
-        'profile_photo':'',
-        'email':this.formGroupRegister.value.email_register,
-        'name':this.formGroupRegister.value.fullName_register,
-        'role':'Viewer',
-        'userId':null,
-         'nationality':'',
-         'description':'',
+    if (this.formGroupRegister.valid) {
+      const user: UserType = {
+        'profile_photo': '',
+        'email': this.formGroupRegister.value.email_register,
+        'name': this.formGroupRegister.value.fullName_register,
+        'role': 'Viewer',
+        'userId': null,
+        'nationality': '',
+        'description': '',
       }
-     this._registerService.register(user,this.formGroupRegister.value.password_register);
-    }else{ 
-      this._snotifyService.warning('Nombre, Correo o contraseña incorrectos', 'No se puede guardar'); 
-    } 
- }
+      this._registerService.register(user, this.formGroupRegister.value.password_register);
+    } else {
+      this._snotifyService.warning('Nombre, Correo o contraseña incorrectos', 'No se puede guardar');
+    }
+  }
 
   //--------------------------------------------------------------------------------------
   //--------------------------------------Login--------------------------------------------
@@ -103,7 +104,14 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.formGroupSession.valid) {
+
       this._loginService.login(this.formGroupSession.value.email_session, this.formGroupSession.value.password_session);
+      Swal.fire({
+        type: 'success',
+        text: 'Usuario iniciado correctamente',
+        showConfirmButton: false,
+        timer: 1500
+      });
     } else {
       this._snotifyService.warning('Correo o contraseña incorrectos', 'Atención');
     }
