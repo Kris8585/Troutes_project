@@ -15,9 +15,9 @@
         <mat-list>
             <h3 mat-subheader>Opciones</h3>
             <mat-list-item>
-                <mat-icon mat-list-icon routerLinkActive="active" (click)="goToHome()">arrow_forward_ios</mat-icon>
+                <mat-icon mat-list-icon>arrow_forward_ios</mat-icon>
                 <!-- <h4 mat-line>Home</h4> -->
-                <a mat-line class="nav-link">Home</a>
+                <a mat-line class="nav-link" routerLinkActive="active" (click)="goToHome()">Home</a>
                 <p mat-line> Ir a menu principal </p>
             </mat-list-item>
             <ng-container *ngFor="let action of generalActions">

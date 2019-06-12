@@ -61,6 +61,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatListModule } from '@angular/material/list';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -109,6 +110,7 @@ import { MatListModule } from '@angular/material/list';
     MatToolbarModule,
     MatSnackBarModule,
     MatListModule,
+    MatCardModule,
     AngularFireModule.initializeApp(environment.firebase),
     SnotifyModule.forRoot(),
     CarouselModule.forRoot(),
