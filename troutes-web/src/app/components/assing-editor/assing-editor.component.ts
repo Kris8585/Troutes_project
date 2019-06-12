@@ -67,7 +67,7 @@ export class AssingEditorComponent implements OnInit {
 
 
   editEditorAttraction(attractive: TouristAttractionsType, template: TemplateRef<any>) {
-    console.log('Editar: ' + attractive);
+
     this.modalRef = this._modalService.show(template);
     this.acctionMantenance = 1;
     this.attractionMantenance = attractive;
@@ -75,8 +75,7 @@ export class AssingEditorComponent implements OnInit {
 
   }
   newEditorAttractive(attractive: TouristAttractionsType, template: TemplateRef<any>) {
-    debugger;
-    console.log('New: ' + attractive);
+
     this.modalRef = this._modalService.show(template);
     this.acctionMantenance = 0;
     this.attractionMantenance = null;
@@ -84,7 +83,6 @@ export class AssingEditorComponent implements OnInit {
 
   }
   deleteEditorAttractive(attractive: TouristAttractionsType, template: TemplateRef<any>) {
-    console.log('Elimianr: ' + attractive);
     this.modalRef = this._modalService.show(template);
     this.acctionMantenance = 2;
     this.attractionMantenance = attractive;
@@ -92,16 +90,16 @@ export class AssingEditorComponent implements OnInit {
 
 
   attractiveMaintenance() {
-    //nuevo
+
     if (this.acctionMantenance == 0) {
       this.newAtractive();
     }
     else if (this.acctionMantenance == 1) {
       this.editAttractive();
-      //editar
+
     }
     else if (this.acctionMantenance == 2) {
-      //eliminar
+
       this.deleteAttractive();
     } else {
       this._snotifyService.warning('Accion de mantenimiento no definida', 'Atención');
@@ -141,7 +139,7 @@ export class AssingEditorComponent implements OnInit {
       }
       let attractiveId = this._dataService.saveAttractive(newAttractive);
       this.decline();
-      //Llmar misma ruta
+
       this._snotifyService.success('Información guardada correctamente', 'Información');
     } else {
       this._snotifyService.warning('Debe completar la información correctamente', 'Atención');
@@ -198,7 +196,6 @@ export class AssingEditorComponent implements OnInit {
   appyDelete() {
     this.deleteAttractive();
     this.modalRef.hide();
-    //this._snotifyService.success('Información eliminada correctamente', 'Información');
   }
 
 }

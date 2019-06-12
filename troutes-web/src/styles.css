@@ -59,3 +59,8 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: red;
+}

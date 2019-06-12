@@ -1,62 +1,4 @@
-/*     .dashboard__image {
-        padding-left: 50px;
-    }
-    
-    .profile__image {
-        border-radius: 180px;
-        -o-object-fit: cover;
-        object-fit: cover;
-        width: 200px;
-        height: 200px;
-    }
-    
-    .dashboard__options li a {
-        color: white!important;
-        width: 100%;
-    }
-    
-    .dashboard__options li a {
-        position: relative;
-        overflow: hidden;
-        margin: 10px;
-    }
-    
-    .dashboard__options li a::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 5px;
-        height: 5px;
-        background: rgba(255, 255, 255, .5);
-        opacity: 0;
-        border-radius: 100%;
-        transform: scale(1, 1) translate(-50%);
-        transform-origin: 50% 50%;
-    }
-    
-    .dashboard__profile_data {
-        margin-top: 2em;
-    }
-    
-    .sidebar {
-        height: 100vh;
-    }
-    
-    .sidebar-sticky {
-        margin-top: -24vh;
-    }
-    
-    .nav-tabs {
-        border-bottom: 0 solid #eceeef;
-    }
-    
-    .dashboard__options .nav-link.active {
-        color: black!important;
-    } */
-
 .profile__image {
-    /*  border-radius: 180px; */
     -o-object-fit: cover;
     object-fit: cover;
     width: 100%;
@@ -64,7 +6,7 @@
 }
 
 mat-list-item:hover {
-    background-color: gray!important;
+    background-color: gray !important;
 }
 
 .example-container {
@@ -102,4 +44,9 @@ mat-list-item:hover {
 
 .mat-list-icon {
     color: rgba(0, 0, 0, 0.54);
+}
+
+.matToolbar__menu,
+.matButton__menu {
+    background-color: black;
 }
