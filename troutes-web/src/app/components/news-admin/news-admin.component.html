@@ -1,9 +1,9 @@
-<h1>Noticas Control</h1>
-<div class="main__container">
+<h1 class="text-center">Noticas Control</h1>
+<div>
     <section class="news__section">
         <div class="container-fluid">
             <div class="row">
-                <a class="btn btn-primary btnNew__news" (click)="newNewsControl(null,newsMaintenance)">Nuevo</a>
+                <button mat-fab color="primary" class="matButton__News" (click)="newNewsControl(null,newsMaintenance)">Nuevo</button>
             </div>
         </div>
     </section>
@@ -11,25 +11,21 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12 news__card" *ngFor="let new of newsList$|async; let i=index">
-                    <div class="card mb-3" style="max-width: 100%;">
-                        <div class="row no-gutters">
-                            <div class="col-md-3">
-                                <img [src]="new.image" class="card-img news__image" alt="..." *ngIf="new.image">
-                                <img [src]="new.image" class="card-img news__image" alt="..." *ngIf="!new.image">
-                            </div>
-                            <div class="col-md-7">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{new.tittle}}</h5>
-                                    <p class="card-text">{{new.description}}.</p>
-                                    <p class="card-text"><small class="text-muted">{{new.modifyDate}}</small></p>
-                                </div>
-                            </div>
-                            <div class="col-md-2 d-inline news__actions">
-                                <a class="btn btn-info actions action__edit" (click)="editNewsControl(new,newsMaintenance)">Editar</a>
-                                <a class="btn btn-danger mt-5 actions action__delete" (click)="deleteNewsControl(new,deleteNews)"> Eliminar</a>
-                            </div>
-                        </div>
-                    </div>
+                    <mat-card class="matCard__new">
+                        <img mat-card-image [src]="new.image" class="card-img news__image" alt="..." *ngIf="new.image">
+                        <img mat-card-image [src]="new.image" class="card-img news__image" alt="..." *ngIf="!new.image">
+                        <mat-card-header>
+                            <mat-card-title>{{new.tittle}}</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <p>{{new.description}}</p>
+                            <p class="card-text"><small class="text-muted">{{new.modifyDate}}</small></p>
+                        </mat-card-content>
+                        <mat-card-actions>
+                            <button mat-raised-button color="primary" (click)="editNewsControl(new,newsMaintenance)">Editar</button>
+                            <button mat-raised-button color="warn" (click)="deleteNewsControl(new,deleteNews)">Eliminar</button>
+                        </mat-card-actions>
+                    </mat-card>
                 </div>
             </div>
         </div>
@@ -44,8 +40,7 @@
     </div>
     <div class="modal-body">
         <form [formGroup]="formGroupNews" id="formGroupNews" class="row ">
-            <div class="form-group col-4 d-block">
-                <!-- <img class="profile__image" [src]="newMantenance.image" alt=""> -->
+            <div class="form-group col-12 d-block">
                 <app-upload-form [isMultiLoad]="false" [imageAcction]="newMantenance?newMantenance.image:null"></app-upload-form>
             </div>
             <div class="form-group col-12 ">

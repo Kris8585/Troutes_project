@@ -81,6 +81,11 @@ export class UploadFormComponent implements OnInit {
       this.currentUpload = new Upload(files[idx]);
       this._uploadService.pushUpload(this.currentUpload, selectSize);
       this.currentLoadList.push(this.currentUpload);
+      const imageSelect = {
+        imageUrl: this.currentUpload.url,
+        active: true
+      }
+      this.imagesForSave.push(imageSelect);
     });
   }
 

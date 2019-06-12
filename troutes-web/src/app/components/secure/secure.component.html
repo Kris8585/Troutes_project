@@ -1,7 +1,6 @@
 <mat-drawer-container class="example-container" [hasBackdrop]="true">
     <mat-drawer #drawer [mode]="side">
         <div class="card bg-dark text-white side-image">
-            <!--      <img [src]="logUser.profile_photo" class="card-img"> -->
             <ng-container *ngIf="logUser && logUser.profile_photo; else elseTemplate">
                 <img class="profile__image" [src]="logUser.profile_photo" alt="">
             </ng-container>
@@ -14,41 +13,37 @@
         </div>
         <mat-list>
             <h3 mat-subheader>Opciones</h3>
-            <mat-list-item>
+            <mat-list-item (click)="goToHome()">
                 <mat-icon mat-list-icon>arrow_forward_ios</mat-icon>
-                <!-- <h4 mat-line>Home</h4> -->
-                <a mat-line class="nav-link" routerLinkActive="active" (click)="goToHome()">Home</a>
+                <h4 mat-line>Home</h4>
                 <p mat-line> Ir a menu principal </p>
             </mat-list-item>
             <ng-container *ngFor="let action of generalActions">
-                <mat-list-item *ngIf="action.role=='' || logUser.role==action.role">
+                <mat-list-item *ngIf="action.role=='' || logUser.role==action.role" (click)="gotoRoute(action.link)">
                     <mat-icon mat-list-icon>arrow_forward_ios</mat-icon>
-                    <!--  <h4 mat-line>{{action.name}}</h4> -->
-                    <a mat-line class="nav-link" routerLinkActive="active" [routerLink]="[action.link ]">{{action.name}}</a>
+                    <h4 mat-line>{{action.name}}</h4>
                     <p mat-line> {{action.description}} </p>
                 </mat-list-item>
             </ng-container>
             <mat-divider></mat-divider>
             <h3 mat-subheader>Sesión</h3>
-            <mat-list-item (click)="openSnackBar()">
+            <mat-list-item (click)="callLogOut() ">
                 <mat-icon mat-list-icon>person</mat-icon>
-                <!-- <h4 mat-line>Cerrar sesión</h4> -->
-                <a mat-line class="nav-link" (click)="callLogOut() ">Cerrar sesión</a>
+                <h4 mat-line>Cerrar sesión</h4>
                 <p mat-line> Cierre de sesion</p>
             </mat-list-item>
         </mat-list>
     </mat-drawer>
     <mat-drawer-content>
-        <mat-toolbar color="primary">
+        <mat-toolbar color="primary" class="matToolbar__menu">
             <mat-toolbar-row>
-                <button (click)="drawer.toggle()" matTooltip="Mostrar barra lateral" color="primary" mat-flat-button aria-label="toggle sidebar">
+                <button class="matButton__menu" (click)="drawer.toggle()" matTooltip="Mostrar barra lateral" color="primary" mat-flat-button aria-label="toggle sidebar">
                     <mat-icon>dehaze</mat-icon>
                 </button>
                 <span>Trunca Routes</span>
                 <span class="example-spacer"></span>
             </mat-toolbar-row>
         </mat-toolbar>
-
         <router-outlet>
         </router-outlet>
     </mat-drawer-content>
