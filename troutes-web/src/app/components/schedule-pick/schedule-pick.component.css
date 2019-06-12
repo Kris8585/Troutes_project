@@ -18,3 +18,19 @@
     padding: 0.5rem 0rem;
     margin-left: -14px;
 }
+
+@media (max-width: 575.98px) {
+    .diaPick {
+        margin-left: 23px;
+        margin-bottom: 10px;
+        padding-bottom: 6px;
+        padding-left: 6px;
+        margin-right: 10px;
+    }
+    .diaPick div:first-child {
+        padding-left: 123px;
+    }
+    .iTime {
+        margin-left: 76px;
+    }
+}

@@ -2,3 +2,10 @@ img {
     width: 121px;
     height: 100px;
 }
+
+@media (max-width: 575.98px) {
+    .images__manten {
+        margin-top: 10px;
+        margin-left: 26vw;
+    }
+}

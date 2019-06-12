@@ -5,12 +5,12 @@
                 <h1 class="display-6 mt-4">{{attraction.name}}</h1>
             </div>
             <div class="col-md-12 pt-3">
-                <h2>Seguidores:{{followersCount}} | {{isfollow}}</h2>
+                <!-- <h2>Seguidores:{{followersCount}} | {{isfollow}}</h2> -->
                 <app-rating class="active" [(iScore)]="averageScore" [iReadOnly]="true"></app-rating>
             </div>
             <div class="col-md-6 header__follow" *ngIf="currentUser">
-                <button class="btn btn-primary" *ngIf="!isfollow" (click)="follow()"><fa name="check-double"></fa> Seguir</button>
-                <button class="btn btn-primary" *ngIf="isfollow" (click)="follow()"><fa name="user-times"></fa> Dejar de seguir</button>
+                <button mat-raised-button class="btn btn-primary" matBadge="{{followersCount}}" matBadgePosition="before" matBadgeColor="accent" *ngIf="!isfollow" (click)="follow()"><fa name="check-double"></fa> Seguir</button>
+                <button mat-raised-button class="btn btn-primary" matBadge="{{followersCount}}" matBadgePosition="before" matBadgeColor="accent" *ngIf="isfollow" (click)="follow()"><fa name="user-times"></fa> Dejar de seguir</button>
             </div>
             <div class="col-md-12 mt-3">
                 <div class="d-flex flex-row justify-content-center mt-3 mb-3">
