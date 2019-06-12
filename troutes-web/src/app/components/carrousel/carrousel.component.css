@@ -18,11 +18,9 @@
     height: 90%;
 }
 
-carousel slide {}
-
 slide {
     width: 100%;
-    height: 400px;
+    height: 500px;
 }
 
 slide h3,
@@ -31,9 +29,10 @@ slide p {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.icon-next carousel-control-next-icon {
-    color: black;
+.icon-next .carousel-control-next-icon,
+.icon-prev .carousel-control-prev-icon {
     z-index: 999;
+    color: black;
 }
 
 .carouselTexto {
@@ -45,10 +44,17 @@ slide p {
 
 .carousel__imagen {
     display: block;
+    width: 999px;
+    -o-object-fit: cover;
+    object-fit: contain;
+    height: 500px;
+}
+
+.carousel-inner {
+    position: relative;
     width: 100%;
-    /* background-size: cover;
-    background-repeat: no-repeat; */
-    object-fit: cover;
+    overflow: hidden;
+    height: 500px;
 }
 
 
